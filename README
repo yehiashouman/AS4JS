@@ -1,0 +1,17 @@
+This project is an opensource library, an implementation of the native Actionscript classes in Flash Player, that allows Actionscript developers to leverage their existing knowledge of Actionscript using Javascript. 
+
+In simple words, you can create a .js file and write actionscript in that to run on the browser (without Flash Player). 
+
+The project is still at its early stages, If you would like to contribute please write me.
+
+
+Known limitations:
+1. No datatyping (As is the case with Javascript)
+2. .... TBD
+3. Importing a class in Actionscript works here like how you include a jscript file. You do it in your main html file.
+
+
+Author: Yehia Shouman
+www.yehiashouman.com
+
+
