@@ -42,61 +42,52 @@ var XMLDocument = function(source){
 	//	traceObj(this.toString());
 		
 	};
-	this.__defineSetter__("idMap",function(val){
-		
-	});
-	this.__defineGetter__("ignoreWhite",function(){
-		return this.__ignoreWhiteSpace;
-		
-	});
-	this.__defineSetter__("ignoreWhite",function(val){
-		trace("setting set el setat");
-		this.__ignoreWhiteSpace=val;
-		
-	});
-	this.__defineGetter__("xmlDecl",function(){
-		return this.docRoot.doctype;	
-	});
-	this.__defineSetter__("xmlDecl",function(val){
-		this.docRoot.doctype=val;
-	});
-
-	this.__defineGetter__("test",function(){
-		return "test";
-		
-	});
-
-	this.__defineGetter__("docTypeDecl",function(){
-		return this.docRoot.doctype;
-		
-	});
-	this.__defineSetter__("docTypeDecl",function(val){
-		this.docRoot.doctype=val;
-	});
-	this.__defineGetter__("idMap",function(){
-		/*
-		function getElementsByAttribute(oElm, strTagName, strAttributeName, strAttributeValue){
-		    var arrElements = (strTagName == "*" && oElm.all)? oElm.all : oElm.getElementsByTagName(strTagName);
-		    var arrReturnElements = new Array();
-		    var oAttributeValue = (typeof strAttributeValue != "undefined")? new RegExp("(^|\\s)" + strAttributeValue + "(\\s|$)", "i") : null;
-		    var oCurrent;
-		    var oAttribute;
-		    for(var i=0; i<arrElements.length; i++){
-		        oCurrent = arrElements[i];
-		        oAttribute = oCurrent.getAttribute && oCurrent.getAttribute(strAttributeName);
-		        if(typeof oAttribute == "string" && oAttribute.length > 0){
-		            if(typeof strAttributeValue == "undefined" || (oAttributeValue && oAttributeValue.test(oAttribute))){
-		                arrReturnElements.push(oCurrent);
-		            }
-		       }
-		    }
-		    return arrReturnElements;
-		}*/
-		return ;
-		
-	});
-
+	
+	
 	//this.DOMnode = this.DOMnode.documentElement;
 };
 XMLDocument.prototype = new XMLNode();
 XMLDocument.constructor = XMLDocument;
+
+//public property idMap setter and getter
+defineAccessorProperty(XMLDocument, "idMap", function(val) {
+	/*
+	function getElementsByAttribute(oElm, strTagName, strAttributeName, strAttributeValue){
+	    var arrElements = (strTagName == "*" && oElm.all)? oElm.all : oElm.getElementsByTagName(strTagName);
+	    var arrReturnElements = new Array();
+	    var oAttributeValue = (typeof strAttributeValue != "undefined")? new RegExp("(^|\\s)" + strAttributeValue + "(\\s|$)", "i") : null;
+	    var oCurrent;
+	    var oAttribute;
+	    for(var i=0; i<arrElements.length; i++){
+	        oCurrent = arrElements[i];
+	        oAttribute = oCurrent.getAttribute && oCurrent.getAttribute(strAttributeName);
+	        if(typeof oAttribute == "string" && oAttribute.length > 0){
+	            if(typeof strAttributeValue == "undefined" || (oAttributeValue && oAttributeValue.test(oAttribute))){
+	                arrReturnElements.push(oCurrent);
+	            }
+	       }
+	    }
+	    return arrReturnElements;
+	}*/
+}, function() {
+	return this.__ignoreWhiteSpace;
+});
+//public property ignoreWhite setter and getter
+defineAccessorProperty(XMLDocument, "ignoreWhite", function(val) {
+	this.__ignoreWhiteSpace=val;
+}, function() {
+	return this.__ignoreWhiteSpace;
+});
+//public property xmlDecl setter and getter
+defineAccessorProperty(XMLDocument, "xmlDecl", function(val) {
+	this.docRoot.doctype=val;
+}, function() {
+	return this.docRoot.doctype;	
+});
+//public property docTypeDecl setter and getter
+defineAccessorProperty(XMLDocument, "docTypeDecl", function(val) {
+	this.docRoot.doctype=val;
+}, function() {
+	return this.docRoot.doctype;
+});
+

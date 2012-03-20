@@ -173,45 +173,40 @@ Rectangle.prototype.union=function(toUnion){
 };
 //Adds two rectangles together to create a new Rectangle object, by filling in the horizontal and vertical space between the two rectangles.
 
-
-Rectangle.prototype.__defineGetter__("bottom",function(newY) {
-    if (typeof newY !== 'undefined')
-        this.height = (newY-this.y);
-    return (this.y+this.height);
+//public property "bottom" setter and getter
+defineAccessorProperty(Rectangle, "bottom", function(val) {
+	//TODO implement Rectangle."bottom" 
+}, function() {
+	return (this.y+this.height);
 });
 
-Rectangle.prototype.__defineGetter__("bottomRight",function() {
+defineAccessorProperty(Rectangle, "bottomRight", function(val) {
+	//TODO implement Rectangle."bottomRight" 
+}, function() {
     return new Point(this.right, this.bottom);
 });
-
-Rectangle.prototype.__defineGetter__("left",function(newX) {
-    if (typeof newX !== 'undefined')
-    {
-        this.width += (this.x-newX);
-        this.x = newX;
-    }
+defineAccessorProperty(Rectangle, "left", function(val) {
+	//TODO implement Rectangle."left" 
+}, function() {
     return this.x;
 });
-
-Rectangle.prototype.__defineGetter__("right",function(newX) {
-    if (typeof newX !== 'undefined')
-        this.width = (newX-this.x);
-    return (this.x+this.width);
+defineAccessorProperty(Rectangle, "right", function(val) {
+	//TODO implement Rectangle."right" 
+}, function() {
+    return this.x+this.width;
 });
-
-Rectangle.prototype.__defineGetter__("size",function() {
-    return new Point(this.width, this.height);
+defineAccessorProperty(Rectangle, "size", function(val) {
+	//TODO implement Rectangle."size" 
+}, function() {
+	 return new Point(this.width, this.height);
 });
-
-Rectangle.prototype.__defineGetter__("top",function(newY) {
-    if (typeof newY !== 'undefined')
-    {
-        this.height += (this.y-newY);
-        this.y = newY;
-    }
-    return this.y;
+defineAccessorProperty(Rectangle, "top", function(val) {
+	//TODO implement Rectangle."top" 
+}, function() {
+	 return this.y;
 });
-
-Rectangle.prototype.__defineGetter__("topLeft",function() {
+defineAccessorProperty(Rectangle, "topLeft", function(val) {
+	//TODO implement Rectangle."topLeft" 
+}, function() {
     return new Point(this.x, this.y);
 });

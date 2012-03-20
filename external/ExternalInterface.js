@@ -9,8 +9,10 @@ var ExternalInterface = function(){
 
 };
 ExternalInterface.prototype = new Object();
-ExternalInterface.__defineGetter__("available",function(){return true;});
-ExternalInterface.__defineGetter__("objectID",function(){return "";});
+//public property available setter and getter
+defineAccessorProperty(ExternalInterface, "available", null, function(){return true;},true);
+//public property objectID setter and getter
+defineAccessorProperty(ExternalInterface, "objectID", null, function(){return "";});
 ExternalInterface.marshallExceptions = false;
 ExternalInterface.call= function (functionName,args){
 	var fn= root[functionName];

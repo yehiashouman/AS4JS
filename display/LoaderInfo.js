@@ -60,102 +60,123 @@ var LoaderInfo = function() {
 LoaderInfo.prototype = new EventDispatcher();
 LoaderInfo.constructor = LoaderInfo;
 
-//public property actionScriptVersion setter and getter
-LoaderInfo.prototype.__defineGetter__("actionScriptVersion", function() {
-	//TODO implement LoaderInfo.actionScriptVersion
+//public property actionscriptVersion setter and getter
+defineAccessorProperty(LoaderInfo, "actionscriptVersion", function(val) {
+	//TODO implement LoaderInfo.actionscriptVersion 
+}, function() {
 	return 10;
 });
 //public property applicationDomain setter and getter
-LoaderInfo.prototype.__defineGetter__("applicationDomain", function() {
-	//TODO implement LoaderInfo.applicationDomain
-	return;
+defineAccessorProperty(LoaderInfo, "applicationDomain", function(val) {
+	//TODO implement LoaderInfo.applicationDomain 
+}, function() {
+	return null;
 });
 //public property bytes setter and getter
-LoaderInfo.prototype.__defineGetter__("bytes", function() {
-	//TODO implement LoaderInfo.bytes//bytearray
-	return;
+defineAccessorProperty(LoaderInfo, "bytes", function(val) {
+	//TODO implement LoaderInfo.bytes 
+}, function() {
+	return null;
 });
 //public property bytesLoaded setter and getter
-LoaderInfo.prototype.__defineGetter__("bytesLoaded", function() {
-	//TODO implement LoaderInfo.bytesLoaded uint
-	return;
+defineAccessorProperty(LoaderInfo, "bytesLoaded", function(val) {
+	//TODO implement LoaderInfo.bytesLoaded 
+}, function() {
+	return null;
 });
 //public property bytesTotal setter and getter
-LoaderInfo.prototype.__defineGetter__("bytesTotal", function() {
-	//TODO implement LoaderInfo.bytesTotal
-	return;
+defineAccessorProperty(LoaderInfo, "bytesTotal", function(val) {
+	//TODO implement LoaderInfo.bytesTotal 
+}, function() {
+	return null;
 });
 //public property childAllowsParent setter and getter
-LoaderInfo.prototype.__defineGetter__("childAllowsParent", function() {
-	//TODO implement LoaderInfo.childAllowsParent
-	return;
+defineAccessorProperty(LoaderInfo, "childAllowsParent", function(val) {
+	//TODO implement LoaderInfo.childAllowsParent 
+}, function() {
+	return null;
 });
 //public property content setter and getter
-LoaderInfo.prototype.__defineGetter__("content", function() {
+defineAccessorProperty(LoaderInfo, "content", function(val) {
+	//TODO implement LoaderInfo.content 
+}, function() {
 	return this.__content;
 });
 //public property contentType setter and getter
-LoaderInfo.prototype.__defineGetter__("contentType", function() {
-	//TODO implement LoaderInfo.contentType
+defineAccessorProperty(LoaderInfo, "contentType", function(val) {
+	//TODO implement LoaderInfo.contentType 
+}, function() {
 	return this.__contentType;
 });
+
 //public property frameRate setter and getter
-LoaderInfo.prototype.__defineGetter__("frameRate", function() {
-	//TODO implement LoaderInfo.frameRate
+defineAccessorProperty(LoaderInfo, "frameRate", function(val) {
+	//TODO implement LoaderInfo.frameRate 
+}, function() {
 	return $as4js____core_____timeline.frameRate;
 });
-//public property height setter and getter
-LoaderInfo.prototype.__defineGetter__("height", function() {
-	return this.height;
-});
 //public property isURLInaccessible setter and getter
-LoaderInfo.prototype.__defineGetter__("isURLInaccessible", function() {
-	//TODO implement loaderInfo.isURLInaccessible
-	return ;
+defineAccessorProperty(LoaderInfo, "isURLInaccessible", function(val) {
+	//TODO implement LoaderInfo.isURLInaccessible 
+}, function() {
+	return null;
 });
+
+
 //public property loader setter and getter
-LoaderInfo.prototype.__defineGetter__("loader", function() {
+defineAccessorProperty(LoaderInfo, "loader", function(val) {
+	//TODO implement LoaderInfo.loader 
+}, function() {
 	return this.owner;
 });
 //public property loaderURL setter and getter
-LoaderInfo.prototype.__defineGetter__("loaderURL", function() {
+defineAccessorProperty(LoaderInfo, "loaderURL", function(val) {
+	//TODO implement LoaderInfo.loaderURL 
+}, function() {
 	return this.owner.url;
+});
+//public property parentAllowsChild setter and getter
+defineAccessorProperty(LoaderInfo, "parentAllowsChild", function(val) {
+	//TODO implement LoaderInfo.parentAllowsChild 
+}, function() {
+	return true;
 });
 //public property parameters setter and getter
 LoaderInfo.prototype.parameters = null;
-//public property parentAllowsChild setter and getter
-LoaderInfo.prototype.__defineGetter__("parentAllowsChild", function() {
+//public property sameDomain setter and getter
+defineAccessorProperty(LoaderInfo, "sameDomain", function(val) {
+	//TODO implement LoaderInfo.sameDomain 
+}, function() {
 	return true;
 });
-//public property sameDomain setter and getter
-LoaderInfo.prototype.__defineGetter__("sameDomain", function() {
-	//TODO LoaderInfo.sameDomain
-	return ;
-});
 //public property sharedEvents setter and getter
-LoaderInfo.prototype.__defineGetter__("sharedEvents", function() {
-	//TODO implement LoaderInfo.sharedEvents
+defineAccessorProperty(LoaderInfo, "sharedEvents", function(val) {
+	//TODO implement LoaderInfo.sharedEvents 
+}, function() {
 	return new EventDispatcher();
 });
 //public property uncaughtErrors setter and getter
-LoaderInfo.prototype.__defineGetter__("uncaughtErrors", function() {
-	//TODO implement LoaderInfo.uncaughtErrors
-	return;
+defineAccessorProperty(LoaderInfo, "uncaughtErrors", function(val) {
+	//TODO implement LoaderInfo.uncaughtErrors 
+}, function() {
+	return null;
 });
 //public property url setter and getter
 LoaderInfo.prototype.url = "";
 //public property width setter and getter
-LoaderInfo.prototype.__defineGetter__("width", function() {
-	//TODO implement LoaderInfo.width
-	return this.content.width;
-});
-LoaderInfo.prototype.__defineSetter__("width", function(val) {
+//public property width setter and getter
+defineAccessorProperty(LoaderInfo, "width", function(val) {
 	this.__content.image.width= val;
 	this.__content.width = val;
+}, function() {
+	return this.content.width;
 });
-LoaderInfo.prototype.__defineSetter__("height", function(val) {
+//public property height setter and getter
+defineAccessorProperty(LoaderInfo, "height", function(val) {
 	this.__content.image.height = val;
 	this.__content.height = val;
+}, function() {
+	return this.height;
 });
 
 LoaderInfo.prototype.getLoaderInfoByDefinition = function(object) {

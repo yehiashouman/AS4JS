@@ -4,7 +4,9 @@
 * @class AsyncErrorEvent
 * @author Nermeen Shoman
 */
+	
 var AsyncErrorEvent=function(type, bubbles, cancelable, text, error){
+
 	Event.call(this,type, bubbles, cancelable, text, error);
 	this.error = error;
 	var ref=this;

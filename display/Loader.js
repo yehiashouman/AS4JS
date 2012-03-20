@@ -15,18 +15,24 @@ var Loader = function(myDiv) {
 Loader.prototype = new DisplayObjectContainer();
 Loader.constructor = Loader;
 //public property content setter and getter
-Loader.prototype.__defineGetter__("content", function() {
+defineAccessorProperty(Loader, "content", function(val) {
+	//TODO implement Loader.content 
+}, function() {
 	return this.__contentLoaderInfo.__content;
 });
 //public property contentLoaderInfo setter and getter
-Loader.prototype.__defineGetter__("contentLoaderInfo", function() {
+defineAccessorProperty(Loader, "contentLoaderInfo", function(val) {
+	//TODO implement Loader.contentLoaderInfo 
+}, function() {
 	return this.__contentLoaderInfo;
 });
 //public property uncaughtErrorEvents setter and getter
-Loader.prototype.__defineGetter__("uncaughtErrorEvents", function() {
-	//TODO implement Loader.uncaughtErrorEvents
-	return;
+defineAccessorProperty(Loader, "uncaughtErrorEvents", function(val) {
+	//TODO implement Loader.uncaughtErrorEvents 
+}, function() {
+	return null;
 });
+
 Loader.prototype.close = function() {
 	//TODO implement Loader.close
 	this.__contentLoaderInfo.__close();
@@ -48,20 +54,15 @@ Loader.prototype.unloadAndStop = function(gc) {
 
 };
 //public property width setter and getter
-Loader.prototype.__defineGetter__("width", function() {
+defineAccessorProperty(Loader, "width", function(val) {
+	this.content.width=val;
+}, function() {
 	//return the height of the container if defined OR the width of the bmp
 	return parseInt(this.getStyle("width"))||this.content.__bmp.width;
 });
-
 //public property height setter and getter
-Loader.prototype.__defineGetter__("height", function() {
-
-	return parseInt(this.getStyle("height"))||this.content.__bmp.height;
-});
-
-Loader.prototype.__defineSetter__("width", function(val) {
-	this.content.width=val;
-});
-Loader.prototype.__defineSetter__("height", function(val) {
+defineAccessorProperty(Loader, "height", function(val) {
 	this.content.height=val;
+}, function() {
+	return parseInt(this.getStyle("height"))||this.content.__bmp.height;
 });

@@ -85,21 +85,20 @@ Point.prototype.toString= function(){
 	
 };
 //Returns a string that contains the values of the x and y coordinates.
-
-Point.prototype.__defineGetter__("x",function(){
+//public property "x" setter and getter
+defineAccessorProperty(Point, "x", function(val) {
+	this._x = val; 
+}, function() {
 	return this._x;
 });
 
-Point.prototype.__defineSetter__("x",function(val){
-	this._x = val;
-});
-Point.prototype.__defineGetter__("y",function(){
+defineAccessorProperty(Point, "y", function(val) {
+	this._y = val; 
+}, function() {
 	return this._y;
 });
 
-Point.prototype.__defineSetter__("y",function(val){
-	this._y = val;
-});
-Point.prototype.__defineGetter__("length",function(){
+defineAccessorProperty(Point, "length", null, function() {
 	return Math.sqrt( (this._x^2)+ (this._y^2))  ;
 });
+

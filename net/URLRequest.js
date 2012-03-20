@@ -13,36 +13,6 @@ var URLRequest = function(url){
     this.__method = URLRequestMethod.GET;
     this.__requestHeaders = [];
     this.__url = (url !== undefined) ? url : null;
-    this.__defineGetter__("contentType",function(){
-		return this.__contentType;	
-	});
-	this.__defineSetter__("contentType",function(val){
-		this.__contentType=val;
-	});
-	this.__defineGetter__("data",function(){
-		return this.__data;	
-	});
-	this.__defineSetter__("data",function(val){
-		this.__data=val;
-	});
-	this.__defineGetter__("method",function(){
-		return this.__method;	
-	});
-	this.__defineSetter__("method",function(val){
-		this.__method=val;
-	});
-	this.__defineGetter__("requestHeaders",function(){
-		return this.__requestHeaders;	
-	});
-	this.__defineSetter__("requestHeaders",function(val){
-		this.__requestHeaders=val;
-	});
-	this.__defineGetter__("url",function(){
-		return this.__url;	
-	});
-	this.__defineSetter__("url",function(val){
-		this.__url=val;
-	});
 	
 	this.toString = function()
     {
@@ -64,3 +34,34 @@ URLRequest.prototype.toString=function(){
 	return str;
 	
 };
+
+//public property contentType setter and getter
+defineAccessorProperty(URLRequest, "contentType", function(val) {
+	this.__contentType=val;
+}, function() {
+	return this.__contentType;	
+});
+//public property data setter and getter
+defineAccessorProperty(URLRequest, "data", function(val) {
+	this.__data=val;
+}, function() {
+	return this.__data;	
+});
+//public property method setter and getter
+defineAccessorProperty(URLRequest, "method", function(val) {
+	this.__method=val;
+}, function() {
+	return this.__method;	
+});
+//public property requestHeaders setter and getter
+defineAccessorProperty(URLRequest, "requestHeaders", function(val) {
+//TODO implement URLRequest.requestHeaders 
+}, function() {
+this.__requestHeaders=val;
+});
+//public property url setter and getter
+defineAccessorProperty(URLRequest, "url", function(val) {
+this.__url=val;
+}, function() {
+return this.__url;	
+});

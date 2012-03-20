@@ -45,37 +45,31 @@ Sprite.prototype.__applyFilters=function(){
 	}
 	
 };
-
-Sprite.prototype.__defineGetter__("buttonMode",function(){
-	return null;
-	
+//public property buttonMode setter and getter
+defineAccessorProperty(Sprite, "buttonMode", function(val) {
+	//TODO implement Sprite.buttonMode 
+}, function() {
 });
-Sprite.prototype.__defineSetter__("buttonMode",function(val){
-
+//public property dropTarget setter and getter
+defineAccessorProperty(Sprite, "dropTarget", function(val) {
+	//TODO implement Sprite.dropTarget 
+}, function() {
 });
-
-Sprite.prototype.__defineGetter__("dropTarget",function(){
-	return null;
+//public property hitArea setter and getter
+defineAccessorProperty(Sprite, "hitArea", function(val) {
+	//TODO implement Sprite.hitArea 
+}, function() {
 });
-
-
-Sprite.prototype.__defineGetter__("hitArea",function(){
-	return null;
-});
-Sprite.prototype.__defineSetter__("hitArea",function(val){
-});
-
-Sprite.prototype.__defineGetter__("soundTransform",function(){
+//public property soundTransform setter and getter
+defineAccessorProperty(Sprite, "soundTransform", function(val) {
+	//TODO implement Sprite.soundTransform 
+}, function() {
 	return null;
 });
-Sprite.prototype.__defineSetter__("soundTransform",function(val){
-	return null;
-});
-
-Sprite.prototype.__defineGetter__("useHandCursor",function(){
-	return null;
-});
-Sprite.prototype.__defineSetter__("useHandCursor",function(val){
+//public property useHandCursor setter and getter
+defineAccessorProperty(Sprite, "useHandCursor", function(val) {
+	//TODO implement Sprite.useHandCursor 
+}, function() {
 	return null;
 });
 Sprite.prototype.startDrag = function(lockCenter,bounds,Rectangle){

@@ -9,13 +9,14 @@ function init(){
 		sprite.graphics.drawRect(0,0,50,50);
 		sprite.graphics.endFill();
 	};
-	var ref=this;
+	//var ref=this;
 	try{
 	var loader= new Loader();
 		
 	var test = new DisplayObjectContainer("stage");
 	//var bmpData = BitmapData(300,300);
 	//var bmp =new Bitmap(bmpData);
+	test.visible = true;
 	var deg = 0;
 	var firstTime=true;
 	var bmpData;
@@ -24,18 +25,18 @@ function init(){
 		deg+=1;
 		//trace(loader.content.width,loader.content.height);
 		var mat= new Matrix();
-		//mat.translate(100,100);
-		//mat.rotate(deg*Math.PI/180);
+		mat.translate(100,100);
+		mat.rotate(deg*Math.PI/180);
 		//alert(deg);
 		bmpData.draw(loader,mat);;//, matrix, colorTransform, blendMode, clipRect, smoothing);
 		if(firstTime){
-		var bmp= new Bitmap(bmpData);
+		var bmp= new Bitmap(bmpData); 
 		bmp.x = 400;
 		test.addChildAt(bmp,1);
 		firstTime=false;
 		}
 	}
-	var timer = new Timer(10,-1);
+	var timer = new Timer(1000,-1);
 	timer.addEventListener(TimerEvent.TIMER,translate);
 	
 	function handleEvents(e){
@@ -46,6 +47,8 @@ function init(){
 		case Event.COMPLETE:
 			//trace(loader.width,loader.height)
 			//loader.width = 100;
+			//loader.height = 100;
+			
 			bmpData= new BitmapData(loader.content.width,loader.content.height);
 			timer.start();
 			//bmp.height = 50;
@@ -53,11 +56,10 @@ function init(){
 		}
 
 	};
-
 	var req= new URLRequest("apple_transparent.gif");//redrome04.jpg");//http://www.nyapplecountry.com/images/photosvarieties/
 	loader.contentLoaderInfo.addEventListener(Event.COMPLETE,handleEvents);
 	loader.contentLoaderInfo.addEventListener(IOErrorEvent.IO_ERROR,handleEvents);
-
+	
 	loader.load(req);
 	test.addChild(loader.content);
 	

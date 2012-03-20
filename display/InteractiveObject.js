@@ -12,48 +12,43 @@ var InteractiveObject = function(myDiv){
 };
 InteractiveObject.prototype = new DisplayObject();
 InteractiveObject.constructor = InteractiveObject;
-DisplayObject.prototype.__defineGetter__("accessibilityImplementation",function(){
-	//TODO implement accessibilityImplementation
-	return null;
+//public property accessibilityImplementation setter and getter
+defineAccessorProperty(InteractiveObject, "accessibilityImplementation", function(val) {
+	//TODO implement InteractiveObject.accessibilityImplementation 
+}, function() {
 });
-DisplayObject.prototype.__defineSetter__("accessibilityImplementation",function(val){
+//public property contextMenu setter and getter
+defineAccessorProperty(InteractiveObject, "contextMenu", function(val) {
+	//TODO implement InteractiveObject.contextMenu 
+}, function() {
 });
-DisplayObject.prototype.__defineGetter__("contextMenu",function(){
-	return null;
-	//TODO context menu
+//public property doubleClickEnabled setter and getter
+defineAccessorProperty(InteractiveObject, "doubleClickEnabled", function(val) {
+	//TODO implement InteractiveObject.doubleClickEnabled 
+}, function() {
 });
-DisplayObject.prototype.__defineSetter__("contextMenu",function(val){
+//public property focusRect setter and getter
+defineAccessorProperty(InteractiveObject, "focusRect", function(val) {
+	//TODO implement InteractiveObject.focusRect 
+}, function() {
 });
-DisplayObject.prototype.__defineGetter__("doubleClickEnabled",function(){
-	return null;
-	//TODO implement doubleClickEnabled
-});
-DisplayObject.prototype.__defineSetter__("doubleClickEnabled",function(val){
-});
-DisplayObject.prototype.__defineGetter__("focusRect",function(){
-	return null;
-	//TODO implement focusRect
-});
-DisplayObject.prototype.__defineSetter__("focusRect",function(val){
-});
-DisplayObject.prototype.__defineGetter__("mouseEnabled",function(){
+//public property mouseEnabled setter and getter
+defineAccessorProperty(InteractiveObject, "mouseEnabled", function(val) {
+	this.setStyle("pointer-events",val? "auto": "none");
+}, function() {
 	return this.getStyle("pointer-events")=="auto"? true : false;
 });
-DisplayObject.prototype.__defineSetter__("mouseEnabled",function(val){
-	this.setStyle("pointer-events",val? "auto": "none");
-});
-DisplayObject.prototype.__defineGetter__("tabEnabled",function(){
+//public property tabEnabled setter and getter
+defineAccessorProperty(InteractiveObject, "tabEnabled", function(val) {
+	this.container.tabIndex = -1;
+}, function() {
 	return this.container.tabIndex > -1? true : false;;
 });
-DisplayObject.prototype.__defineSetter__("tabEnabled",function(val){
-	this.container.tabIndex = -1;
-});
-DisplayObject.prototype.__defineGetter__("tabIndex",function(){
+//public property tabIndex setter and getter
+defineAccessorProperty(InteractiveObject, "tabIndex", function(val) {
+	this.container.tabIndex = val;
+}, function() {
 	return this.container.tabIndex;
 });
-DisplayObject.prototype.__defineSetter__("tabIndex",function(val){
-	this.container.tabIndex = val;
-});
-
 
 

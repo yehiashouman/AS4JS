@@ -31,48 +31,52 @@ var Bitmap =  function(pbitmapData,pixelSnapping,smoothing){
 	
 	this.image.addEventListener("load",__handleImageLoad);
 	this.image.src = this.__bmp.canvas.toDataURL();
-	var _pixelSnap = pixelSnapping || "auto";
-	var _smooth = smoothing || false;
-	this.__defineGetter__("bitmapData",function(){
-		return this.__bmp;
-	});
-
-	this.__defineSetter__("bitmapData",function(val){
-		__bmp= val;
-		if(!val.__isLocked()){
-			var imgURL = __bmp.canvas.toDataURL();
-			this.image.src = imgURL;
-			
-		}
-	});
-	this.__defineGetter__("pixelSnapping",function(){
-		return _pixelSnap;
-	});
-	this.__defineSetter__("pixelSnapping",function(val){
-		_pixelSnap = val;
-		
-	});
-	this.__defineGetter__("smoothing",function(){
-		return _smooth;
-	});
-	this.__defineSetter__("smoothing",function(val){
-		_smooth = val;
-		//TODO Bitmap smoothing
-	});
+	this._pixelSnap = pixelSnapping? pixelSnapping: "auto";
+	this._smooth = smoothing? smoothing : false;
+	
 	this.__getClassType=function(){return "Bitmap";};
 
 	
 };
 Bitmap.constructor = Bitmap;
 Bitmap.prototype = new DisplayObject();
+//public property bitmapData setter and getter
+defineAccessorProperty(Bitmap, "bitmapData", function(val) {
+	__bmp= val;
+	if(!val.__isLocked()){
+		var imgURL = __bmp.canvas.toDataURL();
+		this.image.src = imgURL;
+		
+	}
+}, function() {
+	return this.__bmp;
+});
+//public property pixelSnapping setter and getter
+defineAccessorProperty(Bitmap, "pixelSnapping", function(val) {
+	_pixelSnap = val;
+}, function() {
+	return _pixelSnap;
+});
 
-
-Bitmap.prototype.__defineSetter__("width", function(val) {
+//public property smoothing setter and getter
+defineAccessorProperty(Bitmap, "smoothing", function(val) {
+	_smooth = val;
+	//TODO Bitmap smoothing
+}, function() {
+	return _smooth;
+});
+//public property width setter and getter
+defineAccessorProperty(Bitmap, "width", function(val) {
 	this.image.width = val;
 	this.__bmp.canvas.width = this.image.width;
-
+}, function() {
+	return this.__bmp.canvas.width;
 });
-Bitmap.prototype.__defineSetter__("height", function(val) {
+
+//public property height setter and getter
+defineAccessorProperty(Bitmap, "height", function(val) {
 	this.image.height =val;
 	this.__bmp.canvas.height= this.image.height;
+}, function() {
+	return this.__bmp.canvas.height;
 });

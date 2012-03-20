@@ -23,24 +23,30 @@ SoundChannel.prototype.stop=function(){
 	this.audio.pause();
 	
 };
-SoundChannel.prototype.__defineSetter__("soundTransform",function(val){
+//public property soundTransform setter and getter
+defineAccessorProperty(SoundChannel, "soundTransform", function(val) {
 	this.audio.volume = val.volume;
 	this._soundTransform = val;
-});
-SoundChannel.prototype.__defineGetter__("soundTransform",function(){
+}, function() {
 	return this._soundTransform;
 });
 
-//[read-only] The current amplitude (volume) of the left channel, from 0 (silent) to 1 (full amplitude).
-SoundChannel.prototype.__defineGetter__("leftPeak",function(){
-	//TODO implement SoundChannel.leftPeak
-});
-//[read-only] When the sound is playing, the position property indicates in milliseconds the current point that is being played in the sound file.
-SoundChannel.prototype.__defineGetter__("position",function(){
-	//TODO implement SoundChannel.position
-});
-//[read-only] The current amplitude (volume) of the right channel, from 0 (silent) to 1 (full amplitude).
-SoundChannel.prototype.__defineGetter__("rightPeak",function(){
-	//TODO implement SoundChannel.rightPeak
-});
 
+//[read-only] The current amplitude (volume) of the left channel, from 0 (silent) to 1 (full amplitude).
+//public property leftPeak setter and getter
+defineAccessorProperty(SoundChannel, "leftPeak", function(val) {
+}, function() {
+	//TODO implement SoundChannel.leftPeak getter
+});
+//public property position setter and getter
+defineAccessorProperty(SoundChannel, "position", function(val) {
+	
+}, function() {
+	//TODO implement SoundChannel.position getter
+});
+//public property rightPeak setter and getter
+defineAccessorProperty(SoundChannel, "rightPeak", function(val) {
+	
+}, function() {
+	//TODO implement SoundChannel.rightPeak getter
+});

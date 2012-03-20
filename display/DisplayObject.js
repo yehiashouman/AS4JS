@@ -111,7 +111,17 @@ DisplayObject.prototype = new EventDispatcher();
 DisplayObject.constructor = DisplayObject;
 DisplayObject.prototype.name = null;
 DisplayObject.prototype.container =null;
-DisplayObject.prototype.__defineGetter__("visible",function(){
+
+defineAccessorProperty(DisplayObject,"visible",function(val){this.setStyle("display", val? "block" : "none");},function(){
+	if(this.getStyle("display")){
+		return (this.getStyle("display")=="block")? true: false ;
+			
+	}else{
+		return true;
+	};
+});
+
+/*DisplayObject.prototype.__defineGetter__("visible",function(){
 	if(this.getStyle("display")){
 		return (this.getStyle("display")=="block")? true: false ;
 			
@@ -120,33 +130,33 @@ DisplayObject.prototype.__defineGetter__("visible",function(){
 	};
 });
 DisplayObject.prototype.__defineSetter__("visible",function(val){this.setStyle("display", val? "block" : "none");});
-
+*/
 DisplayObject.prototype.getDIVContainer = function(){
 	return this.container;	
 
 };
-DisplayObject.prototype.__defineGetter__("alpha",function(){
-	return (this.getStyle("opacity")? this.getStyle("opacity") : 1);
-	});
-DisplayObject.prototype.__defineSetter__("alpha",function(val){
+//public property alpha setter and getter
+defineAccessorProperty(DisplayObject, "alpha", function(val) {
 	this.setStyle("filter", "alpha(opacity="+(val*100)+")" );
 	this.setStyle("-moz-opacity", val);
 	this.setStyle("-khtml-opacity", val);
 	this.setStyle("opacity", val);
-
+}, function() {
+	return (this.getStyle("opacity")? this.getStyle("opacity") : 1);
 });
 
-DisplayObject.prototype.__defineGetter__("filters",function(){
-	return this._filters;
-	});
-DisplayObject.prototype.__defineSetter__("filters",function(val){
+//public property filters setter and getter
+defineAccessorProperty(DisplayObject, "filters", function(val) {
 	this._filters=(val);
 	this.__applyFilters();
 	
 	//alert(val);
 	//TODO implement filters http://placenamehere.com/article/384/css3boxshadowininternetexplorerblurshadow/
-
+	
+}, function() {
+	return this._filters;
 });
+
 DisplayObject.__findAngleOfRelativeObject=function(x,y)
 {
 	var rads= Math.atan2(y, x);
@@ -193,75 +203,75 @@ DisplayObject.prototype.__applyFilters=function(){
 	}
 	
 };
-
-DisplayObject.prototype.__defineGetter__("name",function(){
-	 return this.container.id;
-	});
-DisplayObject.prototype.__defineSetter__("name",function(val){
+//public property name setter and getter
+defineAccessorProperty(DisplayObject, "name", function(val) {
 	this.container.id=val;
-
+}, function() {
+	 return this.container.id;
 });
-DisplayObject.prototype.__defineGetter__("width",function(){
-	 return parseInt(this.getStyle("width"));
-	});
-DisplayObject.prototype.__defineSetter__("width",function(val){
+//public property width setter and getter
+defineAccessorProperty(DisplayObject, "width", function(val) {
 	this.setStyle("width",w+"px");
-
+}, function() {
+	 return parseInt(this.getStyle("width"));
+		
 });
-DisplayObject.prototype.__defineGetter__("height",function(){
-	return parseInt(this.getStyle("height"));
-	});
-DisplayObject.prototype.__defineSetter__("height",function(val){
+//public property height setter and getter
+defineAccessorProperty(DisplayObject, "height", function(val) {
 	this.setStyle("height",h+"px");
-
+}, function() {
+	return parseInt(this.getStyle("height"));
 });
-DisplayObject.prototype.__defineGetter__("x",function(){
-	
+//public property x setter and getter
+defineAccessorProperty(DisplayObject, "x", function(val) {
+	this.setStyle("left",val+"px");
+}, function() {
 	return this.getStyle("left")!="auto"?parseInt(this.getStyle("left")):0; //offset -> method allows you to retrieve the current position of an element 'relative' to the document
 	
-	});
-DisplayObject.prototype.__defineSetter__("x",function(val){
-	this.setStyle("left",val+"px");
 });
-
-DisplayObject.prototype.__defineGetter__("y",function(){
-	
-	return this.getStyle("top")!="auto"?parseInt(this.getStyle("top")):0; //offset -> method allows you to retrieve the current position of an element 'relative' to the document
-	
-	});
-DisplayObject.prototype.__defineSetter__("y",function(val){
+//public property y setter and getter
+defineAccessorProperty(DisplayObject, "y", function(val) {
 	this.setStyle("top",val+"px");
+}, function() {
+	return this.getStyle("top")!="auto"?parseInt(this.getStyle("top")):0; //offset -> method allows you to retrieve the current position of an element 'relative' to the document
 });
-
-DisplayObject.prototype.__defineGetter__("mouseX",function(){
+//public property mouseX setter and getter
+defineAccessorProperty(DisplayObject, "mouseX", function(val) {
+	//TODO implement DisplayObject.mouseX 
+}, function() {
 	return (window.mouseX - this.container.offsetLeft); //offset -> method allows you to retrieve the current position of an element 'relative' to the document
-	
-	});
-DisplayObject.prototype.__defineGetter__("mouseY",function(){
+});
+//public property mouseY setter and getter
+defineAccessorProperty(DisplayObject, "mouseY", function(val) {
+	//TODO implement DisplayObject.mouseY 
+}, function() {
 	return (window.mouseY - this.container.offsetTop); //offset -> method allows you to retrieve the current position of an element 'relative' to the document
 });
-DisplayObject.prototype.__defineGetter__("opaqueBackground",function(){
-	return this.getStyle("background-color")? this.RGB2HexStr(this.getStyle("background-color")): undefined;
-	});
-DisplayObject.prototype.__defineSetter__("opaqueBackground",function(val){
+//public property opaqueBackground setter and getter
+defineAccessorProperty(DisplayObject, "opaqueBackground", function(val) {
 	var clr = (val.toString(16));
 	while(clr.length<6){
 		clr="0"+clr;
 	}
 	this.container.style.backgroundColor="#"+clr;
 
+}, function() {
+	return this.getStyle("background-color")? this.RGB2HexStr(this.getStyle("background-color")): undefined;
 });
-DisplayObject.prototype.__defineGetter__("parent",function(){
+//public property parent setter and getter
+defineAccessorProperty(DisplayObject, "parent", function(val) {
+	//TODO implement DisplayObject.parent 
+}, function() {
 	return new DisplayObject(this.container.parentNode);
-	});
-DisplayObject.prototype.__defineGetter__("root",function(){
+});
+//public property root setter and getter
+defineAccessorProperty(DisplayObject, "root", function(val) {
+	//TODO implement DisplayObject.root 
+}, function() {
 	return root;
-	});
-
-DisplayObject.prototype.__defineGetter__("rotation",function(){
-	return this.getStyle("rotation")? parseInt(this.getStyle("rotation")): 0;
-	});
-DisplayObject.prototype.__defineSetter__("rotation",function(deg){
+});
+//public property rotation setter and getter
+defineAccessorProperty(DisplayObject, "rotation", function(deg) {
 	deg_str = deg + "";
 	rotate_transform = "rotate(" + deg + "deg)";
 	
@@ -278,23 +288,27 @@ DisplayObject.prototype.__defineSetter__("rotation",function(deg){
 	this.setStyle("zoom","1"); // ??? Probably IEs
 	}catch(e){};
 
-});
-
-DisplayObject.prototype.__defineGetter__("scaleX",function(){
-	return this._scaleX;
-});
-DisplayObject.prototype.__defineSetter__("scaleX",function(val){
-	this._scaleX = val;
-	this.setStyle("width",this._width * val+"px");
+}, function() {
+	return this.getStyle("rotation")? parseInt(this.getStyle("rotation")): 0;
 	
 });
-DisplayObject.prototype.__defineGetter__("scaleY",function(){
-	return this._scaleY;
+
+//public property scaleX setter and getter
+defineAccessorProperty(DisplayObject, "scaleX", function(val) {
+	this._scaleX = val;
+	this.setStyle("width",this._width * val+"px");
+}, function() {
+	return this._scaleX;
 });
-DisplayObject.prototype.__defineSetter__("scaleY",function(val){
+
+//public property scaleY setter and getter
+defineAccessorProperty(DisplayObject, "scaleY", function(val) {
 	this._scaleY = val;
 	this.setStyle("height",this._height * val+"px");
+}, function() {
+	return this._scaleY;
 });
+
 DisplayObject.RGBComp2intHex=function (r,g,b,a) {
     return parseInt("0x"+this.toHex(a)+this.toHex(r)+this.toHex(g)+this.toHex(b));
     
@@ -360,7 +374,3 @@ DisplayObject.intHex2RGBA = function(hex,alpha)
 	var b= parseInt(clr.substring(4, 6),16);
 	return "rgba(" + r + "," + g + "," + b + ","+alpha+")";
 };
-
-
-
-

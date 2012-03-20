@@ -1,4 +1,5 @@
 var root = this;
+
 var $as4js____core_____Timeline=function(){
 	this.$CORE_ELAPSED_TIME = 0;
 	var ref=this;
@@ -496,13 +497,17 @@ var e = window, a = 'inner';
 	return { width : e[ a+'Width' ] , height : e[ a+'Height' ] };
 };
 
-window.addEventListener("mousemove",function(e){
+var wmousemovehandler=function(e){
 	var event = e || window.event;
+//	alert(document.body.style["padding"]);
 	window.mouseX = event.pageX - parseInt(document.body.style["padding"]) || event.clientX + document.body.scrollLeft;
 	window.mouseY = event.pageY -parseInt(document.body.style["padding"]) || event.clientY + document.body.scrollTop;
-	
-	
-});
+};
+try{
+	window.addEventListener("mousemove",wmousemovehandler);
+}catch(e){
+		window.onmousemove =wmousemovehandler;
+};
 
 
 function navigateToURL(urlReq,targetWindow,winOptionsObj){
@@ -585,3 +590,27 @@ function getStyle(el, style) {
 	  }
 	  return ret;
 	};
+
+
+var defineAccessorProperty=function(classRef,propName,setter,getter,isStatic){
+	var defineOn= isStatic? classRef : classRef.prototype;
+	try{
+		if(Object.defineProperty){
+	
+	
+		Object.defineProperty(defineOn,propName,{
+			get: getter? getter: function(){return null;},
+			set: setter? setter: function(val){}
+			
+		});
+		
+	}else{
+		
+		defineOn.__defineSetter__(propName,setter?setter: function(val){});
+		defineOn.__defineGetter__(propName,getter?getter: function(){return null;});
+	}}catch(e){
+		
+	alert(e);
+	}
+
+};

@@ -119,31 +119,41 @@ var Sound = function(urlRequest)
 
 Sound.prototype = new EventDispatcher();
 Sound.constructor = Sound;
-Sound.prototype.__defineGetter__("bytesLoaded",function(){
-	return ;
-	//TODO implement Sound.bytesLoaded
+//public property bytesLoaded setter and getter
+defineAccessorProperty(Sound, "bytesLoaded", function(val) {
+}, function() {
+	//TODO implement Sound.bytesLoaded getter
 });
-Sound.prototype.__defineGetter__("bytesTotal",function(){
-	return ;
-	//TODO implement Sound.bytesTotal
+//public property bytesTotal setter and getter
+defineAccessorProperty(Sound, "bytesTotal", function(val) {
+	//TODO implement Sound.bytesTotal 
+}, function() {
 });
-Sound.prototype.__defineGetter__("id3",function(){
-	return ;
-	//TODO implement Sound.id3
+//public property id3 setter and getter
+defineAccessorProperty(Sound, "id3", function(val) {
+	//TODO implement Sound.id3 
+}, function() {
 });
-Sound.prototype.__defineGetter__("isBuffering",function(){
-	return ;
-	//TODO implement Sound.isBuffering
+//public property isBuffering setter and getter
+defineAccessorProperty(Sound, "isBuffering", function(val) {
+	//TODO implement Sound.isBuffering 
+}, function() {
 });
-Sound.prototype.__defineGetter__("isURLInaccessible",function(){
-	return ;
-	//TODO implement Sound.isURLInaccessible
+//public property isURLInaccessible setter and getter
+defineAccessorProperty(Sound, "isURLInaccessible", function(val) {
+	//TODO implement Sound.isURLInaccessible 
+}, function() {
 });
-Sound.prototype.__defineGetter__("length",function(){
+//public property length setter and getter
+defineAccessorProperty(Sound, "length", function(val) {
+	//TODO implement Sound.length 
+}, function() {
 	return this.audio.duration? this.audio.duration : 0;
-	//TODO implement Sound.length
 });
-Sound.prototype.__defineGetter__("url",function(){
+//public property url setter and getter
+defineAccessorProperty(Sound, "url", function(val) {
+	//TODO implement Sound.url 
+}, function() {
 	return this._url;
 });
 

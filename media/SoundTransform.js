@@ -16,44 +16,35 @@ var SoundTransform = function (volume,panning){
 SoundTransform.prototype = new Object();
 SoundTransform.constructor = SoundTransform;
 
-SoundTransform.prototype.__defineGetter__("leftToLeft",function(){
-	//TODO implement SoundTransform.leftToLeft
+//public property leftToLeft setter and getter
+defineAccessorProperty(SoundTransform, "leftToLeft", function(val) {
+	//TODO implement SoundTransform.leftToLeft 
+}, function() {
 });
-SoundTransform.prototype.__defineSetter__("leftToLeft",function(val){
-	//TODO implement SoundTransform.leftToLeft
-});
-
-SoundTransform.prototype.__defineGetter__("leftToRight",function(){
-	//TODO implement SoundTransform.leftToRight
-});
-SoundTransform.prototype.__defineSetter__("leftToRight",function(val){
-	//TODO implement SoundTransform.leftToRight
+//public property leftToRight setter and getter
+defineAccessorProperty(SoundTransform, "leftToRight", function(val) {
+	//TODO implement SoundTransform.leftToRight 
+}, function() {
 });
 
-SoundTransform.prototype.__defineGetter__("pan",function(){
-	//TODO implement SoundTransform.pan
+//public property pan setter and getter
+defineAccessorProperty(SoundTransform, "pan", function(val) {
+	//TODO implement SoundTransform.pan 
+}, function() {
 });
-SoundTransform.prototype.__defineSetter__("pan",function(val){
-	//TODO implement SoundTransform.pan
-});
-
-SoundTransform.prototype.__defineGetter__("rightToLeft",function(){
-	//TODO implement SoundTransform.rightToLeft
-});
-SoundTransform.prototype.__defineSetter__("rightToLeft",function(val){
-	//TODO implement SoundTransform.rightToLeft
+//public property rightToLeft setter and getter
+defineAccessorProperty(SoundTransform, "rightToLeft", function(val) {
+	//TODO implement SoundTransform.rightToLeft 
+}, function() {
 });
 
-SoundTransform.prototype.__defineGetter__("rightToRight",function(){
-	//TODO implement SoundTransform.rightToRight
+//public property rightToRight setter and getter
+defineAccessorProperty(SoundTransform, "rightToRight", function(val) {
+	//TODO implement SoundTransform.rightToRight 
+}, function() {
 });
-SoundTransform.prototype.__defineSetter__("rightToRight",function(val){
-	//TODO implement SoundTransform.rightToRight
-});
-
-SoundTransform.prototype.__defineGetter__("volume",function(){
-	//TODO implement SoundTransform.volume
-});
-SoundTransform.prototype.__defineSetter__("volume",function(val){
-	//TODO implement SoundTransform.volume
+//public property volume setter and getter
+defineAccessorProperty(SoundTransform, "volume", function(val) {
+	//TODO implement SoundTransform.volume 
+}, function() {
 });

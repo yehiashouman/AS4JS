@@ -31,109 +31,104 @@ var XMLNode = function(type,value){
 	};
 	this.__parseXMLStr=function(src){
 		var xmlDoc;
-		if (window.DOMParser)
-		  {
-		 var parser=new DOMParser();
-		  xmlDoc=parser.parseFromString(src,"text/xml");
-		  
-		  }
-		else // Internet Explorer
-		  {
-		  xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
-		  xmlDoc.async="false";
-		  xmlDoc.loadXML(src); 
-		  }
+		try{xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+		  	xmlDoc.async="false";
+		  	xmlDoc.loadXML(src); }catch(e){
+		  		
+				var parser=new DOMParser();
+			  	xmlDoc=parser.parseFromString(src,"text/xml");
+		  		
+		  	};
 		if(value!=undefined){
-		ref.DOMnode = xmlDoc;
-		ref.docRoot = ref.DOMnode.documentElement;
+			ref.DOMnode = xmlDoc;
+			ref.docRoot = ref.DOMnode.documentElement;
 		};
 	};
-
-	this.__defineGetter__("attributes",function(){
-		return this.DOMnode.attributes;
-		
-	});
-	this.__defineSetter__("attributes",function(val){
-		
-		this.DOMnode.attributes = val;
-	});
-
-	this.__defineGetter__("childNodes",function(){
-		return this.docRoot.childNodes;
-		
-	});
-
-
-	this.__defineGetter__("firstChild",function(){
-		return this.docRoot;
-	});
-	this.__defineSetter__("firstChild",function(val){
-		this.docRoot = val;
-	});
-	this.__defineGetter__("lastChild",function(){
-		return this.docRoot.lastChild;
-		
-	});
-	this.__defineSetter__("lastChild",function(val){
-		this.docRoot.lastChild = val;
-	});
-
-
-	this.__defineGetter__("localName",function(){
-		return this.docRoot.localName;
-		
-	});
-	this.__defineGetter__("namespaceURI",function(){
-		return this.docRoot.namespaceURI;
-		
-	});
-	this.__defineSetter__("nextSibling",function(val){
-		this.docRoot.nextSibling = val;
-	});
-	this.__defineGetter__("nextSibling",function(){
-		return this.docRoot.nextSibling;
-		
-	});
-	this.__defineSetter__("nodeName",function(val){
-		this.docRoot.nodeName = val;
-	});
-	this.__defineGetter__("nodeName",function(){
-		return this.docRoot.nodeName;
-		
-	});
-	this.__defineSetter__("nodeType",function(val){
-		this.docRoot.nodeType = val;
-	});
-	this.__defineGetter__("nodeType",function(){
-		return this.docRoot.nodeType;
-		
-	});
-
-	this.__defineGetter__("nodeValue",function(){
-		return this.docRoot.nodeValue;
-		
-	});
-	this.__defineGetter__("parentNode",function(){
-		return this.docRoot.parentNode;
-		
-	});
-	this.__defineGetter__("prefix",function(){
-		return this.docRoot.prefix;
-		
-	});
-	this.__defineSetter__("previousSibling",function(val){
-		this.docRoot.previousSibling = val;
-	});
-	this.__defineGetter__("previousSibling",function(){
-		return this.docRoot.previousSibling;
-		
-	});
+	
 	this.__parseXMLStr(value);
-	this.docRoot.nodeType= type || 3;
+	this.docRoot.nodeType= type? type : 3;
 	
 };
 
 XMLNode.prototype = new Object();
 XMLNode.constructor= XMLNode;
 XMLNode.prototype.DOMnode=undefined;
-XMLNode.prototype.docRoot=undefined;
+XMLNode.prototype.docRoot={};
+//public property attributes setter and getter
+defineAccessorProperty(XMLNode, "attributes", function(val) {
+	this.DOMnode.attributes = val;
+}, function() {
+	return this.DOMnode.attributes;
+});
+//public property childNodes setter and getter
+defineAccessorProperty(XMLNode, "childNodes", function(val) {
+	//TODO implement XMLNode.childNodes 
+}, function() {
+	return this.docRoot.childNodes;
+});
+//public property firstChild setter and getter
+defineAccessorProperty(XMLNode, "firstChild", function(val) {
+	this.docRoot = val;
+}, function() {
+	return this.docRoot;
+});
+//public property lastChild setter and getter
+defineAccessorProperty(XMLNode, "lastChild", function(val) {
+	this.docRoot.lastChild = val;
+}, function() {
+	return this.docRoot.lastChild;
+});
+//public property localName setter and getter
+defineAccessorProperty(XMLNode, "localName", function(val) {
+	//TODO implement XMLNode.localName 
+}, function() {
+	return this.docRoot.localName;
+});
+//public property namespaceURI setter and getter
+defineAccessorProperty(XMLNode, "namespaceURI", function(val) {
+	//TODO implement XMLNode.namespaceURI 
+}, function() {
+	return this.docRoot.namespaceURI;
+});
+//public property nextSibling setter and getter
+defineAccessorProperty(XMLNode, "nextSibling", function(val) {
+	this.docRoot.nextSibling = val;
+}, function() {
+	return this.docRoot.nextSibling;
+});
+//public property nodeName setter and getter
+defineAccessorProperty(XMLNode, "nodeName", function(val) {
+	this.docRoot.nodeName = val;
+}, function() {
+	return this.docRoot.nodeName;
+});
+//public property nodeType setter and getter
+defineAccessorProperty(XMLNode, "nodeType", function(val) {
+	this.docRoot.nodeType = val;
+}, function() {
+	return this.docRoot.nodeType;
+});
+//public property nodeValue setter and getter
+defineAccessorProperty(XMLNode, "nodeValue", function(val) {
+	//TODO implement XMLNode.nodeValue 
+}, function() {
+	return this.docRoot.nodeValue;
+});
+//public property parentNode setter and getter
+defineAccessorProperty(XMLNode, "parentNode", function(val) {
+	//TODO implement XMLNode.parentNode 
+}, function() {
+	return this.docRoot.parentNode;
+});
+//public property prefix setter and getter
+defineAccessorProperty(XMLNode, "prefix", function(val) {
+	//TODO implement XMLNode.prefix 
+}, function() {
+	return this.docRoot.prefix;
+});
+//public property previousSibling setter and getter
+defineAccessorProperty(XMLNode, "previousSibling", function(val) {
+	this.docRoot.previousSibling = val;
+}, function() {
+	return this.docRoot.previousSibling;
+});

@@ -13,11 +13,13 @@ var DisplayObjectContainer=function (myDiv){
 DisplayObjectContainer.prototype = new DisplayObject();
 DisplayObjectContainer.constructor = DisplayObjectContainer;
 
-
-DisplayObject.prototype.__defineGetter__("numChildren",function(){
+//public property numChildren setter and getter
+defineAccessorProperty(DisplayObjectContainer, "numChildren", function(val) {
+}, function() {
 	return this.rawChildren.length;
 });
 DisplayObjectContainer.prototype.addChild=function(child){
+	
 	if(this.container==document){
 		this.container.body.appendChild(child.container.firstChild);
 	}else{
@@ -25,6 +27,7 @@ DisplayObjectContainer.prototype.addChild=function(child){
 		
 	}
 	this.__updateRawChildren();
+	
 };
 DisplayObjectContainer.prototype.__updateRawChildren=function(){
 	this.rawChildren = [];
@@ -34,16 +37,33 @@ DisplayObjectContainer.prototype.__updateRawChildren=function(){
 	};
 };
 DisplayObjectContainer.prototype.addChildAt=function(child,index){
+	//trace(this.rawChildren.length+" "+index);
 	var objAtIdx= this.rawChildren[index];
-	try{this.removeChildAt(index)}catch(e){};
-	//trace(this.rawChildren.length+" "+index+" "+this.rawChildren[index]);
+	
+	try{this.removeChildAt(index);}catch(e){};
 	if(this.container==document){
-		this.container.body.insertBefore(child.container.firstChild,objAtIdx);
+		if(objAtIdx!=undefined){
+//			trace("1");
+			
+			this.container.body.insertBefore(child.container,isIE()? objAtIdx.container: objAtIdx);
+		}else{
+	//		trace("2");
+			
+			this.container.body.appendChild(child.container);
+		}
 	}else{
-		this.container.insertBefore(child.container,objAtIdx);
+		if(objAtIdx!=undefined){
+		//	trace("3");
+			this.container.insertBefore(child.container,isIE()? objAtIdx: objAtIdx);
+		}else{
+			//trace("4"+objAtIdx);
+			
+			this.container.appendChild(child.container);
+		}
 		
 	}
 	this.__updateRawChildren();
+
 	//TODO test DisplayObjectContainer.addChildAt
 	
 };
@@ -133,8 +153,7 @@ DisplayObjectContainer.prototype.setChildIndex = function(child,index) {
 DisplayObjectContainer.prototype.swapChildren = function(child1,child2) {
 	
 	var index1 = this.getChildIndex(child1);
-	var index2 = this.getChildIndex(child2);
-	//trace(index1,index2);
+	//var index2 = this.getChildIndex(child2);
 	this.addChildAt(child2,index1);
 	//this.addChildAt(child1,index2);
 	
@@ -149,26 +168,21 @@ DisplayObjectContainer.prototype.swapChildrenAt = function(index1,index2) {
 	child2.setStyle("zIndex",index1);
 };
 //public property mouseChildren setter and getter
-DisplayObjectContainer.prototype.__defineGetter__("mouseChildren", function() {
-	//TODO implement DisplayObjectContainer.mouseChildren
-	return ;
-});
-DisplayObjectContainer.prototype.__defineSetter__("mouseChildren", function(val) {
-	//TODO implement DisplayObjectContainer.mouseChildren
+defineAccessorProperty(DisplayObjectContainer, "mouseChildren", function(val) {
+	//TODO implement DisplayObjectContainer.mouseChildren 
+}, function() {
+	return true;
 });
 //public property tabChildren setter and getter
-DisplayObjectContainer.prototype.__defineGetter__("tabChildren", function() {
-	//TODO implement DisplayObjectContainer.tabChildren
-	return;
-});
-DisplayObjectContainer.prototype.__defineSetter__("tabChildren", function(val) {
-	//TODO implement DisplayObjectContainer.tabChildren
+defineAccessorProperty(DisplayObjectContainer, "tabChildren", function(val) {
+	//TODO implement DisplayObjectContainer.tabChildren 
+}, function() {
+	return false;
 });
 //public property textSnapShot setter and getter
-DisplayObjectContainer.prototype.__defineGetter__("textSnapShot", function() {
-	//TODO implement DisplayObjectContainer.textSnapShot
-	return;
+defineAccessorProperty(DisplayObjectContainer, "textSnapShot", function(val) {
+	//TODO implement DisplayObjectContainer.textSnapShot 
+}, function() {
+	return null;
 });
-DisplayObjectContainer.prototype.__defineSetter__("textSnapShot", function(val) {
-	//TODO implement DisplayObjectContainer.textSnapShot
-});
+

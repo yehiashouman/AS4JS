@@ -5,6 +5,7 @@
  * @author Nermeen Shoman
  */
  	//Creates an event object that contains information about activity events.
+
 var ActivityEvent = function(type, bubbles, cancelable, activating){
 	Event.call(this,type,bubbles,cancelable);
 	this.activating = activating;

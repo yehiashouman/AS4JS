@@ -40,11 +40,16 @@ var BitmapData= function(width,height, transparent, fillColor ){
 
 BitmapData.prototype = new Object();
 BitmapData.constructor = BitmapData;
-BitmapData.prototype.__defineGetter__("height",function(){
+//public property height setter and getter
+defineAccessorProperty(BitmapData, "height", function(val) {
+	//TODO implement BitmapData.height 
+}, function() {
 	return this.canvas.height;
 });
-
-BitmapData.prototype.__defineGetter__("rect",function(){
+//public property rect setter and getter
+defineAccessorProperty(BitmapData, "rect", function(val) {
+	//TODO implement BitmapData.rect 
+}, function() {
 	return new Rectangle(0,0,this.canvas.width,this.canvas.height);
 });
 /*
@@ -52,8 +57,10 @@ BitmapData.prototype.__defineGetter__("transparent",function(){
 	return false;
 });
 */
-
-BitmapData.prototype.__defineGetter__("width",function(){
+//public property width setter and getter
+defineAccessorProperty(BitmapData, "width", function(val) {
+	//TODO implement BitmapData.width 
+}, function() {
 	return this.canvas.width;
 });
 
