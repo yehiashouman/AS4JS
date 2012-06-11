@@ -12,7 +12,7 @@ function init(){
 	//var ref=this;
 	try{
 	var loader= new Loader();
-		
+		 
 	var test = new DisplayObjectContainer("stage");
 	//var bmpData = BitmapData(300,300);
 	//var bmp =new Bitmap(bmpData);
