@@ -47,6 +47,7 @@ var Stage = function(myDiv) {
 		return false;
 	};
 	
+	$as4js____core_____timeline.registerEnterFrame(this);
 	
 };
 Stage.prototype = new DisplayObjectContainer();

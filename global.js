@@ -1,11 +1,28 @@
 var root = this;
-
-
+EventDispatcher.call(this);
 var $as4js____core_____Timeline=function(){
 	this.$CORE_ELAPSED_TIME = 0;
 	var ref=this;
+	this.$registeredEnterFrames=[];
+	this.$runEnterFrames=function(){
+		var evt;
+		for(var i=0;i<ref.$registeredEnterFrames.length;i++){
+			evt = new Event("enterFrame");
+			evt.target = ref.$registeredEnterFrames[i];
+			try{
+				(ref.$registeredEnterFrames[i]).dispatchEvent(evt);
+			//TODO global.js should fix this leak by removing from stack when objects are removed 
+			}catch(e){};
+		};
+	};
+	this.debug =false;
+	this.registerEnterFrame=function(obj){
+		this.$registeredEnterFrames.push(obj);
+		
+	};
 	this.incrementTime=function(){
 		ref.$CORE_ELAPSED_TIME++;
+		ref.$runEnterFrames();
 	};
 	this.intervalID = setInterval(this.incrementTime,1);
 	this.frameRate= 1/30;
@@ -454,8 +471,7 @@ var $as4js____core_____Timeline=function(){
 $as4js____core_____Timeline.prototype = new Object();
 $as4js____core_____Timeline.constructor = $as4js____core_____Timeline;
 var $as4js____core_____timeline=new $as4js____core_____Timeline();
-
-
+$as4js____core_____timeline.registerEnterFrame(this);
 /* Returns the class name of the argument or undefined if
 it's not a valid JavaScript object.
 */
@@ -562,8 +578,12 @@ function traceObjStartsWith(obj,withStr){
 	
 };
 function output(txt){
+	if($as4js____core_____timeline.debug){
 	console.log(txt);
-	
+	}else{
+		alert(txt);
+		
+	}
 };
 function getStyle(el, style) {
 	  if(!document.getElementById) return;
