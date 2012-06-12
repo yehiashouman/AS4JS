@@ -10,6 +10,7 @@ var JointStyle=function(){
 
 };
 JointStyle.prototype = new Object();
+JointStyle.constructor =JointStyle;
 JointStyle.BEVEL ="bevel";
 JointStyle.MITER = "miter";
 JointStyle.ROUND = "round";

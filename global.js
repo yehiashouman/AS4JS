@@ -1,5 +1,6 @@
 var root = this;
 
+
 var $as4js____core_____Timeline=function(){
 	this.$CORE_ELAPSED_TIME = 0;
 	var ref=this;
@@ -499,9 +500,10 @@ var e = window, a = 'inner';
 
 var wmousemovehandler=function(e){
 	var event = e || window.event;
-//	alert(document.body.style["padding"]);
-	window.mouseX = event.pageX - parseInt(document.body.style["padding"]) || event.clientX + document.body.scrollLeft;
-	window.mouseY = event.pageY -parseInt(document.body.style["padding"]) || event.clientY + document.body.scrollTop;
+	var dbody = document.style? document : document.body;
+	//traceObj(dbody);
+	window.mouseX = event.pageX - parseInt(dbody.style["padding"]) || event.clientX + dbody.scrollLeft;
+	window.mouseY = event.pageY -parseInt(dbody.style["padding"]) || event.clientY + dbody.scrollTop;
 };
 try{
 	window.addEventListener("mousemove",wmousemovehandler);
@@ -534,7 +536,7 @@ function trace(){
 		i++;
 		
 	};
-	alert(str);
+	output(str);
 	
 }
 function traceObj(obj){
@@ -544,7 +546,7 @@ function traceObj(obj){
 		str+=separator+i+":="+obj[i];
 	
 	};
-	alert(str);
+	output(str);
 	
 };
 function traceObjStartsWith(obj,withStr){
@@ -556,10 +558,13 @@ function traceObjStartsWith(obj,withStr){
 		}
 	
 	};
-	alert(str);
+	output(str);
 	
 };
-
+function output(txt){
+	console.log(txt);
+	
+};
 function getStyle(el, style) {
 	  if(!document.getElementById) return;
 	 

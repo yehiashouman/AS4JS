@@ -30,15 +30,19 @@ var XMLNode = function(type,value){
 		  
 	};
 	this.__parseXMLStr=function(src){
-		var xmlDoc;
-		try{xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
+		var xmlDoc="";;
+		if(DOMParser){
+			try{
+			var parser=new DOMParser();
+			xmlDoc=parser.parseFromString(src,"text/xml");
+			}catch(e){};
+		}else{
+			xmlDoc=new ActiveXObject("Microsoft.XMLDOM");
 		  	xmlDoc.async="false";
-		  	xmlDoc.loadXML(src); }catch(e){
-		  		
-				var parser=new DOMParser();
-			  	xmlDoc=parser.parseFromString(src,"text/xml");
-		  		
-		  	};
+		  	xmlDoc.loadXML(src);
+		  	
+		};
+			
 		if(value!=undefined){
 			ref.DOMnode = xmlDoc;
 			ref.docRoot = ref.DOMnode.documentElement;
