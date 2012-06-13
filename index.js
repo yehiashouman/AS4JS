@@ -23,7 +23,6 @@ function init(){
 		sprite.y += (vy *= friction);
 	};
 	function handleKey(e){
-		alert(e);
 		switch(e.keyCode){
 		
 		case Keyboard.UP:

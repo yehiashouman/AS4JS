@@ -27,7 +27,7 @@ defineAccessorProperty(TextField, "text", function(val) {
 	 }
 	 this.container.appendChild(this.container.ownerDocument.createTextNode(val));
 }, function() {
-	return this.container.firstChild.value;
+	return this.container.firstChild? this.container.firstChild.nodeValue : "";
 });
 
 //public property background setter and getter
@@ -111,6 +111,12 @@ defineAccessorProperty(TextField, "antiAliasType", function(val) {
 });
 //public property autoSize setter and getter
 defineAccessorProperty(TextField, "autoSize", function(val) {
+	if(val){
+	var h = this.getStyle("height");
+	var clipStr = "rect("+0+"px, 100%, "+h+"px, "+0+"px)";
+	this.setStyle("height",""); 
+	this.setStyle("clip", "");
+	};
 	//TODO implement TextField.autoSize 
 }, function() {
 	return null;

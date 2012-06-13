@@ -117,17 +117,81 @@
 <script src="xml/XMLNodeType.js"></script>
 <script src="xml/XMLNode.js"></script>
 <script src="xml/XMLDocument.js"></script>
+<script lang="javascript">
+var ref=this;
 
+function isChrome(){
+	return navigator.userAgent.toLowerCase().indexOf('chrome') > -1;
+	
+};
+function init(){
+	
+	function createTextField(){
+		var txt= new TextField();
+		txt.width = 600;
+		txt.height = 100;
+		txt.border=true;
+		txt.textColor =0xFFFFFF;
+		txt.borderColor = 0xFF0000;
+		txt.backgroundColor = 0x000000;
+		txt.color = 0xFF0000;
+		return txt;
+	};
+	var sound = new Sound();
+	var playBtn = new DisplayObject("playBtn");
+	var stopBtn = new DisplayObject("stopBtn");
+	var textOutput = createTextField();
+	var stageDIV = new DisplayObjectContainer("stage");
+	stageDIV.addChild(textOutput);
+	
+	playBtn.visible=false;
+	stopBtn.visible=false;
+	playBtn.y = stopBtn.y = 0;
+	playBtn.x = 0;
+	stopBtn.x = 50;
+	textOutput.x = 0;
+	textOutput.y = 30;
+	
+	function handleSoundLoaded(e){
+		playBtn.visible=true;
+		textOutput.htmlText += "<br/><font color='#00FF000'>Sound loaded.</font>";
+		//alert(textOutput.text);
+		
+	};
+	//solving scoping issue with javascript unable to call a function defined inside init
+	ref.play=function(){
+		sound.play();
+		stopBtn.visible=true;
+		playBtn.visible=false;
+	};
+	ref.stop=function (){
+		sound.stop();
+		stopBtn.visible=false;
+		playBtn.visible=true;
+		
+	};
+	
+	function handleClick(e){
+		
+		playBtn.visible=false;
+	};
+	sound.addEventListener(Event.COMPLETE,handleSoundLoaded);
+	var urlStr = isChrome()? "http://www.hubharp.com/web_sound/PurcellSongSpinShort.mp3":"http://dspace.wijiti.com/i/testing/bitstream/123456789/16/1/06_-_Vivaldi_Summer_mvt_3_Presto_-_John_Harrison_violin.ogg";
+	textOutput.htmlText+="Chrome Browser="+isChrome()+" <br/> Attempting to load:<br/>"+urlStr;
+	var urlReq = new URLRequest(urlStr);
+	sound.load(urlReq);
+	
+	
+};
+</script>
 </head>
 
-<body onload="init();" bgcolor="0" style="background-color:#ffffff;">
+<body onload="init();" bgcolor="#ffffff" style="background-color:#ffffff;">
 <div id="stage">
-AS4JS Examples<br/>
-<ol>
-<li><a href='example_keyboard.html' target='_blank'>Keyboard interaction example</a></li>
-<li><a href='example_urlloader.html' target='_blank'>URLoader interaction example</a></li>
-<li><a href='example_sound.html' target='_blank'>Sound interaction example</a></li>
-</ol>
+
+<div style="left:0px;position:relative" id="playBtn" onclick="ref.play();"" >PLAY</div>
+<div style="left:50px;position:relative" id="stopBtn" onclick="ref.stop();">STOP</div>
+
 </div>
 </body>
 

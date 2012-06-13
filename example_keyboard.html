@@ -1,5 +1,6 @@
 <html><head>
 <link type="text/css" rel="stylesheet"  href="css/reset.css" media="screen"></style>
+<link type="text/css" rel="stylesheet"  href="css/player.css"  media="screen"></style>
 <script src="thirdparty/stacktrace.js"></script>
 <script src="events/EventDispatcher.js"></script>
 <script src="global.js"></script>
@@ -117,18 +118,63 @@
 <script src="xml/XMLNodeType.js"></script>
 <script src="xml/XMLNode.js"></script>
 <script src="xml/XMLDocument.js"></script>
-
+<script lang="javascript">
+function init(){
+	var newXPos = 100;
+	var newYPos = 100;
+	var sprite = new Sprite();
+	var friction = .9;
+	var spring = 2.5;
+	var vx=0;
+	var vy =0;
+	function drawSprite(sprite,color){
+		sprite.graphics.lineStyle(1,color,1);
+		sprite.graphics.beginFill(color,1);
+		sprite.graphics.drawRect(0,0,50,50);
+		sprite.graphics.endFill();
+	};
+	function handleEnterFrame(e){
+		
+		vx += (newXPos - sprite.x) * spring; //spring: elastic coefficient
+		vy += (newYPos - sprite.y) * spring;
+		sprite.x += (vx *= friction); //friction: friction force
+		sprite.y += (vy *= friction);
+	};
+	function handleKey(e){
+		switch(e.keyCode){
+		
+		case Keyboard.UP:
+			newYPos = (sprite.y-10);
+			break;
+		case Keyboard.DOWN:
+			newYPos = (sprite.y+10);
+			break;
+		case Keyboard.LEFT:
+			newXPos = (sprite.x-10);
+			break;
+		case Keyboard.RIGHT:
+			newXPos = (sprite.x+10);
+			break;
+		
+		
+		};
+		
+		
+		
+	};
+	root.stage.addEventListener(KeyboardEvent.KEY_UP,handleKey);
+	root.stage.addEventListener(Event.ENTER_FRAME,handleEnterFrame);
+	var test = new DisplayObjectContainer("stage");
+	drawSprite(sprite,0xFF0000);
+	test.addChild(sprite);
+	
+	
+};
+</script>
 </head>
 
 <body onload="init();" bgcolor="0" style="background-color:#ffffff;">
-<div id="stage">
-AS4JS Examples<br/>
-<ol>
-<li><a href='example_keyboard.html' target='_blank'>Keyboard interaction example</a></li>
-<li><a href='example_urlloader.html' target='_blank'>URLoader interaction example</a></li>
-<li><a href='example_sound.html' target='_blank'>Sound interaction example</a></li>
-</ol>
-</div>
+<div id="stage">Click here first then use your arrow keys to move the square</div>
 </body>
 
 </html>

@@ -117,18 +117,38 @@
 <script src="xml/XMLNodeType.js"></script>
 <script src="xml/XMLNode.js"></script>
 <script src="xml/XMLDocument.js"></script>
+<script lang="javascript">
 
+function init(){
+	
+	var urlReq = new URLRequest("http://aptova.net/as4js/lorem.txt");
+	var urlLoader = new URLLoader(urlReq);
+	var txtField = new TextField();
+	
+	function handleLoaded(e){
+		trace(urlLoader.data);
+		txtField.htmlText = urlLoader.data;
+	};
+	txtField.width = 400;
+	txtField.height = 400;
+	txtField.autoSize= true;
+	txtField.border = true;
+	txtField.alpha = 0.5;
+	txtField.borderColor=0xFF00FF;
+	txtField.backgroundColor=0xFFFFFF;
+	txtField.multiline = true;
+	urlLoader.addEventListener(Event.COMPLETE,handleLoaded);
+	var test = new DisplayObjectContainer("stage");
+	test.addChild(txtField);
+	urlLoader.load();
+	
+};
+
+</script>
 </head>
 
-<body onload="init();" bgcolor="0" style="background-color:#ffffff;">
-<div id="stage">
-AS4JS Examples<br/>
-<ol>
-<li><a href='example_keyboard.html' target='_blank'>Keyboard interaction example</a></li>
-<li><a href='example_urlloader.html' target='_blank'>URLoader interaction example</a></li>
-<li><a href='example_sound.html' target='_blank'>Sound interaction example</a></li>
-</ol>
-</div>
+<body onload="init();" bgcolor="0" style="background-color:#fffffff;">
+<div id="stage">loading text ... from http://aptova.net/as4js/lorem.txt</div>
 </body>
 
 </html>

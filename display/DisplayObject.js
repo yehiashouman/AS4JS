@@ -83,6 +83,7 @@ var DisplayObject = function(myDiv){
 		
 		this.getStyle = function(style) {
 		if(!document.getElementById) return;
+		if(!ref.container.style) return 0;
 			   var value = ref.container.style[toCamelCase(style)];
 			  if(!value)
 			    if(document.defaultView)
@@ -95,13 +96,17 @@ var DisplayObject = function(myDiv){
 			  
 		};
 		this.setStyle=function (style, value) {
+			if(!ref.container.style) return 0;
 				  ref.container.style[style] = value;
 		};
 		this.removeStyle= function(style){
 			ref.container.style[style]='';
 		};
-		this._width = parseInt(this.getStyle("width"));
-		this._height = parseInt(this.getStyle("height"));
+		
+		w = parseInt(this.getStyle("width"));
+		h= parseInt(this.getStyle("height"));
+		this._width = w? w : 0;
+		this._height = h? h: 0;
 		this.setStyle("position","absolute");
 		this.__getClassType=function(){return "DisplayObject";};
 

@@ -174,9 +174,15 @@ Sound.prototype.load = function(urlRequest){
 	this.audio.load();
 };
 Sound.prototype.play = function(startTime,loops,sndTransform){
-	this.audio.currentTime=startTime;
+	if(startTime) this.audio.currentTime=startTime;
 	this.audio.play();
 	
 	return new SoundChannel(this.audio);
 	
 };
+Sound.prototype.stop = function(){
+	this.audio.pause();
+	
+};
+
+
