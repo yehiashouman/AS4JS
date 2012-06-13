@@ -26,6 +26,7 @@ DisplayObjectContainer.prototype.addChild=function(child){
 		this.container.appendChild(child.container);
 		
 	}
+	child.stage = this.stage;
 	this.__updateRawChildren();
 	
 };
@@ -62,6 +63,8 @@ DisplayObjectContainer.prototype.addChildAt=function(child,index){
 		}
 		
 	}
+	child.stage = this.stage;
+	
 	this.__updateRawChildren();
 
 	//TODO test DisplayObjectContainer.addChildAt
@@ -80,6 +83,29 @@ DisplayObjectContainer.prototype.contains = function(child){
 	return result;
 	//TODO test DisplayObjectContainer.contains
 };
+DisplayObjectContainer.prototype.toString=function(){
+	
+	var str="["+(this.__getClassType?this.__getClassType(): "Object")+" ";
+	var prop;
+	var propVal;
+	
+	for(var i in this)
+	{
+		prop = i;
+		propVal = this[i];
+		
+		if(this.hasOwnProperty(prop) && propVal!=undefined &&propVal!=null && prop && propVal["toString"]){
+			if(propVal.toString().indexOf("function")==-1){
+				str+=i+":"+propVal+" ";
+				};
+		};
+		
+	};
+	str+="]";
+	return str;
+	
+};
+
 DisplayObjectContainer.prototype.getChildAt=function(idx){
 	return this.rawChildren[idx];
 };

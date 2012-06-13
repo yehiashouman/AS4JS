@@ -71,12 +71,18 @@ EventDispatcher.prototype.dispatchEvent=function(event){
 };
 EventDispatcher.prototype.toString=function(){
 	var str="["+(this.__getClassType?this.__getClassType(): "Object")+" ";
+	var prop;
+	var propVal;
 	for(var i in this)
-		{
-			if(this.hasOwnProperty(i) && this[i].toString().indexOf("function")==-1){
-				str+=i+":"+this[i]+" ";
+	{
+		prop = i;
+		propVal = this[i];
+		if(this.hasOwnProperty(prop) && prop!=undefined &&prop!=null && propVal.toString){
+			if(propVal.toString().indexOf("function")==-1){
+			str+=i+":"+propVal+" ";
 			};
 		};
+	};
 	str+="]";
 	return str;
 	

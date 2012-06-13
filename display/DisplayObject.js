@@ -18,6 +18,8 @@ var DisplayObject = function(myDiv){
 		
 	};
 	//alert(this.name+" "+this.container.id);
+	
+	this.stage = root.stage;
 	this.toCamelCase = function( sInput ) {
 		  var oStringList = sInput.split('-');
 		  if(oStringList.length == 1)  
@@ -83,6 +85,7 @@ var DisplayObject = function(myDiv){
 		
 		this.getStyle = function(style) {
 		if(!document.getElementById) return;
+		if(!ref.container) return;
 		if(!ref.container.style) return 0;
 			   var value = ref.container.style[toCamelCase(style)];
 			  if(!value)
@@ -96,6 +99,7 @@ var DisplayObject = function(myDiv){
 			  
 		};
 		this.setStyle=function (style, value) {
+			if(!ref.container) return;
 			if(!ref.container.style) return 0;
 				  ref.container.style[style] = value;
 		};
@@ -109,7 +113,7 @@ var DisplayObject = function(myDiv){
 		this._height = h? h: 0;
 		this.setStyle("position","absolute");
 		this.__getClassType=function(){return "DisplayObject";};
-
+		$as4js____core_____timeline.registerEnterFrame(this);
 		//alert("aiwa");
 };
 DisplayObject.prototype = new EventDispatcher();

@@ -49,6 +49,7 @@ var Stage = function(myDiv) {
 	
 	$as4js____core_____timeline.registerEnterFrame(this);
 	
+	
 };
 Stage.prototype = new DisplayObjectContainer();
 Stage.constructor = Stage;
@@ -57,19 +58,19 @@ defineAccessorProperty(Stage, "align", function(val) {
 
 }, function() {
 	return;
-},true);
+});
 
 //public property allowsFullScreen setter and getter
 //[read-only] Specifies whether this stage allows the use of the full screen mode
 defineAccessorProperty(Stage, "allowsFullScreen", function(val) {}, function() {
 	return;
-},true);
+});
 
 //public property allowsFullScreenInteractive setter and getter
 //[read-only] Specifies whether this stage allows the use of the full screen with text input mode
 defineAccessorProperty(Stage, "allowsFullScreenInteractive", function(val) {}, function() {
 	return;
-},true);
+});
 
 //public property autoOrients setter and getter
 //Specifies whether the stage automatically changes orientation when the device orientation changes.
@@ -77,7 +78,7 @@ defineAccessorProperty(Stage, "autoOrients", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 //public property color setter and getter
 //The SWF background color.
@@ -85,7 +86,7 @@ defineAccessorProperty(Stage, "color", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 //public property colorCorrection setter and getter
 //Controls Flash runtime color correction for displays.
@@ -93,7 +94,7 @@ defineAccessorProperty(Stage, "colorCorrection", function(val) {
 	
 }, function() {
 	return;
-},true);	 	   
+});	 	   
 
 //public property colorCorrectionSupport setter and getter
 //[read-only] Specifies whether the Flash runtime is running on an operating system that supports color correction and whether the color profile of the main (primary) monitor can be read and understood by the Flash runtime.
@@ -101,7 +102,7 @@ defineAccessorProperty(Stage, "colorCorrectionSupport", function(val) {
 	
 }, function() {
 	return;
-},true);	 	   
+});	 	   
 
 
 //public property deviceOrientation setter and getter
@@ -110,7 +111,7 @@ defineAccessorProperty(Stage, "deviceOrientation", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 //public property displayState setter and getter
 //A value from the StageDisplayState class that specifies which display state to use.
@@ -118,7 +119,7 @@ defineAccessorProperty(Stage, "displayState", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 
 //public property focus setter and getter
@@ -127,7 +128,7 @@ defineAccessorProperty(Stage, "focus", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 
 //public property frameRate setter and getter
@@ -136,7 +137,7 @@ defineAccessorProperty(Stage, "frameRate", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 //public property fullScreenHeight setter and getter
 //[read-only] Returns the height of the monitor that will be used when going to full screen size, if that state is entered immediately.
@@ -144,7 +145,7 @@ defineAccessorProperty(Stage, "fullScreenHeight", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 //public property fullScreenSourceRect setter and getter
 //Sets the Flash runtime to scale a specific region of the stage to full-screen mode.
@@ -152,7 +153,7 @@ defineAccessorProperty(Stage, "fullScreenSourceRect", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 //public property fullScreenWidth setter and getter
 //[read-only] Returns the width of the monitor that will be used when going to full screen size, if that state is entered immediately.
@@ -160,7 +161,7 @@ defineAccessorProperty(Stage, "fullScreenWidth", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 //public property height setter and getter
 //[override] Indicates the height of the display object, in pixels.
@@ -168,7 +169,7 @@ defineAccessorProperty(Stage, "height", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 
 //public property mouseChildren setter and getter
@@ -177,7 +178,7 @@ defineAccessorProperty(Stage, "mouseChildren", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 
 //public property nativeWindow setter and getter
@@ -186,7 +187,7 @@ defineAccessorProperty(Stage, "nativeWindow", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 
 
@@ -196,7 +197,7 @@ defineAccessorProperty(Stage, "numChildren", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 
 
@@ -208,7 +209,7 @@ defineAccessorProperty(Stage, "orientation", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 
 //public property quality setter and getter
@@ -217,7 +218,7 @@ defineAccessorProperty(Stage, "quality", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 //public property scaleMode setter and getter
 //A value from the StageScaleMode class that specifies which scale mode to use.
@@ -225,7 +226,7 @@ defineAccessorProperty(Stage, "scaleMode", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 //public property showDefaultContextMenu setter and getter
 //Specifies whether to show or hide the default items in the Flash runtime context menu.
@@ -233,7 +234,7 @@ defineAccessorProperty(Stage, "showDefaultContextMenu", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 
 //public property softKeyboardRect setter and getter
@@ -242,7 +243,7 @@ defineAccessorProperty(Stage, "softKeyboardRect", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 //public property softKeyboardRect setter and getter
 //Specifies whether or not objects display a glowing border when they have focus.
@@ -250,15 +251,15 @@ defineAccessorProperty(Stage, "stageFocusRect", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 	 	
 //public property stageHeight setter and getter
 //The current height, in pixels, of the Stage.
 defineAccessorProperty(Stage, "stageHeight", function(val) {
 	
 }, function() {
-	return;
-},true);
+	return Capabilities.screenResolutionY;
+});
 	 	
 //public property stageVideos setter and getter
 //[read-only] A list of StageVideo objects available for playing external videos.
@@ -266,15 +267,15 @@ defineAccessorProperty(Stage, "stageVideos", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 //public property stageWidth setter and getter
 //Specifies the current width, in pixels, of the Stage.
 defineAccessorProperty(Stage, "stageWidth", function(val) {
 	
 }, function() {
-	return;
-},true);
+	return Capabilities.screenResolutionX;
+});
 
 //public property supportedOrientations setter and getter
 //[read-only] The orientations supported by the current device.
@@ -282,7 +283,7 @@ defineAccessorProperty(Stage, "supportedOrientations", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 //public property supportsOrientationChange setter and getter
 //[static] [read-only] Whether the application supports changes in the stage orientation (and device rotation).
@@ -290,7 +291,7 @@ defineAccessorProperty(Stage, "supportsOrientationChange", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 
 //public property tabChildren setter and getter
@@ -299,7 +300,7 @@ defineAccessorProperty(Stage, "tabChildren", function(val) {
 	
 }, function() {
 	return;
-},true);	
+});	
 
 
 //public property textSnapshot setter and getter
@@ -308,7 +309,7 @@ defineAccessorProperty(Stage, "textSnapshot", function(val) {
 	
 }, function() {
 	return;
-},true);
+});
 
 
 //public property width setter and getter
@@ -317,7 +318,7 @@ defineAccessorProperty(Stage, "width", function(val) {
 	
 }, function() {
 	return;
-},true);	
+});	
 
 
 //public property wmodeGPU setter and getter
@@ -326,7 +327,7 @@ defineAccessorProperty(Stage, "wmodeGPU", function(val) {
 	
 }, function() {
 	return;
-},true);	
+});	
 
 
 //Sets keyboard focus to the interactive object specified by objectToFocus, with the focus direction specified by the direction parameter.

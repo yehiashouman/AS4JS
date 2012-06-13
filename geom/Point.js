@@ -50,7 +50,7 @@ Point.interpolate= function(pt1, pt2, f){
 //[static] Determines a point between two specified points.
 	 	
 Point.prototype.normalize= function(thickness){
-	  var l = this.length();
+	  var l =Math.sqrt( (this._x^2)+ (this._y^2));
 	  this.x = this.x / l * thickness;
 	  this.y = this.y / l * thickness;
 };

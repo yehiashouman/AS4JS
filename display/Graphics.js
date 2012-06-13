@@ -125,11 +125,11 @@ Graphics.prototype.lineShaderStyle=function(shader, matrix){
 };
 Graphics.prototype.lineStyle=function(thickness , color, alpha , pixelHinting, scaleMode , caps , joints , miterLimit ){
 	
-	this.context.lineWidth = thickness;
-	this.context.lineCap = caps=="none"? "butt": caps;
+	this.context.lineWidth = thickness? thickness : 1;
+	this.context.lineCap = caps? (caps=="none"? "butt": caps): "none";
 	this.context.miterLimit = !miterLimit? "3" : miterLimit.toString();
-	this.context.lineJoin = joints;
-	this.context.strokeStyle = this.owner.intHex2RGBA(color,alpha); 
+	this.context.lineJoin = !joints? "bevel" : joints;
+	this.context.strokeStyle = this.owner.intHex2RGBA(color? color : 0x000000,alpha?alpha : 1); 
 	
 };
 Graphics.prototype.lineTo=function(xPos, yPos){

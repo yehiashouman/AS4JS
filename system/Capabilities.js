@@ -48,8 +48,8 @@ defineAccessorProperty(SystemCapabilities,"pixelAspectRatio",undefined,function(
 defineAccessorProperty(SystemCapabilities,"playerType",undefined,function(){return null;});
 defineAccessorProperty(SystemCapabilities,"screenColor",undefined,function(){return null;});
 defineAccessorProperty(SystemCapabilities,"screenDPI",undefined,function(){return null;});
-defineAccessorProperty(SystemCapabilities,"screenResolutionX",undefined,function(){return null;});
-defineAccessorProperty(SystemCapabilities,"screenResolutionY",undefined,function(){return null;});
+defineAccessorProperty(SystemCapabilities,"screenResolutionX",undefined,function(){return viewport().width;});
+defineAccessorProperty(SystemCapabilities,"screenResolutionY",undefined,function(){return viewport().height;});
 defineAccessorProperty(SystemCapabilities,"serverString",undefined,function(){return null;});
 defineAccessorProperty(SystemCapabilities,"supports32BitProcesses",undefined,function(){return null;});
 defineAccessorProperty(SystemCapabilities,"supports64BitProcesses",undefined,function(){return null;});
