@@ -7,7 +7,7 @@
 
 var TextField=function(){
 	InteractiveObject.call(this);
-	this.setStyle("border","1px solid #ff0000");
+	this.setStyle("border","1px solid #000000");
 	this.setStyle("width",50);
 	this.setStyle("height",25);
 	var clipStr = "rect("+0+"px, "+this.width+"px, "+this.height+"px, "+0+"px)";
@@ -15,7 +15,7 @@ var TextField=function(){
 	this.setStyle("clip", clipStr);
 	//trace("herello");
 	this.__getClassType=function(){return "TextField";};
-
+	this.__olderBorderWidth =1;
 	
 };
 TextField.prototype = new InteractiveObject();
@@ -87,6 +87,15 @@ defineAccessorProperty(TextField, "textColor", function(val) {
 }, function() {
 	return parseInt(this.getStyle("color"));
 });
+//public property border setter and getter
+defineAccessorProperty(TextField, "border", function(val) {
+	
+	this.setStyle("border",(val? 1 : 0)+"px solid #"+(parseInt(this.getStyle("border").substr(9,this.getStyle("border").length))));
+}, function() {
+	
+	return parseInt(this.getStyle("border").substr(0,1))==0? false : true;
+});
+
 //public property borderColor setter and getter
 defineAccessorProperty(TextField, "borderColor", function(val) {
 	var clr = (val.toString(16));

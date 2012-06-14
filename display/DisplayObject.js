@@ -10,6 +10,7 @@ var DisplayObject = function(myDiv){
 	this._filters = [];
 	this._scaleX = 1;
 	this._scaleY = 1;
+	var ref = this;
 	if(myDiv){
 		this.container = typeof(myDiv)=="string"? document.getElementById(myDiv): myDiv;
 	}else{
@@ -20,6 +21,11 @@ var DisplayObject = function(myDiv){
 	//alert(this.name+" "+this.container.id);
 	
 	this.stage = root.stage;
+	this.__handleclick = function(e){
+		
+		ref.dispatchEvent.call(ref,new MouseEvent(MouseEvent.CLICK,true,true));
+	};
+	this.getDIVContainer().addEventListener("click",this.__handleclick);
 	this.toCamelCase = function( sInput ) {
 		  var oStringList = sInput.split('-');
 		  if(oStringList.length == 1)  
@@ -32,7 +38,7 @@ var DisplayObject = function(myDiv){
 		  }
 		  return ret;
 		};
-		var ref = this;
+		
 		this.degreesToRadians = function (num) {
 			return (num) * Math.PI / 180;
 		};
@@ -151,7 +157,8 @@ defineAccessorProperty(DisplayObject, "alpha", function(val) {
 	this.setStyle("-khtml-opacity", val);
 	this.setStyle("opacity", val);
 }, function() {
-	return (this.getStyle("opacity")? this.getStyle("opacity") : 1);
+	
+	return (parseInt(this.getStyle("opacity")));
 });
 
 //public property filters setter and getter
@@ -305,7 +312,7 @@ defineAccessorProperty(DisplayObject, "rotation", function(deg) {
 //public property scaleX setter and getter
 defineAccessorProperty(DisplayObject, "scaleX", function(val) {
 	this._scaleX = val;
-	this.setStyle("width",this._width * val+"px");
+	this.setStyle("width",(this._width * val)+"px");
 }, function() {
 	return this._scaleX;
 });
@@ -313,7 +320,7 @@ defineAccessorProperty(DisplayObject, "scaleX", function(val) {
 //public property scaleY setter and getter
 defineAccessorProperty(DisplayObject, "scaleY", function(val) {
 	this._scaleY = val;
-	this.setStyle("height",this._height * val+"px");
+	this.setStyle("height",(this._height * val)+"px");
 }, function() {
 	return this._scaleY;
 });

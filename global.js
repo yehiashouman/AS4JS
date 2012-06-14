@@ -24,8 +24,8 @@ var $as4js____core_____Timeline=function(){
 		ref.$CORE_ELAPSED_TIME++;
 		ref.$runEnterFrames();
 	};
-	this.intervalID = setInterval(this.incrementTime,1);
-	this.frameRate= 1/30;
+	this.frameRate= 1/15;
+	this.intervalID = setInterval(this.incrementTime,this.frameRate*1000);
 	this.errorCodes={
 			1000:"The system is out of memory.",
 			1001:"The method %m is not implemented.",

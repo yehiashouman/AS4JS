@@ -122,33 +122,51 @@
 <script lang="javascript">
 function init(){
 	var test=new DisplayObjectContainer("stage");
+	var text = new TextField();
+	text.border=false;
+	text.textColor = 0xFF0000;
+	text.htmlText = "<font family='Verdana' size='25'>AS4JS (rendering at 15fps)</font>";
+	text.width = 300;
+	text.height = 300;
+	var newPosX = 0;
+	var newPosY = 0;
+	test.addChild(text);
+	var origPos={};
+	
 	function twinkle(event){
-		//traceObj(event);
-	    // get the current star to tweak
-	    for (var i= 0; i<100; ++i) {
-		    var _self =test.getChildByName("star"+i);
-		    _self.alpha += Math.random() * 0.02 - 0.01;
-		    _self.scaleX = _self.alpha * 0.5 + 0.5;
-		    _self.scaleY = _self.alpha * 0.5 + 0.5;
-			_self.x++;
-		    // do some bounds checking
-		    if (_self.alpha < 0.5) _self.alpha = 0.5;
-		    if (_self.alpha > 1) _self.alpha = 1;
+		text.x += (mouseX - text.x) /10;
+		text.y += (mouseY - text.y) /10;
+		var currStar;
+		for (var i= 0; i<150; i++) {
+		    currStar =test.getChildByName("star"+i);
+		    currStar.alpha = 0.5+(Math.random() *0.5) ;
+		   // currStar.x = (( (Math.random()*1)) )+origPos[currStar.name].x;
+		   // currStar.y = (( (Math.random()*1)) )+origPos[currStar.name].y;
+		    
 		}
 	    
 	}
-	for (var i= 0; i<100; ++i) {
+	
+    
+	for (var i= 0; i<150; i++) {
 	    var star = new Sprite();
 	    star.name = "star"+i;
-	    star.graphics.lineStyle(5,0xffffff,1);
-	    star.graphics.beginFill(0xFFFFFF);
-	    star.graphics.drawCircle(0, 0, ((Math.random() * 1.25) + 0.25));
+	    star.graphics.lineStyle(1,0xffffff,1);
+	    star.graphics.beginFill(0xffffff,1);
+	    star.graphics.drawCircle(20, 20, ((Math.random() * (i/100))  ));
 	    star.graphics.endFill();
+	    
 	    star.x = Math.random() * test.stage.stageWidth;
+	    star.origX = star.x;
 	    star.y = Math.random() * test.stage.stageHeight;
-	    root.stage.addEventListener(Event.ENTER_FRAME,twinkle)
+	    star.origY = star.y;
+	    origPos["star"+i]= {};
+	    origPos["star"+i].x= star.x;
+	    origPos["star"+i].y= star.y;
+	    
 	    test.addChild(star);
 	}
+	test.stage.addEventListener(Event.ENTER_FRAME,twinkle)
 	
 	
 };

@@ -1,6 +1,6 @@
 
 #video{}
-#controlBar{margin-top:0px;padding-top:0x; height:30;width:320px; position: absolute;background-color: #;}
+#controlBar{margin-top:0px;padding-top:0x; height:30;width:320px; position: absolute;background-color: #000000;}
 #playBtn{position:absolute;left:0px;top:-10px;width:20px;font-size: 10px;}
 #pauseBtn{display:none;position:absolute;left:0px;top:-10px;width:20px;font-size: 10px;}
 #progressBar {    position:absolute;left:50px;width:200px;height:10px;background-color: #ff0000;}

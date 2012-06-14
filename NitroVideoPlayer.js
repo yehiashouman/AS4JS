@@ -13,12 +13,11 @@ var NitroVideoPlayer = function(divID){
 	var instance=this;
 	
 	function progressHandler(){
-			var evt= new ProgressEvent(ProgressEvent.EVT_PROGRESS, instance.video.currentTime,instance.video.duration);
-			instance.dispatchEvent(evt);
+			var evt= new ProgressEvent(ProgressEvent.PROGRESS);
+			instance.dispatchEvent.call(instance,evt);
 
 		};
 	this.startTimer = function(){
-		
 		this.progressTimer = window.setInterval(progressHandler,100);
 		
 	};
@@ -64,6 +63,12 @@ NitroVideoPlayer.prototype.toggleMute=function(){
 		
 		this.video.volume = this.volume;
 	}
+};
+NitroVideoPlayer.prototype.getCurrentTime=function(){
+	return this.video.currentTime;
+};
+NitroVideoPlayer.prototype.getDuration=function(){
+	return this.video.duration;
 };
 NitroVideoPlayer.prototype.getVideo=function(){
 	return this.video;
