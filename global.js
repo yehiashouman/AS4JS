@@ -515,18 +515,19 @@ var e = window, a = 'inner';
 };
 
 var wmousemovehandler=function(e){
+	if(document.body){
 	var event = e || window.event;
-	var dbody = document.style? document : document.body;
-	//traceObj(dbody);
-	window.mouseX = event.pageX - parseInt(dbody.style["padding"]) || event.clientX + dbody.scrollLeft;
-	window.mouseY = event.pageY -parseInt(dbody.style["padding"]) || event.clientY + dbody.scrollTop;
+	var dbody = document.body;
+	var padding =  dbody.style["padding"];
+	window.mouseX = event.pageX - parseInt(padding) || event.clientX + dbody.scrollLeft;
+	window.mouseY = event.pageY -parseInt(padding) || event.clientY + dbody.scrollTop;
+	};
 };
 try{
 	window.addEventListener("mousemove",wmousemovehandler);
 }catch(e){
 		window.onmousemove =wmousemovehandler;
 };
-
 
 function navigateToURL(urlReq,targetWindow,winOptionsObj){
 	
@@ -559,8 +560,8 @@ function traceObj(obj){
 	var str="";
 	var separator="\n";
 	for(var i in obj){
-		str+=separator+i+":="+obj[i];
-	
+		try{str+=separator+i+":="+obj[i];
+		}catch(e){};
 	};
 	output(str);
 	

@@ -120,7 +120,7 @@ DisplayObjectContainer.prototype.getChildByName=function(name){
 		}
 		i++;
 	}
-	return returnedChild;
+	return new DisplayObjectContainer(returnedChild);
 };
 DisplayObjectContainer.prototype.getChildIndex=function(child){
 	var idx=-1;

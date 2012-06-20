@@ -1,5 +1,6 @@
 <html><head>
 <link type="text/css" rel="stylesheet"  href="css/reset.css" media="screen"></style>
+<link type="text/css" rel="stylesheet"  href="css/player.css"  media="screen"></style>
 <script src="thirdparty/stacktrace.js"></script>
 <script src="events/EventDispatcher.js"></script>
 <script src="global.js"></script>
@@ -60,13 +61,17 @@
 <script src="events/UncaughtErrorEvents.js"></script>
 <script src="events/VideoEvent.js"></script>
 
-<script src="utils/getTimer.js"></script>
-<script src="utils/Timer.js"></script>
 
 <script src="net/URLRequestMethod.js"></script>
 <script src="net/URLVariables.js"></script>
 <script src="net/URLRequest.js"></script>
 <script src="net/URLLoader.js"></script>
+<script src="net/FileFilter.js"></script>
+<script src="net/FileReference.js"></script>
+
+<script src="utils/getTimer.js"></script>
+<script src="utils/Timer.js"></script>
+<script src="utils/ByteArray.js"></script>
 
 <script src="media/SoundTransform.js"></script>
 <script src="media/SoundChannel.js"></script>
@@ -88,6 +93,7 @@
 <script src="display/Sprite.js"></script>
 <script src="display/DisplayObjectContainer.js"></script>
 <script src="display/Stage.js"></script>
+
 <script src="display/BitmapData.js"></script>
 <script src="display/Bitmap.js"></script>
 <script src="display/CapStyle.js"></script>
@@ -117,25 +123,87 @@
 <script src="xml/XMLNodeType.js"></script>
 <script src="xml/XMLNode.js"></script>
 <script src="xml/XMLDocument.js"></script>
+<script lang="javascript">
+function init(){
+	
+	var mFileReference;
+	var textArea = new TextField();
+	textArea.width = 400;
+	textArea.autoSize = true;
+	var test = new DisplayObjectContainer("stage");
+	var browseButton = new Sprite("browseButton");
+	//This function is called after user selected a file in the file browser dialog.
+	//This function is called to notify us of the uploading progress
+	function onProgress(event)
+	{
+		 var percentLoaded=event.bytesLoaded/event.bytesTotal*100;
+		 trace("loaded: "+percentLoaded+"%");
+		
+	}
+	
+	//This function is called after the file has been uploaded.
+	function onFileLoaded(event)
+	{
+	 	var fileReference=event.target ;
+	
+		 // These steps below are to pass the data as DisplayObject
+		 // These steps below are specific to this example.
+		 var data=fileReference["data"];
+		 textArea.text=data.toString();
+		 browseButton.visible=true;
+		 mFileReference.removeEventListener(Event.COMPLETE, onFileLoaded);
+		 mFileReference.removeEventListener(IOErrorEvent.IO_ERROR, onFileLoadError);
+		 mFileReference.removeEventListener(ProgressEvent.PROGRESS, onProgress);
+	}
+	
+	function onFileLoadError(event)
+	{
+		 // Hide progress bar
+		
+		 browseButton.visible=true;
+		 mFileReference.removeEventListener(Event.COMPLETE, onFileLoaded);
+		 mFileReference.removeEventListener(IOErrorEvent.IO_ERROR, onFileLoadError);
+		 mFileReference.removeEventListener(ProgressEvent.PROGRESS, onProgress);    
+		
+		 trace("File load error");
+	}
 
+	function onFileSelected(event)
+	{
+		 trace("onFileSelected");
+		 // This callback will be called when the file is uploaded and ready to use
+		 mFileReference.addEventListener(Event.COMPLETE, onFileLoaded);
+		 // This callback will be called if there's error during uploading
+		 mFileReference.addEventListener(IOErrorEvent.IO_ERROR, onFileLoadError);
+		 // Optional callback to track progress of uploading
+		 mFileReference.addEventListener(ProgressEvent.PROGRESS, onProgress);
+		 // Tells the FileReference to load the file
+		 mFileReference.load();
+		 browseButton.visible=false;
+	}
+	//This function is called when the BROWSE button is clicked.
+	function onBrowseButtonClicked(event)
+	{
+		 trace("onBrowse");
+		 mFileReference=new FileReference();
+		 mFileReference.addEventListener(Event.SELECT, onFileSelected);
+		 var swfTypeFilter = new FileFilter("Text Files","*.txt; *.html;*.htm;*.php");
+		 var allTypeFilter = new FileFilter("All Files (*.*)","*.*");
+		 mFileReference.browse([swfTypeFilter, allTypeFilter]);
+	}
+
+	//Setup button to handle browsing
+	browseButton.addEventListener(MouseEvent.CLICK, onBrowseButtonClicked);
+	
+	
+	
+};
+</script>
 </head>
 
-<body onload="init();" bgcolor="0" style="background-color:#ffffff;margin:10px">
+<body onload="init();" bgcolor="0" style="background-color:#000000;">
 <div id="stage">
-<h1>AS4JS Examples</h1>
-
-<ol>
-<li><a href='example_keyboard.html' target='_blank'>Keyboard interaction example</a></li>
-<li><a href='example_urlloader.html' target='_blank'>URLoader interaction example</a></li>
-<li><a href='example_sound.html' target='_blank'>Sound interaction example</a></li>
-<li><a href='example_sprite.html' target='_blank'>Sprite interaction example</a></li>
-<li><a href='example_video.html' target='_blank'>Video Player example</a></li>
-<li><a href='example_drawingapi.html' target='_blank'>Drawing API example</a></li>
-</ol>
-<br/>
-
-<Strong>AS4JS</strong> is a javascript library that allows you to write actionscript that runs in the browser, library available at <a href="https://github.com/yehiashouman/AS4JS" target="_blank">https://github.com/yehiashouman/AS4JS</a>
-
+<div id="browseButton" style="background-color:#ff0000;color:#ffffff;width:100px;height:25px;">Browse</div>
 </div>
 </body>
 

@@ -9,8 +9,8 @@ var Graphics = function(container){
 	this.container = container;
 	this.canvas = document.createElement("canvas");
 	this.canvas.id = "_canvas"+Math.ceil(Math.random()*1000);
-//	this.canvas.width = Capabilities.screenResolutionX;
-	//this.canvas.height = Capabilities.screenResolutionY;
+	this.canvas.width = viewport().width;
+	this.canvas.height = viewport().height;
 	this.container.appendChild(this.canvas);
 	this.context = this.canvas.getContext("2d");
 	this.__getClassType=function(){return "Graphics";};
@@ -48,7 +48,7 @@ Graphics.prototype.clear=function(){
 	this.context.fillRect (0,0,this.canvas.width,this.canvas.height);
 	for (var i = 0; i < 100; i++) {
 		//this.context.fillRect(0, 0, 1, 1);
-		//this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+		this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
 	}
 	
 };
@@ -137,6 +137,7 @@ Graphics.prototype.lineTo=function(xPos, yPos){
 	this.context.stroke();
 };
 Graphics.prototype.moveTo=function(xPos, yPos){
+	this.context.beginPath();
 	this.context.moveTo(xPos,yPos);
 	
 };

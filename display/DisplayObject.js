@@ -25,7 +25,35 @@ var DisplayObject = function(myDiv){
 		
 		ref.dispatchEvent.call(ref,new MouseEvent(MouseEvent.CLICK,true,true));
 	};
+	this.__handleMU = function(e){
+			
+			ref.dispatchEvent.call(ref,new MouseEvent(MouseEvent.MOUSE_UP,true,true));
+			return;
+		};
+	this.__handleMD = function(e){
+		
+		ref.dispatchEvent.call(ref,new MouseEvent(MouseEvent.MOUSE_DOWN,true,true));
+		return;
+	};
+	this.__handleMout = function(e){
+		
+		ref.dispatchEvent.call(ref,new MouseEvent(MouseEvent.ROLL_OUT,true,true));
+		return;
+		
+	};
+	this.__handleMover = function(e){
+		ref.dispatchEvent.call(ref,new MouseEvent(MouseEvent.ROLL_OVER,true,true));
+		return;
+		
+	};
+	
 	this.getDIVContainer().addEventListener("click",this.__handleclick);
+	this.getDIVContainer().addEventListener("mousedown",this.__handleMD);
+	this.getDIVContainer().addEventListener("mouseup",this.__handleMU);
+	this.getDIVContainer().addEventListener("mouseover",this.__handleMover);
+	this.getDIVContainer().addEventListener("mouseout",this.__handleMout);
+	
+
 	this.toCamelCase = function( sInput ) {
 		  var oStringList = sInput.split('-');
 		  if(oStringList.length == 1)  

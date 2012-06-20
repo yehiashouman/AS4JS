@@ -121,8 +121,8 @@ defineAccessorProperty(TextField, "antiAliasType", function(val) {
 //public property autoSize setter and getter
 defineAccessorProperty(TextField, "autoSize", function(val) {
 	if(val){
-	var h = this.getStyle("height");
-	var clipStr = "rect("+0+"px, 100%, "+h+"px, "+0+"px)";
+	//var h = this.getStyle("height");
+	//var clipStr = "rect("+0+"px, 100%, "+h+"px, "+0+"px)";
 	this.setStyle("height",""); 
 	this.setStyle("clip", "");
 	};
