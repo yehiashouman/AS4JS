@@ -15,7 +15,7 @@ function ByteArray()
     this.double_psgnd = Math.pow(2, 52);
     this.DOUBLE_POSITIVE_INFINITY = Number.POSITIVE_INFINITY;
     this.DOUBLE_NEGATIVE_INFINITY = Number.NEGATIVE_INFINITY;
-    
+    this.__init__();
     /*
      * http://with-love-from-siberia.blogspot.com/2009/11/ieee754-converter.html
      */
@@ -61,7 +61,7 @@ function ByteArray()
         result[0]  = (e >> 1) + s;
         
         return result;
-    }
+    };
     
     this.doubleToBytes=function (n)
     {
@@ -147,7 +147,17 @@ function ByteArray()
     {
         return bytesToNumber(bytes, 1023, this.double_pbias, this.double_psgnd);
     };
-    
+    var suffix = (this.__bigEndian) ? 'B' : 'L';
+    this.readShort = this['__readShort' + suffix];
+    this.readUnsignedShort = this['__readUnsignedShort' + suffix];
+    this.readInt = this['__readInt' + suffix];
+    this.readUnsignedInt = this['__readUnsignedInt' + suffix];
+    this.readFloat = this['__readFloat' + suffix];
+    this.readDouble = this['__readDouble' + suffix];
+    this.writeShort = this['__writeShort' + suffix];
+    this.writeInt = this['__writeInt' + suffix];
+    this.writeFloat = this['__writeFloat' + suffix];
+    this.writeDouble = this['__writeDouble' + suffix];
    
    
 };
@@ -169,7 +179,7 @@ ByteArray.prototype.readBoolean = function()
 {
     var start = this.__position;
     var end = start + 1;
-    if (end > this.length) { throwCustomError(this,2030,"Error");}
+    if (end > this.length) { throwCustomError(null,2030,"Error");}
     
     var value = this[start];
     this.__position = end;
@@ -179,7 +189,7 @@ ByteArray.prototype.readByte = function()
 {
     var start = this.__position;
     var end = start + 1;
-    if (end > this.length) { throwCustomError(this,2030,"Error"); }
+    if (end > this.length) { throwCustomError(null,2030,"Error"); }
     
     var value = this[start];
     this.__position = end;
@@ -189,7 +199,7 @@ ByteArray.prototype.readUnsignedByte = function()
 {
     var start = this.__position;
     var end = start + 1;
-    if (end > this.length) { throwCustomError(this,2030,"Error"); }
+    if (end > this.length) { throwCustomError(null,2030,"Error"); }
     
     var value = this[start];
     this.__position = end;
@@ -199,7 +209,7 @@ ByteArray.prototype.__readShortB = function()
 {
     var start = this.__position;
     var end = start + 2;
-    if (end > this.length) { throwCustomError(this,2030,"Error"); }
+    if (end > this.length) { throwCustomError(null,2030,"Error"); }
     var value = this[start] << 8 | (this[start+1] & 0xFF);
     this.__position = end;
     return (value & 0x8000) ? -((value ^ 0xFFFF) + 1) : value;
@@ -208,17 +218,16 @@ ByteArray.prototype.__readShortL = function()
 {
     var start = this.__position;
     var end = start + 2;
-    if (end > this.length) { throwCustomError(this,2030,"Error"); }
+    if (end > this.length) { throwCustomError(null,2030,"Error"); }
     var value = this[end] << 8 | (this[end-1] & 0xFF);
     this.__position = end;
     return (value & 0x8000) ? -((value ^ 0xFFFF) + 1) : value;
 };
-ByteArray.prototype.readShort = this.__readShortB;
 ByteArray.prototype.__readUnsignedShortB = function()
 {
     var start = this.__position;
     var end = start + 2;
-    if (end > this.length) { throwCustomError(this,2030,"Error"); }
+    if (end > this.length) { throwCustomError(null,2030,"Error"); }
     var value = this[start] << 8 | (this[start+1] & 0xFF);
     this.__position = end;
     return value;
@@ -227,17 +236,16 @@ ByteArray.prototype.__readUnsignedShortL = function()
 {
     var start = this.__position;
     var end = start + 2;
-    if (end > this.length) { throwCustomError(this,2030,"Error"); }
+    if (end > this.length) { throwCustomError(null,2030,"Error"); }
     var value = this[start] << 8 | (this[start+1] & 0xFF);
     this.__position = end;
     return value;
 };
-ByteArray.prototype.readUnsignedShort = this.__readUnsignedShortB;
-this.__readIntB = function()
+ByteArray.prototype.__readIntB = function()
 {
     var start = this.__position;
     var end = start + 4;
-    if (end > this.length) { throwCustomError(this,2030,"Error"); }
+    if (end > this.length) { throwCustomError(null,2030,"Error"); }
     var value = (this[start] << 24 | (0xFF & this[start+1]) << 16 | (0xFF & this[start+2]) << 8 | (0xFF & this[start+3])) >>> 0;
     this.__position = end;
     return  (value & 0x80000000) ? -((value ^ 0xFFFFFFFF) + 1) : value;
@@ -246,17 +254,16 @@ ByteArray.prototype.__readIntL = function()
 {
     var start = this.__position;
     var end = start + 4;
-    if (end > this.length) { throwCustomError(this,2030,"Error"); }
+    if (end > this.length) { throwCustomError(null,2030,"Error"); }
     var value = (this[end] << 24 | (0xFF & this[end-1]) << 16 | (0xFF & this[end-2]) << 8 | (0xFF & this[end-3])) >>> 0;
     this.__position = end;
     return  (value & 0x80000000) ? -((value ^ 0xFFFFFFFF) + 1) : value;
 };
-ByteArray.prototype.readInt = this.__readIntB;
 ByteArray.prototype.__readUnsignedIntB = function()
 {
     var start = this.__position;
     var end = start + 4;
-    if (end > this.length) { throwCustomError(this,2030,"Error"); }
+    if (end > this.length) { throwCustomError(null,2030,"Error"); }
     var value = (this[start] << 24 | (0xFF & this[start+1]) << 16 | (0xFF & this[start+2]) << 8 | (0xFF & this[start+3])) >>> 0;
     this.__position = end;
     return value;
@@ -265,17 +272,16 @@ ByteArray.prototype.__readUnsignedIntL = function()
 {
     var start = this.__position;
     var end = start + 4;
-    if (end > this.length) { throwCustomError(this,2030,"Error"); }
+    if (end > this.length) { throwCustomError(null,2030,"Error"); }
     var value = (this[end] << 24 | (0xFF & this[end-1]) << 16 | (0xFF & this[end-2]) << 8 | (0xFF & this[end-3])) >>> 0;
     this.__position = end;
     return value;
 };
-ByteArray.prototype.readUnsignedInt = this.__readUnsignedIntB;
 ByteArray.prototype.__readFloatB = function()
 {
     var start = this.__position;
     var end = start + 4;
-    if (end > this.length) { throwCustomError(this,2030,"Error"); }
+    if (end > this.length) { throwCustomError(null,2030,"Error"); }
     var value = bytesToFloat(this.slice(start, end));
     this.__position = end;
     return value;
@@ -284,17 +290,16 @@ ByteArray.prototype.__readFloatL = function()
 {
     var start = this.__position;
     var end = start + 4;
-    if (end > this.length) { throwCustomError(this,2030,"Error"); }
+    if (end > this.length) { throwCustomError(null,2030,"Error"); }
     var value = bytesToFloat(this.slice(start, end).reverse());
     this.__position = end;
     return value;
 };
-ByteArray.prototype.readFloat = this.__readFloatB;
 ByteArray.prototype.__readDoubleB = function()
 {
     var start = this.__position;
     var end = start + 8;
-    if (end > this.length) { throwCustomError(this,2030,"Error"); }
+    if (end > this.length) { throwCustomError(null,2030,"Error"); }
     var value = bytesToDouble(this.slice(start, end));
     this.__position = end;
     return value;
@@ -303,12 +308,11 @@ ByteArray.prototype.__readDoubleL = function()
 {
     var start = this.__position;
     var end = start + 8;
-    if (end > this.length) { throwCustomError(this,2030,"Error"); }
+    if (end > this.length) { throwCustomError(null,2030,"Error"); }
     var value = bytesToDouble(this.slice(start, end).reverse());
     this.__position = end;
     return value;
 };
-ByteArray.prototype.readDouble = this.__readDoubleB;
 ByteArray.prototype.readMultiByte = function(length, charset)
 {
     //probably not going to support
@@ -327,7 +331,7 @@ ByteArray.prototype.readUTFBytes = function(length)
 {
     var start = this.__position;
     var end = start + length;
-    if (end > this.length) { throwCustomError(this,2030,"Error"); }
+    if (end > this.length) { throwCustomError(null,2030,"Error"); }
     
     var chars = [];
     for (var i = start, c = 0; i < end;)
@@ -346,7 +350,6 @@ ByteArray.prototype.writeByte = function(value)
     this.__position = position;
     if (position > this.length) { this.length = position; }
 };
-ByteArray.prototype.writeBoolean = this.writeByte;
 ByteArray.prototype.writeBytes = function(bytes, offset, length)
 {
     offset = offset | 0;
@@ -376,7 +379,6 @@ ByteArray.prototype.__writeShortL = function(value)
     this.__position = position;
     if (position > this.length) { this.length = position; }
 };
-ByteArray.prototype.writeShort = this.__writeShortB;
 ByteArray.prototype.__writeIntB = function(value)
 {
     var position = this.__position;
@@ -397,7 +399,6 @@ ByteArray.prototype.__writeIntL = function(value)
     this.__position = position;
     if (position > this.length) { this.length = position; }
 };
-ByteArray.prototype.writeInt = this.__writeIntB;
 ByteArray.prototype.writeUnsignedInt = function(value)
 {
     this.writeInt(value >>> 0);
@@ -424,7 +425,7 @@ ByteArray.prototype.__writeFloatL = function(value)
     this.__position = position;
     if (position > this.length) { this.length = position; }
 };
-ByteArray.prototype.writeFloat = this.__writeFloatB;
+
 ByteArray.prototype.__writeDoubleB = function(value)
 {
     var bytes = doubleToBytes(value);
@@ -455,7 +456,6 @@ ByteArray.prototype.__writeDoubleL = function(value)
     this.__position = position;
     if (position > this.length) { this.length = position; }
 };
-ByteArray.prototype.writeDouble = this.__writeDoubleB;
 ByteArray.prototype.writeMultiByte = function(value, charSet)
 {
     //probably not going to support
@@ -540,6 +540,7 @@ ByteArray.prototype.__set__position = function(v)
 
 ByteArray.prototype.toString = function()
 {
+	return this.join("");
     return this.map(function(element, index, array)
     {
         return String.fromCharCode(element);
@@ -550,3 +551,14 @@ ByteArray.prototype.toArray = function()
 {
     return this.splice(0);
 };
+ByteArray.prototype.readInt = ByteArray.prototype.__readIntB;
+ByteArray.prototype.readFloat = ByteArray.prototype.__readFloatB;
+ByteArray.prototype.writeBoolean = ByteArray.prototype.writeByte;
+ByteArray.prototype.writeDouble = ByteArray.prototype.__writeDoubleB;
+ByteArray.prototype.readUnsignedShort = ByteArray.prototype.__readUnsignedShortB;
+ByteArray.prototype.readUnsignedInt = ByteArray.prototype.__readUnsignedIntB;
+ByteArray.prototype.readDouble = ByteArray.prototype.__readDoubleB;
+ByteArray.prototype.writeShort = ByteArray.prototype.__writeShortB;
+ByteArray.prototype.writeInt = ByteArray.prototype.__writeIntB;
+ByteArray.prototype.readShort = ByteArray.prototype.__readShortB;
+ByteArray.prototype.writeFloat = ByteArray.prototype.__writeFloatB;

@@ -19,15 +19,71 @@ var FileReference = function() {
 	var newName = "file-upload"+Math.ceil(1000*Math.random());
 	this.inputFile.name = newName;
 	this.inputFile.type = "file";
-	this.typeFilter  =[];
 	var ref=this;
-	this.inputFile.onchange=function(e){
-		traceObj(ref.inputFile.files[0]);
-		ref.dispatchEvent(new Event(Event.SELECT,true,false));
-		
-		
-	};
+	this.typeFilter  =[];
 	this.__selectedFile = "";
+	this.__reader = new FileReader();
+	this.__reader.onerror = function (e) {
+			traceObj(e.target.error);
+		    switch(e.target.error.code) {
+			      case e.target.error.NOT_FOUND_ERR:
+			       alert('File Not Found!');
+			        break;
+			      case e.target.error.NOT_READABLE_ERR:
+			    	alert('File is not readable');
+			        break;
+			      case e.target.error.ABORT_ERR:
+			        break; 
+			      case e.target.error.SECURITY_ERR:
+			    	 trace("File loading error because of security.");
+				        break; 
+			      default:
+			    	  
+			    	 alert('An error occurred reading this file.');
+			    	break;
+		    };
+	  };
+	this.__reader.onprogress = function(evt){
+    	 // evt is an ProgressEvent.
+	    if (evt.lengthComputable) {
+	     // var percentLoaded = Math.round((evt.loaded / evt.total) * 100);
+	      
+	    };
+    };
+    this.__reader.onabort = function(e) {
+    	//trace("reader  onabort");
+    };
+    this.__reader.onloadstart = function(e) {
+    	//trace("reader on load start");
+    };
+    this.__reader.onload = function(e) {
+    	ref._data = new ByteArray();
+    	ref._data.writeBytes(ref.__reader.result);
+    	
+    	ref.dispatchEvent(new Event(Event.COMPLETE,true,false));
+    };
+    this.__extension = "";
+    this.__name = "";
+    this.__type = "";
+    this.__size = "";
+    this.__modificationDate = "";
+    this.__creationDate = "";
+    this.__creator = null;
+    this.inputFile.onchange = function (e){
+    	
+		var f = e.target.files[0];
+		 ref.__size = f.size;
+		ref.__name = f.name;
+		ref.__extension = f.name.substr(f.name.lastIndexOf(".")+1,f.name.length);
+		ref.__type = ref.__extension;
+		ref.__modificationDate =  (f.lastModifiedDate)? f.lastModifiedDate : new Date();
+		ref.__creationDate = (f.lastModifiedDate)? f.lastModifiedDate : new Date();
+		
+		ref.dispatchEvent(new Event(Event.SELECT,true,false));
+		ref.__reader.readAsBinaryString(e.target.files[0]);
+	};
+	
+	
 	
 };
 FileReference.prototype = new EventDispatcher();
@@ -35,32 +91,32 @@ FileReference.constructor = FileReference;
 
 //public property creationDate setter and getter ([read-only] The creation date of the file on the local disk.)
 defineAccessorProperty(FileReference, "creationDate", function(val) {
-
+;
 }, function() {
-	return new Date();
+	return this.__creationDate;
 });
 
 //public property creator setter and getter ([read-only] The Macintosh creator type of the file, which is only used in Mac OS versions prior to Mac OS X.)
 defineAccessorProperty(FileReference, "creator", function(val) {
-
+;
 }, function() {
-	return "";
+	return this.__creator;
 });
 
 
 //public property data setter and getter([read-only] The ByteArray object representing the data from the loaded file after a successful call to the load() method.)
 defineAccessorProperty(FileReference, "data", function(val) {
-
+;
 }, function() {
-	return new ByteArray();
+	return this._data;
 });
 
 
 //public property extension setter and getter([read-only] The filename extension.)
 defineAccessorProperty(FileReference, "extension", function(val) {
-
+;
 }, function() {
-	return "";
+	return this.__extension;
 });
 
 
@@ -68,7 +124,7 @@ defineAccessorProperty(FileReference, "extension", function(val) {
 defineAccessorProperty(FileReference, "modificationDate", function(val) {
 ;
 }, function() {
-	return new Date();
+	return this.__modificationDate;
 });
 
 
@@ -76,28 +132,23 @@ defineAccessorProperty(FileReference, "modificationDate", function(val) {
 defineAccessorProperty(FileReference, "name", function(val) {
 ;
 }, function() {
-	return "";
+	return this.__name;
 });
 
-//public property prototype setter and getter([static] A reference to the prototype object of a class or function object.)
-defineAccessorProperty(FileReference, "prototype", function(val) {
-;
-}, function() {
-	return new Object();
-});
+
 
 //public property size setter and getter([read-only] The size of the file on the local disk in bytes.)
 defineAccessorProperty(FileReference, "size", function(val) {
 ;
 }, function() {
-	return 0;
+	return this.__size;
 });
 
 //public property type setter and getter([read-only] The file type.)
 defineAccessorProperty(FileReference, "type", function(val) {
 ;
 }, function() {
-	return "";
+	return this.__type;
 });
 
 //Displays a file-browsing dialog box that lets the user select a file to upload.
@@ -123,7 +174,10 @@ FileReference.prototype.download=function(request,defaultFileName){
 };
 //Starts the load of a local file selected by a user.
 FileReference.prototype.load=function(){
-	;
+	
+    // Read in the image file as a binary string.
+   // this.__reader.readAsBinaryString(this.__selectedFile);
+
 };
 
 //Opens a dialog box that lets the user save a file to the local filesystem.

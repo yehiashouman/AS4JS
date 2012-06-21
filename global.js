@@ -479,7 +479,7 @@ function throwCustomError(obj,errorCode){
 	
 	var errorText = "IOErrorEvent"+": Error #"+errorCode+": "+$as4js____core_____timeline.errorCodes[errorCode].split("%1").join("IOErrorEvent");
 	errorText+="\n    at MainTimeline/"+printStackTrace().join("\n    ");
-	obj.dispatchEvent(new IOErrorEvent(IOErrorEvent.IO_ERROR, errorCode, errorText));
+	if(obj) obj.dispatchEvent.call(obj,(new IOErrorEvent(IOErrorEvent.IO_ERROR, errorCode, errorText)));
 	console.log(errorText);
 	
 };

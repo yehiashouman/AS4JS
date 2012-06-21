@@ -2,6 +2,7 @@
 <link type="text/css" rel="stylesheet"  href="css/reset.css" media="screen"></style>
 <link type="text/css" rel="stylesheet"  href="css/player.css"  media="screen"></style>
 <script src="thirdparty/stacktrace.js"></script>
+<script src="thirdparty/bytearray.js"></script>
 <script src="events/EventDispatcher.js"></script>
 <script src="global.js"></script>
 <script src="system/Capabilities.js"></script>
@@ -71,6 +72,8 @@
 
 <script src="utils/getTimer.js"></script>
 <script src="utils/Timer.js"></script>
+<script src="utils/Endian.js"></script>
+
 <script src="utils/ByteArray.js"></script>
 
 <script src="media/SoundTransform.js"></script>
@@ -128,10 +131,16 @@ function init(){
 	
 	var mFileReference;
 	var textArea = new TextField();
+	textArea.border=true;
+	
+	textArea.borderColor = 0xFF0000;
+	textArea.backgroundColor = 0xFFFFFF;
+	textArea.y = 50;
 	textArea.width = 400;
-	textArea.autoSize = true;
+	textArea.height = 400;
 	var test = new DisplayObjectContainer("stage");
 	var browseButton = new Sprite("browseButton");
+	test.addChild(textArea);
 	//This function is called after user selected a file in the file browser dialog.
 	//This function is called to notify us of the uploading progress
 	function onProgress(event)
@@ -144,12 +153,9 @@ function init(){
 	//This function is called after the file has been uploaded.
 	function onFileLoaded(event)
 	{
-	 	var fileReference=event.target ;
-	
-		 // These steps below are to pass the data as DisplayObject
-		 // These steps below are specific to this example.
-		 var data=fileReference["data"];
-		 textArea.text=data.toString();
+		 var data=event.target.data;
+		 	
+		 textArea.htmlText="<font color='#000000'>"+data.toString()+"</font>";
 		 browseButton.visible=true;
 		 mFileReference.removeEventListener(Event.COMPLETE, onFileLoaded);
 		 mFileReference.removeEventListener(IOErrorEvent.IO_ERROR, onFileLoadError);
@@ -165,12 +171,12 @@ function init(){
 		 mFileReference.removeEventListener(IOErrorEvent.IO_ERROR, onFileLoadError);
 		 mFileReference.removeEventListener(ProgressEvent.PROGRESS, onProgress);    
 		
-		 trace("File load error");
+		
 	}
 
 	function onFileSelected(event)
 	{
-		 trace("onFileSelected");
+		
 		 // This callback will be called when the file is uploaded and ready to use
 		 mFileReference.addEventListener(Event.COMPLETE, onFileLoaded);
 		 // This callback will be called if there's error during uploading
@@ -184,7 +190,7 @@ function init(){
 	//This function is called when the BROWSE button is clicked.
 	function onBrowseButtonClicked(event)
 	{
-		 trace("onBrowse");
+		 
 		 mFileReference=new FileReference();
 		 mFileReference.addEventListener(Event.SELECT, onFileSelected);
 		 var swfTypeFilter = new FileFilter("Text Files","*.txt; *.html;*.htm;*.php");

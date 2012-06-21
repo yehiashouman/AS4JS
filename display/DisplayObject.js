@@ -21,27 +21,32 @@ var DisplayObject = function(myDiv){
 	//alert(this.name+" "+this.container.id);
 	
 	this.stage = root.stage;
-	this.__handleclick = function(e){
+	this.__isMouseInBounds=function(){
 		
+		return (ref.mouseX<ref.width && ref.mouseY<ref.height && ref.mouseX>0 && ref.mouseY>0);
+		
+	};
+	this.__handleclick = function(e){
+		if(ref.__isMouseInBounds())
 		ref.dispatchEvent.call(ref,new MouseEvent(MouseEvent.CLICK,true,true));
 	};
 	this.__handleMU = function(e){
-			
+		//if(this.__isMouseInBounds())
 			ref.dispatchEvent.call(ref,new MouseEvent(MouseEvent.MOUSE_UP,true,true));
-			return;
-		};
+		return;
+	};	
 	this.__handleMD = function(e){
-		
+		//if(this.__isMouseInBounds())
 		ref.dispatchEvent.call(ref,new MouseEvent(MouseEvent.MOUSE_DOWN,true,true));
 		return;
 	};
 	this.__handleMout = function(e){
-		
 		ref.dispatchEvent.call(ref,new MouseEvent(MouseEvent.ROLL_OUT,true,true));
 		return;
 		
 	};
 	this.__handleMover = function(e){
+		if(ref.__isMouseInBounds())
 		ref.dispatchEvent.call(ref,new MouseEvent(MouseEvent.ROLL_OVER,true,true));
 		return;
 		
