@@ -15,7 +15,7 @@ var $as4js____core_____Timeline=function(){
 			}catch(e){};
 		};
 	};
-	this.debug =false;
+	this.debug =true;
 	this.registerEnterFrame=function(obj){
 		this.$registeredEnterFrames.push(obj);
 		

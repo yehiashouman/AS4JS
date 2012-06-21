@@ -24,24 +24,27 @@ var FileReference = function() {
 	this.__selectedFile = "";
 	this.__reader = new FileReader();
 	this.__reader.onerror = function (e) {
-			traceObj(e.target.error);
-		    switch(e.target.error.code) {
+			
+		var errorEvt = new IOErrorEvent(IOErrorEvent.IO_ERROR);
+	    switch(e.target.error.code) {
 			      case e.target.error.NOT_FOUND_ERR:
-			       alert('File Not Found!');
+			    	  errorEvt.text=('File Not Found!');
 			        break;
 			      case e.target.error.NOT_READABLE_ERR:
-			    	alert('File is not readable');
+			    	  errorEvt.text=('File is not readable');
 			        break;
 			      case e.target.error.ABORT_ERR:
 			        break; 
 			      case e.target.error.SECURITY_ERR:
-			    	 trace("File loading error because of security.");
+			    	  errorEvt.text=("File loading error because of security.");
 				        break; 
 			      default:
 			    	  
-			    	 alert('An error occurred reading this file.');
+			    	// alert('An error occurred reading this file.');
 			    	break;
 		    };
+		    
+		    ref.dispatchEvent(errorEvt);
 	  };
 	this.__reader.onprogress = function(evt){
     	 // evt is an ProgressEvent.
