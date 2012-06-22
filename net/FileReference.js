@@ -11,9 +11,9 @@ var FileReference = function() {
 		return "FileReference";
 	};
 	var doc = document;
-	var containerForm = doc.createElement("Form");
+	this.containerForm = doc.createElement("Form");
 	var containerFormNewName = "upload-form"+Math.ceil(1000*Math.random());
-	containerForm.name = containerFormNewName;
+	this.containerForm.name = containerFormNewName;
 	this.inputFile = doc.createElement("input");
 	this.inputFile.style.display="none";
 	var newName = "file-upload"+Math.ceil(1000*Math.random());
@@ -23,6 +23,24 @@ var FileReference = function() {
 	this.typeFilter  =[];
 	this.__selectedFile = "";
 	this.__reader = new FileReader();
+	 this._upload_xmlHttpReq = undefined;
+		try{
+			//Firefox, opera 8.0+, safari
+			this._upload_xmlHttpReq= new XMLHttpRequest();
+		}catch(e){
+			//microsoft and the IE sister browsers
+			try{
+				
+				this._upload_xmlHttpReq = new ActiveXObject("Msxml2.XMLHTTP");
+			}catch(err){
+					try{
+						this._upload_xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
+					}catch(err2){
+							throw new Error("Browser doesn't support AJAX!");
+					}
+			}
+		}
+		
 	this.__reader.onerror = function (e) {
 			
 		var errorEvt = new IOErrorEvent(IOErrorEvent.IO_ERROR);
@@ -72,7 +90,11 @@ var FileReference = function() {
     this.__modificationDate = "";
     this.__creationDate = "";
     this.__creator = null;
-    this.inputFile.onchange = function (e){
+    this.formdata = false;
+	 if (window.FormData) {  
+		 this.formdata = new FormData();  
+	 }
+	this.inputFile.onchange = function (e){
     	
 		var f = e.target.files[0];
 		 ref.__size = f.size;
@@ -81,13 +103,61 @@ var FileReference = function() {
 		ref.__type = ref.__extension;
 		ref.__modificationDate =  (f.lastModifiedDate)? f.lastModifiedDate : new Date();
 		ref.__creationDate = (f.lastModifiedDate)? f.lastModifiedDate : new Date();
-		
+		this.__selectedFile = f;
 		ref.dispatchEvent(new Event(Event.SELECT,true,false));
 		ref.__reader.readAsBinaryString(e.target.files[0]);
+		 
+		ref.formdata.append('file', e.target.files[0]);  
+		
+		
+		//upload file
+		// var filename=f.name;
+		 //var urlRequest= new URLRequest("uploadFile.php");
+		 //urlRequest.method = URLRequestMethod.POST;
+		// trace("sending "+urlRequest.method+" at "+urlRequest.url)
+		 
+		
 	};
 	
 	
+	 
 	
+		this._upload_xmlHttpReq.onreadystatechange= function(){
+			//alert(" "+ref._upload_xmlHttpReq.readyState);
+			
+			//0: request not initialized 
+			//1: server connection established
+			//2: request received 
+			//3: processing request 
+			//4: request finished and response is ready
+			trace(ref._upload_xmlHttpReq.readyState);
+			switch(ref._upload_xmlHttpReq.readyState){
+			case 0:
+				break;
+			case 1:
+				break;
+			case 2:
+				break;
+			case 3:
+				break;
+			
+			case 4:
+				
+				if(ref._upload_xmlHttpReq.status==200 || ref._upload_xmlHttpReq.status==0){
+						
+						trace(ref._upload_xmlHttpReq.responseText);
+						ref.dispatchEvent(new DataEvent(DataEvent.UPLOAD_COMPLETE_DATA, true, false, ref.data));
+						
+					}else {
+						throw new Error("Page not found!");
+					}
+				break;
+			
+			
+			}
+			
+			
+		};
 };
 FileReference.prototype = new EventDispatcher();
 FileReference.constructor = FileReference;
@@ -191,6 +261,12 @@ FileReference.prototype.save=function(data,defaultFileName){
 //Starts the upload of the file to a remote server.
 FileReference.prototype.upload=function(request, uploadDataFieldName, testUpload){
 	//request:URLRequest, uploadDataFieldName:String = "Filedata", testUpload:Boolean = false
+	
+	this._upload_xmlHttpReq.open(request.method, request.url,false);//, async, username, password)
+	//this._upload_xmlHttpReq.overrideMimeType('multipart/form-data');
+	//this._upload_xmlHttpReq.setRequestHeader("Content-type","multipart/form-data");
+	traceObj(this.formdata);
+	this._upload_xmlHttpReq.send(this.formdata);
 	
 };
 //Initiate uploading a file to a URL without any encoding.

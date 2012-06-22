@@ -141,6 +141,7 @@ function init(){
 	var test = new DisplayObjectContainer("stage");
 	var browseButton = new Sprite("browseButton");
 	test.addChild(textArea);
+	var uploadedFilePath = "";
 	//This function is called after user selected a file in the file browser dialog.
 	//This function is called to notify us of the uploading progress
 	function onProgress(event)
@@ -149,17 +150,29 @@ function init(){
 		 trace("loaded: "+percentLoaded+"%");
 		
 	}
-	
+	function onUploadComplete(e){
+		
+		navigateToURL(new URLRequest(uploadedFilePath), "_blank")
+	};
 	//This function is called after the file has been uploaded.
 	function onFileLoaded(event)
 	{
 		 var data=event.target.data;
-		 	
+		 
 		 textArea.htmlText="<font color='#000000'>"+data.toString()+"</font>";
 		 browseButton.visible=true;
 		 mFileReference.removeEventListener(Event.COMPLETE, onFileLoaded);
 		 mFileReference.removeEventListener(IOErrorEvent.IO_ERROR, onFileLoadError);
 		 mFileReference.removeEventListener(ProgressEvent.PROGRESS, onProgress);
+		 
+		 //upload file
+		 var filename=mFileReference.name;
+		 var urlRequest= new URLRequest("uploadFile.php");
+		 urlRequest.method = URLRequestMethod.POST;
+		 
+		// mFileReference.addEventListener(ProgressEvent.PROGRESS, onProgress);
+		 mFileReference.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA,onUploadComplete);
+		 mFileReference.upload(urlRequest);
 	}
 	
 	function onFileLoadError(event)
