@@ -140,14 +140,17 @@ function init(){
 	textArea.height = 400;
 	var test = new DisplayObjectContainer("stage");
 	var browseButton = new Sprite("browseButton");
+	var saveButton = new Sprite("saveButton");
 	test.addChild(textArea);
 	var uploadedFilePath = "";
+	
+	
 	//This function is called after user selected a file in the file browser dialog.
 	//This function is called to notify us of the uploading progress
 	function onProgress(event)
 	{
 		 var percentLoaded=event.bytesLoaded/event.bytesTotal*100;
-		 trace("loaded: "+percentLoaded+"%");
+		 //trace("loaded: "+percentLoaded+"%");
 		
 	}
 	function onUploadComplete(e){
@@ -157,6 +160,7 @@ function init(){
 	//This function is called after the file has been uploaded.
 	function onFileLoaded(event)
 	{
+		
 		 var data=event.target.data;
 		 
 		 textArea.htmlText="<font color='#000000'>"+data.toString()+"</font>";
@@ -169,7 +173,7 @@ function init(){
 		 var filename=mFileReference.name;
 		 var urlRequest= new URLRequest("uploadFile.php");
 		 urlRequest.method = URLRequestMethod.POST;
-		 
+		 uploadedFilePath = mFileReference.name;
 		// mFileReference.addEventListener(ProgressEvent.PROGRESS, onProgress);
 		 mFileReference.addEventListener(DataEvent.UPLOAD_COMPLETE_DATA,onUploadComplete);
 		 mFileReference.upload(urlRequest);
@@ -199,6 +203,7 @@ function init(){
 		 // Tells the FileReference to load the file
 		 mFileReference.load();
 		 browseButton.visible=false;
+		 
 	}
 	//This function is called when the BROWSE button is clicked.
 	function onBrowseButtonClicked(event)
@@ -211,8 +216,15 @@ function init(){
 		 mFileReference.browse([swfTypeFilter, allTypeFilter]);
 	}
 
+	function handleSave(e){
+		mFileReference.save();
+		
+	};
 	//Setup button to handle browsing
 	browseButton.addEventListener(MouseEvent.CLICK, onBrowseButtonClicked);
+	saveButton.addEventListener(MouseEvent.CLICK,handleSave);
+	saveButton.x = 140;
+	
 	
 	
 	
@@ -223,6 +235,8 @@ function init(){
 <body onload="init();" bgcolor="0" style="background-color:#000000;">
 <div id="stage">
 <div id="browseButton" style="background-color:#ff0000;color:#ffffff;width:100px;height:25px;">Browse</div>
+<div id="saveButton" style="background-color:#ff0000;color:#ffffff;width:100px;height:25px;">Save</div>
+
 </div>
 </body>
 

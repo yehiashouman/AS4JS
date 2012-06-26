@@ -10,20 +10,22 @@ var FileReference = function() {
 	this.__getClassType = function() {
 		return "FileReference";
 	};
+	var ref=this;   
 	var doc = document;
 	this.containerForm = doc.createElement("Form");
-	var containerFormNewName = "upload-form"+Math.ceil(1000*Math.random());
-	this.containerForm.name = containerFormNewName;
+	this.containerForm.name = "upload-form"+Math.ceil(1000*Math.random());
+	this.containerForm.enctype="multipart/form-data";
+	this.formdata = false;
 	this.inputFile = doc.createElement("input");
 	this.inputFile.style.display="none";
-	var newName = "file-upload"+Math.ceil(1000*Math.random());
-	this.inputFile.name = newName;
+	this.inputFile.name = "file-upload"+Math.ceil(1000*Math.random());
 	this.inputFile.type = "file";
-	var ref=this;
+	this.containerForm.appendChild(this.inputFile);
+
 	this.typeFilter  =[];
 	this.__selectedFile = "";
 	this.__reader = new FileReader();
-	 this._upload_xmlHttpReq = undefined;
+	this._upload_xmlHttpReq = undefined;
 		try{
 			//Firefox, opera 8.0+, safari
 			this._upload_xmlHttpReq= new XMLHttpRequest();
@@ -36,25 +38,25 @@ var FileReference = function() {
 					try{
 						this._upload_xmlHttpReq = new ActiveXObject("Microsoft.XMLHTTP");
 					}catch(err2){
-							throw new Error("Browser doesn't support AJAX!");
+						 throwCustomError(ref,1001);
+						//	throw new Error("Browser doesn't support AJAX!");
 					}
 			}
-		}
-		
+		};
+	
 	this.__reader.onerror = function (e) {
 			
-		var errorEvt = new IOErrorEvent(IOErrorEvent.IO_ERROR);
-	    switch(e.target.error.code) {
+		switch(e.target.error.code) {
 			      case e.target.error.NOT_FOUND_ERR:
-			    	  errorEvt.text=('File Not Found!');
+			    	  throwCustomError(ref,2044,'File Not Found!');
 			        break;
 			      case e.target.error.NOT_READABLE_ERR:
-			    	  errorEvt.text=('File is not readable');
-			        break;
+			    	  throwCustomError(ref,3315,'File is not readable');
+			      break;
 			      case e.target.error.ABORT_ERR:
 			        break; 
 			      case e.target.error.SECURITY_ERR:
-			    	  errorEvt.text=("File loading error because of security.");
+			    	  throwCustomError(ref,3315,'File is not readable');
 				        break; 
 			      default:
 			    	  
@@ -62,7 +64,6 @@ var FileReference = function() {
 			    	break;
 		    };
 		    
-		    ref.dispatchEvent(errorEvt);
 	  };
 	this.__reader.onprogress = function(evt){
     	 // evt is an ProgressEvent.
@@ -77,9 +78,11 @@ var FileReference = function() {
     this.__reader.onloadstart = function(e) {
     	//trace("reader on load start");
     };
+    this.__rawData=null
     this.__reader.onload = function(e) {
     	ref._data = new ByteArray();
-    	ref._data.writeBytes(ref.__reader.result);
+    	ref.__rawData = ref.__reader.result;
+    	ref._data.writeBytes(ref.__rawData);
     	
     	ref.dispatchEvent(new Event(Event.COMPLETE,true,false));
     };
@@ -90,38 +93,46 @@ var FileReference = function() {
     this.__modificationDate = "";
     this.__creationDate = "";
     this.__creator = null;
-    this.formdata = false;
-	 if (window.FormData) {  
-		 this.formdata = new FormData();  
-	 }
+   
 	this.inputFile.onchange = function (e){
     	
 		var f = e.target.files[0];
-		 ref.__size = f.size;
+		if(!f || !f.name) {
+			throwCustomError(ref,2038);
+		};
+		
+		ref.__size = f.size;
 		ref.__name = f.name;
 		ref.__extension = f.name.substr(f.name.lastIndexOf(".")+1,f.name.length);
 		ref.__type = ref.__extension;
 		ref.__modificationDate =  (f.lastModifiedDate)? f.lastModifiedDate : new Date();
 		ref.__creationDate = (f.lastModifiedDate)? f.lastModifiedDate : new Date();
-		this.__selectedFile = f;
-		ref.dispatchEvent(new Event(Event.SELECT,true,false));
+		this.__selectedFile = e.target.files[0];
+		
 		ref.__reader.readAsBinaryString(e.target.files[0]);
-		 
-		ref.formdata.append('file', e.target.files[0]);  
-		
-		
-		//upload file
-		// var filename=f.name;
-		 //var urlRequest= new URLRequest("uploadFile.php");
-		 //urlRequest.method = URLRequestMethod.POST;
-		// trace("sending "+urlRequest.method+" at "+urlRequest.url)
-		 
+		 if (window.FormData) {  
+			 ref.formdata = new FormData();  
+		 }
+		 ref.dispatchEvent(new Event(Event.SELECT,true,false));
+		 ref.formdata.append("file", e.target.files[0]);  
 		
 	};
 	
 	
 	 
-	
+		var onprogress =function(evt) 
+		{
+			   if (evt.lengthComputable) 
+			   {  //evt.loaded the bytes browser receive
+			      //evt.total the total bytes seted by the header
+			      //
+				  var toFireEvt = new ProgressEvent(ProgressEvent.PROGRESS,true,false, evt.loaded,evt.total);
+				 
+				  ref.dispatchEvent.call(ref,toFireEvt);
+			     
+			   } 
+		};  
+		this._upload_xmlHttpReq.addEventListener("progress",onprogress);
 		this._upload_xmlHttpReq.onreadystatechange= function(){
 			//alert(" "+ref._upload_xmlHttpReq.readyState);
 			
@@ -130,7 +141,7 @@ var FileReference = function() {
 			//2: request received 
 			//3: processing request 
 			//4: request finished and response is ready
-			trace(ref._upload_xmlHttpReq.readyState);
+			//trace(ref._upload_xmlHttpReq.readyState);
 			switch(ref._upload_xmlHttpReq.readyState){
 			case 0:
 				break;
@@ -144,12 +155,11 @@ var FileReference = function() {
 			case 4:
 				
 				if(ref._upload_xmlHttpReq.status==200 || ref._upload_xmlHttpReq.status==0){
-						
-						trace(ref._upload_xmlHttpReq.responseText);
-						ref.dispatchEvent(new DataEvent(DataEvent.UPLOAD_COMPLETE_DATA, true, false, ref.data));
+						ref.dispatchEvent.call(ref,new DataEvent(DataEvent.UPLOAD_COMPLETE_DATA, true, false, ref.data));
 						
 					}else {
-						throw new Error("Page not found!");
+						throwCustomError(ref,2038);
+						
 					}
 				break;
 			
@@ -234,6 +244,7 @@ FileReference.prototype.browse=function(typeFilter){
 };
 //Cancels any ongoing upload or download operation on this FileReference object.
 FileReference.prototype.cancel=function(){
+	//TODO: implement Filreference.cancel
 	
 	return true;
 };
@@ -244,6 +255,8 @@ FileReference.prototype.cancel=function(){
 FileReference.prototype.download=function(request,defaultFileName){
 	//request:requestURL, defaultFileName:String=null
 	;
+	//TODO: implement Filreference.download
+	
 };
 //Starts the load of a local file selected by a user.
 FileReference.prototype.load=function(){
@@ -255,22 +268,23 @@ FileReference.prototype.load=function(){
 
 //Opens a dialog box that lets the user save a file to the local filesystem.
 FileReference.prototype.save=function(data,defaultFileName){
-	//data:*, defaultFileName:String=null
-	;
+	//TODO: implement Filreference.save
+	
 };
 //Starts the upload of the file to a remote server.
 FileReference.prototype.upload=function(request, uploadDataFieldName, testUpload){
 	//request:URLRequest, uploadDataFieldName:String = "Filedata", testUpload:Boolean = false
+	this.containerForm.method = request.method;
+	this.containerForm.action = request.url;
 	
-	this._upload_xmlHttpReq.open(request.method, request.url,false);//, async, username, password)
-	//this._upload_xmlHttpReq.overrideMimeType('multipart/form-data');
-	//this._upload_xmlHttpReq.setRequestHeader("Content-type","multipart/form-data");
-	traceObj(this.formdata);
+	//this.formdata.append("file", this.__selectedFile);  
+	this._upload_xmlHttpReq.open(request.method, request.url,true);//, async, username, password)
 	this._upload_xmlHttpReq.send(this.formdata);
 	
 };
 //Initiate uploading a file to a URL without any encoding.
 FileReference.prototype.uploadUnencoded=function(request){
 	//request:URLRequest;
-	;
+	this.upload(request);
+
 };

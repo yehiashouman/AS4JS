@@ -186,7 +186,7 @@ var $as4js____core_____Timeline=function(){
 			2039:"Invalid remote URL protocol. The remote URL protocol must be HTTP or HTTPS.",
 			2041:"Only one file browsing session may be performed at a time.",
 			2042:"The digest property is not supported by this load operation.	",
-			2044:"Unhandled %1:.	",
+			2044:"Unhandled File I/O Error.",
 			2046:"The loaded file did not have a valid signature.	",
 			2047:"Security sandbox violation: %1: %2 cannot access %3.	",
 			2048:"Security sandbox violation: %1 cannot load data from %2.",
@@ -475,10 +475,11 @@ $as4js____core_____timeline.registerEnterFrame(this);
 /* Returns the class name of the argument or undefined if
 it's not a valid JavaScript object.
 */
-function throwCustomError(obj,errorCode){
+function throwCustomError(obj,errorCode,extraMessage){
 	
 	var errorText = "IOErrorEvent"+": Error #"+errorCode+": "+$as4js____core_____timeline.errorCodes[errorCode].split("%1").join("IOErrorEvent");
 	errorText+="\n    at MainTimeline/"+printStackTrace().join("\n    ");
+	if(extraMessage) errorText+="Runtime Error Details: "+extraMessage;
 	if(obj) obj.dispatchEvent.call(obj,(new IOErrorEvent(IOErrorEvent.IO_ERROR, errorCode, errorText)));
 	console.log(errorText);
 	

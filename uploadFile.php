@@ -1,11 +1,10 @@
 <?php
-var_dump($_REQUEST);
-die();
-$uploadPath = basename( $_FILES['Filedata']['name']);
-die();
-if (move_uploaded_file($_FILES['Filedata']['tmp_name'], $uploadPath))
+$file = $_FILES['file'];
+$uploadPath = basename( $file['name']);
+
+if (move_uploaded_file($file['tmp_name'], $uploadPath))
 {
-     echo "OK";
+     echo "";
 }
 else
 {
