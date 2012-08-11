@@ -122,16 +122,21 @@
 function init(){
 	function handler(e){
 		box.x += 1;
+		box2.rotation+=10;
+		box3.x = box3.y = Math.random()*400;
 		
 	};
-	box.addEventListener("enterFrame",handler);
-	box.x =400;	
+	box2.x=box2.y=100;
+	box.addEventListener(Event.ENTER_FRAME,handler);
+	
 };
 </script>
 </head>
 
 <body onload="init();" bgcolor="0" style="background-color:#000000;">
-<div id="box" style="background-color:#ff0000;width:100px;height:100px;position:absolute;">
+<div id="box" style="background-color:#ff0000;width:100px;height:100px;position:absolute;"></div>
+<div id="box2" style="background-color:#ffff00;width:200px;height:200px;position:absolute;"></div>
+<div id="box3" style="background-color:#ff00ff;width:40px;height:40px;position:absolute;"></div>
 </body>
 
 </html>

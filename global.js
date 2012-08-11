@@ -29,13 +29,12 @@ var $as4js____core_____Timeline = function() {
 	};
 
 	this.$autoDeclareIDs = function() {
-		alert("here");
 		var allTags = document.getElementsByTagName('*');
 		var ids = [];
 		for ( var i = 0; i < allTags.length; i++) {
 			var tag = allTags[i];
 			if (tag.id) {
-				root[tag.id] = new DisplayObjectContainer(tag.id);
+				root[tag.id] = new DisplayObject(tag.id);
 			}
 			;
 		}
@@ -638,9 +637,8 @@ function listen(evnt, elem, func) {
 		window.alert('I\'m sorry Dave, I\'m afraid I can\'t do that.');
 }
 listen("load", window, function() {
-	alert("load");
 	$as4js____core_____timeline.$autoDeclareIDs();
-	// $as4js____core_____timeline.registerEnterFrame(this);
+	$as4js____core_____timeline.registerEnterFrame(this);
 	// INTERNAL DECLARATIONS
 
 });
