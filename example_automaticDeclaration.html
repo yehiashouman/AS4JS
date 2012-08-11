@@ -1,5 +1,6 @@
 <html><head>
 <link type="text/css" rel="stylesheet"  href="css/reset.css" media="screen"></style>
+<link type="text/css" rel="stylesheet"  href="css/player.css"  media="screen"></style>
 <script src="thirdparty/stacktrace.js"></script>
 <script src="events/EventDispatcher.js"></script>
 <script src="global.js"></script>
@@ -117,29 +118,20 @@
 <script src="xml/XMLNodeType.js"></script>
 <script src="xml/XMLNode.js"></script>
 <script src="xml/XMLDocument.js"></script>
-
+<script lang="javascript">
+function init(){
+	function handler(e){
+		box.x += 1;
+		
+	};
+	box.addEventListener("enterFrame",handler);
+	box.x =400;	
+};
+</script>
 </head>
 
-<body onload="init();" bgcolor="0" style="background-color:#ffffff;margin:10px">
-<div id="stage">
-<h1>AS4JS Examples</h1>
-
-<ol>
-
-<li><a href='example_automaticDeclaration.html' target='_blank'>Automatic declaration example</a></li>
-<li><a href='example_keyboard.html' target='_blank'>Keyboard interaction example</a></li>
-<li><a href='example_urlloader.html' target='_blank'>URLoader interaction example</a></li>
-<li><a href='example_sound.html' target='_blank'>Sound interaction example</a></li>
-<li><a href='example_sprite.html' target='_blank'>Sprite interaction example</a></li>
-<li><a href='example_video.html' target='_blank'>Video Player example</a></li>
-<li><a href='example_drawingapi.html' target='_blank'>Drawing API example</a></li>
-<li><a href='example_filereference.html' target='_blank'>FileReference example (Save, Download not implemented yet)</a></li>
-</ol>
-<br/>
-
-<Strong>AS4JS</strong> is a javascript library that allows you to write actionscript that runs in the browser, library available at <a href="https://github.com/yehiashouman/AS4JS" target="_blank">https://github.com/yehiashouman/AS4JS</a>
-
-</div>
+<body onload="init();" bgcolor="0" style="background-color:#000000;">
+<div id="box" style="background-color:#ff0000;width:100px;height:100px;position:absolute;">
 </body>
 
 </html>
