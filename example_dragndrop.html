@@ -3,6 +3,8 @@
 <link type="text/css" rel="stylesheet"  href="css/player.css"  media="screen"></style>
 <script src="thirdparty/stacktrace.js"></script>
 <script src="events/EventDispatcher.js"></script>
+<script src="as4js_config.js"></script>
+
 <script src="global.js"></script>
 <script src="system/Capabilities.js"></script>
 
@@ -120,28 +122,31 @@
 <script src="xml/XMLDocument.js"></script>
 <script lang="javascript">
 function init(){
-	trace(square.startDrag);
 	function handleMD(e){
-		trace("mouse down");
-		square.startDrag(true);
+		square.startDrag(true, new Rectangle (10,10,310,310));
 		
 		
 	};
 	function handleMU(e){
-		trace("mouse up");
 		square.stopDrag();
 	};
 	
 	square.addEventListener(MouseEvent.MOUSE_DOWN,handleMD);
-	square.addEventListener(MouseEvent.MOUSE_DOWN,handleMU);
+	square.addEventListener(MouseEvent.MOUSE_UP,handleMU);
+	bg.graphics.lineStyle(1,0xFF0000,1);
+	bg.graphics.beginFill(0x222222,1);
+	bg.graphics.drawRect(10,10,400,400);
+	bg.graphics.endFill();
+	
 	
 };
 </script>
 </head>
 
-<body onload="init();" bgcolor="0" style="background-color:#000000;">
-<div id="square" style="position:absolute; width:400px;height:400px;color:#fff;background-color:#ff0000;">
-Drag me!
+<body onload="init();" bgcolor="0" style="background-color:#000000;overflow:hidden;">
+<div id="bg" style='-moz-user-select: none;-webkit-user-select: none;color:#999999' onselectstart='return false;'>Showing the drag and drop functions with all parameters</div>
+<div id="square" style="position:absolute; width:100px;height:100px;color:#fff;background-color:#ff0000;text-align:center;-moz-user-select: none;-webkit-user-select: none;" onselectstart='return false;'>
+DRAG ME!
 </div>
 </body>
 

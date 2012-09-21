@@ -9,6 +9,27 @@ var Sprite =function(myDiv){
 	InteractiveObject.call(this,myDiv);
 	this.instance = this;
 	var ref=this;
+	this._isBeingDragged=false;
+	this._isBeingDraggedLockCenter = false;
+	this._isBeingDraggedBounds;
+	this.enterFrameHandler=function(){
+		if(ref._isBeingDragged){
+			var _newX,_newY;
+			
+			var _newX = ref._isBeingDraggedLockCenter? window.mouseX- ref.width/2: window.mouseX;
+			var _newY = ref._isBeingDraggedLockCenter? window.mouseY- ref.height/2: window.mouseY;
+			if(ref._isBeingDraggedBounds){
+				_newX = Math.max(ref._isBeingDraggedBounds.x, Math.min(_newX,ref._isBeingDraggedBounds.width));
+				_newY = Math.max(ref._isBeingDraggedBounds.y, Math.min(_newY,ref._isBeingDraggedBounds.height));
+				
+			}
+				
+			ref.x = _newX;
+			ref.y = _newY;
+			
+		};
+		
+	};
 	this.toCamelCase = function( sInput ) {
 		  var oStringList = sInput.split('-');
 		  if(oStringList.length == 1)  
@@ -41,7 +62,7 @@ var Sprite =function(myDiv){
 	
 	this.graphics.owner=this; 
 	this.__getClassType=function(){return "Sprite";};
-
+	this.addEventListener(Event.ENTER_FRAME, this.enterFrameHandler);
 	
 };
 Sprite.prototype = new InteractiveObject();
@@ -119,10 +140,16 @@ defineAccessorProperty(Sprite, "scaleY", function(val) {
 }, function() {
 	return this._scaleY;
 });
-Sprite.prototype.startDrag = function(lockCenter,bounds,Rectangle){
+Sprite.prototype.startDrag = function(lockCenter,bounds){
+	this._isBeingDragged=true;
+	this._isBeingDraggedLockCenter = lockCenter;
+	this._isBeingDraggedBounds = bounds? bounds : null;
+	
 	
 };
 Sprite.prototype.stopDrag=function(){
-	
+	this._isBeingDragged=false;
+	this._isBeingDraggedLockCenter = false;
+	this._isBeingDraggedBounds = null;
 	
 };

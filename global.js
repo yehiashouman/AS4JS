@@ -22,19 +22,30 @@ var $as4js____core_____Timeline = function() {
 		}
 		;
 	};
-	this.debug = true;
+	this.debug = $__as4js_config.debug;
 	this.registerEnterFrame = function(obj) {
 		this.$registeredEnterFrames.push(obj);
 
 	};
 
 	this.$autoDeclareIDs = function() {
-		var allTags = document.getElementsByTagName('*');
+		var allTags = document.getElementsByTagName('div');
 		var ids = [];
 		for ( var i = 0; i < allTags.length; i++) {
 			var tag = allTags[i];
-			if (tag.id) {
-				root[tag.id] = new DisplayObject(tag.id);
+			
+			
+			if (tag.id && tag.nodeName) {
+				var autoDeclConstructor;
+				if($__as4js_config.autoDeclareConstructor){
+					autoDeclConstructor= root[$__as4js_config.autoDeclareConstructor](tag.id);
+					
+				}else{
+					
+					autoDeclConstructor = new Sprite(tag.id);	
+					
+				};
+				root[tag.id] = autoDeclConstructor;
 			}
 			;
 		}
@@ -45,7 +56,7 @@ var $as4js____core_____Timeline = function() {
 		ref.$CORE_ELAPSED_TIME++;
 		ref.$runEnterFrames();
 	};
-	this.frameRate = 1 / 15;
+	this.frameRate = 1 / ($__as4js_config.fps? $__as4js_config.fps: 15);
 	this.intervalID = setInterval(this.incrementTime, this.frameRate * 1000);
 	this.errorCodes = {
 		1000 : "The system is out of memory.",
