@@ -89,7 +89,6 @@
 <script src="display/Sprite.js"></script>
 <script src="display/DisplayObjectContainer.js"></script>
 <script src="display/Stage.js"></script>
-
 <script src="display/BitmapData.js"></script>
 <script src="display/Bitmap.js"></script>
 <script src="display/CapStyle.js"></script>
@@ -119,102 +118,30 @@
 <script src="xml/XMLNodeType.js"></script>
 <script src="xml/XMLNode.js"></script>
 <script src="xml/XMLDocument.js"></script>
-<script src="NitroVideoPlayer.js"></script>
 <script lang="javascript">
 function init(){
-	var player =new NitroVideoPlayer("player");
-	var playBtn = new DisplayObject("playBtn");
-	var pauseBtn = new DisplayObject("pauseBtn");
-	var controlbar = new DisplayObjectContainer("controlBar");
-	var progressBar = controlbar.getChildByName("progressBar");
-	var progressBarFill = controlbar.getChildByName("progressBarFill");
-	var volumeBar = controlbar.getChildByName("volumeBar");
-	var volumeBarFill = controlbar.getChildByName("volumeBarFill");
-	
-	volumeBar.addEventListener(MouseEvent.CLICK,handleVolume);
-	volumeBarFill.addEventListener(MouseEvent.CLICK,handleVolume);
-	player.getVideo().addEventListener(MouseEvent.CLICK,handleToggle);
-	updateVolumeBar(1);
-	
-	var controls = new DisplayObject("controlBar");
-	
-	controls.y = player.y+200;
-	function handleVolume(e){
-		var barWidth = (volumeBar.width);
-		var percent = (volumeBarFill.mouseX)/barWidth;
-		updateVolumeBar(percent);
-		player.setVolume(percent);
+	trace(square.startDrag);
+	function handleMD(e){
+		trace("mouse down");
+		square.startDrag(true);
+		
 		
 	};
-	function handleProgress(e){
-		
-		var percent= (player.getCurrentTime()/player.getDuration());
-		
-		percent = percent>1? 1  :percent ;
-		var newWidth = parseInt(progressBar.getStyle("width")) *percent;
-		
-		progressBarFill.setStyle("width",newWidth + "px");
-			
-	};
-	function updateVolumeBar(percent)
-	{
-		var barWidth = parseInt(volumeBar.getStyle("width"));
-		volumeBarFill.setStyle("width",percent*barWidth+"px");
-		
-	}
-	function handleEvents(evt){
-		switch(evt.target.name){
-		case "playBtn":
-			play();
-			break;
-		case "pauseBtn":
-			pause();
-			break;
-		}
-	};
-	function play(){
-		player.play();
-		playBtn.visible=(false);
-		pauseBtn.visible=(true);
-	};
-	function pause(){		
-		player.pause();
-		playBtn.visible=(true);
-		pauseBtn.visible=(false);
-	}
-	playBtn.addEventListener(MouseEvent.CLICK,handleEvents);
-	pauseBtn.addEventListener(MouseEvent.CLICK,handleEvents);
-	player.addEventListener(ProgressEvent.PROGRESS,handleProgress);
-	
-	
-	function handleToggle()
-	{
-		if(player.isPaused()) {play();}else {pause();};
+	function handleMU(e){
+		trace("mouse up");
+		square.stopDrag();
 	};
 	
+	square.addEventListener(MouseEvent.MOUSE_DOWN,handleMD);
+	square.addEventListener(MouseEvent.MOUSE_DOWN,handleMU);
 	
 };
 </script>
 </head>
 
-<body onload="init();"  style="background-color:#ffffff;">
-<div id="stage">
-	
-</div>
-<div id="player">
-	<video id="myVideo" width="320" height="240">
-		<source src="http://www.broken-links.com/tests/media/BigBuck.m4v">
-			<source src="http://www.broken-links.com/tests/media/BigBuck.webm" type="video/webm">
-			<source src="http://www.broken-links.com/tests/media/BigBuck.theora.ogv" type="video/ogg">
-	</video>
-	<div id="controlBar">
-		<div id="playBtn"><img width="30px" height="30px" src="images/playBtn.png"/></div>
-		<div id="pauseBtn"><img width="30px" height="30px" src="images/pauseBtn.png"/></div>
-		<div id="progressBar"  ></div>
-		<div id="progressBarFill"  ></div>
-		<div id="volumeBar"></div>
-		<div id="volumeBarFill"></div>
-	</div>
+<body onload="init();" bgcolor="0" style="background-color:#000000;">
+<div id="square" style="position:absolute; width:400px;height:400px;color:#fff;background-color:#ff0000;">
+Drag me!
 </div>
 </body>
 
