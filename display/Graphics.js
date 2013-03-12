@@ -11,6 +11,10 @@ var Graphics = function(container){
 	this.canvas.id = "_canvas"+Math.ceil(Math.random()*1000);
 	this.canvas.width = viewport().width;
 	this.canvas.height = viewport().height;
+	this.canvas.style.position= "absolute";
+	this.canvas.style.left=0;
+	this.canvas.style.top=0;
+	this.canvas.style.display="none";
 	this.container.appendChild(this.canvas);
 	this.context = this.canvas.getContext("2d");
 	this.__getClassType=function(){return "Graphics";};
@@ -116,12 +120,18 @@ Graphics.prototype.endFill=function(){
 };
 Graphics.prototype.lineBitmapStyle=function(bitmap, matrix, repeat, smooth){
 	//TODO Graphics.lineBitmapStyle
+	this.canvas.style.display = "block";
+	
 };
 Graphics.prototype.lineGradientStyle=function(type, colors, alphas, ratios, matrix, spreadMethod , interpolationMethod , focalPointRatio ){
 	//TODO Graphics.lineGradientStyle
+	this.canvas.style.display = "block";
+	
 };
 Graphics.prototype.lineShaderStyle=function(shader, matrix){
 	//TODO Graphics.lineShaderStyle
+	this.canvas.style.display = "block";
+	
 };
 Graphics.prototype.lineStyle=function(thickness , color, alpha , pixelHinting, scaleMode , caps , joints , miterLimit ){
 	
@@ -130,14 +140,18 @@ Graphics.prototype.lineStyle=function(thickness , color, alpha , pixelHinting, s
 	this.context.miterLimit = !miterLimit? "3" : miterLimit.toString();
 	this.context.lineJoin = !joints? "bevel" : joints;
 	this.context.strokeStyle = this.owner.intHex2RGBA(color? color : 0x000000,alpha?alpha : 1); 
+	this.canvas.style.display = "block";
 	
 };
 Graphics.prototype.lineTo=function(xPos, yPos){
 	this.context.lineTo(xPos,yPos);
 	this.context.stroke();
+	this.canvas.style.display = "block";
+	
 };
 Graphics.prototype.moveTo=function(xPos, yPos){
 	this.context.beginPath();
 	this.context.moveTo(xPos,yPos);
+	this.canvas.style.display = "block";
 	
 };

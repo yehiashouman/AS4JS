@@ -118,9 +118,15 @@ defineAccessorProperty(Sprite, "soundTransform", function(val) {
 });
 //public property useHandCursor setter and getter
 defineAccessorProperty(Sprite, "useHandCursor", function(val) {
-	//TODO implement Sprite.useHandCursor 
+	//TODO implement Sprite.useHandCursor
+	this.setStyle("cursor",val? "pointer" : "default");
+	
+
+	this.container.style.cusror= val? "pointer" : "default";
 }, function() {
-	return null;
+	return 
+	this.getStyle("cursor")=="pointer"? true: false;
+	
 });
 
 //public property scaleX setter and getter

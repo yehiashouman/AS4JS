@@ -38,7 +38,7 @@ var $as4js____core_____Timeline = function() {
 			if (tag.id && tag.nodeName) {
 				var autoDeclConstructor;
 				try{
-					autoDeclConstructor  = root[$__as4js_config.autoDeclareConstructor](tag.id)
+					autoDeclConstructor  = eval(root[$__as4js_config.autoDeclareConstructor])(tag.id)
 					
 				}catch(e){
 					
@@ -661,8 +661,8 @@ function $checkIfSpriteIsLoaded(whenLoaded,context){
 		{
 		setTimeout(function(){$checkIfSpriteIsLoaded(whenLoaded,context)},100);
 	}else{
-		
-		context.whenLoaded.apply(context)
+		console.log(whenLoaded);
+		whenLoaded.apply(context)
 	}
 	
 
@@ -672,9 +672,9 @@ listen("mousemove", window, function(e) {
 		var event = e || window.event;
 		var dbody = document.body;
 		var padding = dbody.style["padding"];
-		window.mouseX = event.pageX - parseInt(padding) || event.clientX
+		window.mouseX = event.clientX;//event.pageX - parseInt(padding) || event.clientX
 				+ dbody.scrollLeft;
-		window.mouseY = event.pageY - parseInt(padding) || event.clientY
+		window.mouseY = event.clientY;//event.pageY - parseInt(padding) || event.clientY
 				+ dbody.scrollTop;
 	}
 	;

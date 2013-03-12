@@ -125,6 +125,20 @@ function init(){
 	var test = new DisplayObjectContainer("stage");
 	var drawingArea= new Sprite("drawingArea");
 	var isDrawing=false;
+	var txtContainer = new DisplayObjectContainer("field");
+	
+	var txtField = new TextField();
+	txtField.width = 400;
+	txtField.height = 400;
+	txtField.autoSize= true;
+	txtField.border = true;
+	txtField.alpha = 1;
+	txtField.borderColor=0xFF00FF;
+	txtField.backgroundColor=0x000;
+	txtField.multiline = true;
+	txtContainer.addChild(txtField);
+	
+	
 	function drawSprite(sprite,color,size){
 		sprite.graphics.lineStyle(1,color,1);
 		sprite.graphics.beginFill(color,1);
@@ -132,8 +146,10 @@ function init(){
 		sprite.graphics.endFill();
 	};
 	function handleEnterFrame(e){
-		
+		txtField.htmlText = drawingArea.mouseX+","+drawingArea.mouseY;
 		if(isDrawing){
+			
+			
 			drawingArea.graphics.lineTo(drawingArea.mouseX,drawingArea.mouseY);
 			
 			
@@ -146,7 +162,7 @@ function init(){
 	};
 	function handleMD(e){
 		isDrawing=true;	
-		drawingArea.graphics.moveTo(mouseX,mouseY);
+		drawingArea.graphics.moveTo(drawingArea.mouseX,drawingArea.mouseY);
 		
 	};
 	var strokeColor=0xFF0000;
@@ -184,6 +200,7 @@ function init(){
 			strokeAlpha = .75;
 			break;
 		};
+		trace("stroke color:",strokeColor);
 		drawingArea.graphics.lineStyle(strokeWidth,strokeColor,strokeAlpha,true, true, CapStyle.ROUND, JointStyle.ROUND);
 		
 	};
@@ -202,6 +219,25 @@ function init(){
 		var _50= new Sprite("_50");
 		var _75= new Sprite("_75");
 		var clearBtn = new Sprite("clear_btn");
+		
+		red.useHandCursor = true;
+		red.buttonMode = true;
+		
+		green.useHandCursor = true;
+		green.buttonMode = true;
+		
+		blue.useHandCursor = true;
+		blue.buttonMode = true;
+		
+		small.useHandCursor = true;
+		small.buttonMode = true;
+		
+		medium.useHandCursor = true;
+		medium.buttonMode = true;
+		
+		big.useHandCursor = true;
+		big.buttonMode = true;
+		
 		
 		red.addEventListener(MouseEvent.CLICK,handleToolChange);
 		green.addEventListener(MouseEvent.CLICK,handleToolChange);
@@ -244,8 +280,8 @@ function init(){
 	<div id="colors" style="background-color:#000000;left:300px;top:0px;position:absolute;display:block;">
 		Color:
 		<div id="red" style="left:0px;width:10px;height:10px;background-color:#ff0000"></div>
-		<div id="green"  style="left:50px;width:10px;height:10px;background-color:#00ff00"></div>
-		<div id="blue"  style="left:100px;width:10px;height:10px;background-color:#0000ff"></div>
+		<div id="green"  style="left:25px;width:10px;height:10px;background-color:#00ff00"></div>
+		<div id="blue"  style="left:50px;width:10px;height:10px;background-color:#0000ff"></div>
 	</div>
 	<div id="alphas"     style="background-color:#000000;width:200px;left:400px;float:right;">
 		<div  			 style="width:50px;">Alphas:</div>
@@ -255,6 +291,9 @@ function init(){
 	</div>
 	<div id="clear" style="position:absolute;float:left;left:830px;">
 		<div id="clear_btn">Clear</div>
+	</div>
+	<div id="field" style="position:absolute;float:left;left:1030px;">
+		
 	</div>
 </div>
 <div style="clear:both">&nbsp;</div>
