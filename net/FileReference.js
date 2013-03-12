@@ -78,7 +78,7 @@ var FileReference = function() {
     this.__reader.onloadstart = function(e) {
     	//trace("reader on load start");
     };
-    this.__rawData=null
+    this.__rawData=null;
     this.__reader.onload = function(e) {
     	ref._data = new ByteArray();
     	ref.__rawData = ref.__reader.result;

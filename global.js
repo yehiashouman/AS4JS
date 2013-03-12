@@ -37,14 +37,16 @@ var $as4js____core_____Timeline = function() {
 			
 			if (tag.id && tag.nodeName) {
 				var autoDeclConstructor;
-				if($__as4js_config.autoDeclareConstructor){
-					autoDeclConstructor= root[$__as4js_config.autoDeclareConstructor](tag.id);
+				try{
+					autoDeclConstructor  = root[$__as4js_config.autoDeclareConstructor](tag.id)
 					
-				}else{
+				}catch(e){
 					
-					autoDeclConstructor = new Sprite(tag.id);	
+					autoDeclConstructor = new Sprite(tag.id);
 					
-				};
+					
+				}
+				
 				root[tag.id] = autoDeclConstructor;
 			}
 			;
@@ -648,11 +650,23 @@ function listen(evnt, elem, func) {
 		window.alert('I\'m sorry Dave, I\'m afraid I can\'t do that.');
 }
 listen("load", window, function() {
-	$as4js____core_____timeline.$autoDeclareIDs();
+	$checkIfSpriteIsLoaded($as4js____core_____timeline.$autoDeclareIDs,root);
+	//$as4js____core_____timeline.$autoDeclareIDs();
 	$as4js____core_____timeline.registerEnterFrame(this);
 	// INTERNAL DECLARATIONS
 
 });
+function $checkIfSpriteIsLoaded(whenLoaded,context){
+	if(!Sprite)
+		{
+		setTimeout(function(){$checkIfSpriteIsLoaded(whenLoaded,context)},100);
+	}else{
+		
+		context.whenLoaded.apply(context)
+	}
+	
+
+}
 listen("mousemove", window, function(e) {
 	if (document.body) {
 		var event = e || window.event;

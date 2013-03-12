@@ -37,7 +37,9 @@ EventDispatcher.prototype= new Object();
 EventDispatcher.constructor = EventDispatcher;
 EventDispatcher.prototype.addEventListener=function(eventType,handler){
 	this.events[eventType] = this.events[eventType] || [];
+	trace(this.events[eventType]);
 	if ( this.events[eventType] ) {
+		
 		this.events[eventType].push(handler);
 	}
 	
