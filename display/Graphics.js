@@ -9,16 +9,37 @@ var Graphics = function(container){
 	this.container = container;
 	this.canvas = document.createElement("canvas");
 	this.canvas.id = "_canvas"+Math.ceil(Math.random()*1000);
+	
+	this.canvas.style.position= "absolute";
 	this.canvas.width = viewport().width;
 	this.canvas.height = viewport().height;
-	this.canvas.style.position= "absolute";
+	this.canvas.style.pointer_events
 	this.canvas.style.left=0;
 	this.canvas.style.top=0;
 	this.canvas.style.display="none";
 	this.container.appendChild(this.canvas);
 	this.context = this.canvas.getContext("2d");
 	this.__getClassType=function(){return "Graphics";};
-	
+	var pointerEventsSupported = (function(){
+	    var element = document.createElement('x'),
+	        documentElement = document.documentElement,
+	        getComputedStyle = window.getComputedStyle,
+	        supports;
+	    if(!('pointerEvents' in element.style)){
+	        return false;
+	    }
+	    element.style.pointerEvents = 'auto';
+	    element.style.pointerEvents = 'x';
+	    documentElement.appendChild(element);
+	    supports = getComputedStyle && 
+	        getComputedStyle(element, '').pointerEvents === 'auto';
+	    documentElement.removeChild(element);
+	    return !!supports;
+	})();
+	if(pointerEventsSupported){
+	    // do something
+		this.canvas.style.pointerEvents = "none"
+	}
 };
 
 Graphics.prototype = new Object();
@@ -142,16 +163,19 @@ Graphics.prototype.lineStyle=function(thickness , color, alpha , pixelHinting, s
 	this.context.strokeStyle = this.owner.intHex2RGBA(color? color : 0x000000,alpha?alpha : 1); 
 	this.canvas.style.display = "block";
 	
+	
 };
 Graphics.prototype.lineTo=function(xPos, yPos){
 	this.context.lineTo(xPos,yPos);
 	this.context.stroke();
 	this.canvas.style.display = "block";
 	
+	
 };
 Graphics.prototype.moveTo=function(xPos, yPos){
 	this.context.beginPath();
 	this.context.moveTo(xPos,yPos);
 	this.canvas.style.display = "block";
+	
 	
 };

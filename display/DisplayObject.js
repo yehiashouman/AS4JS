@@ -27,7 +27,7 @@ var DisplayObject = function(myDiv){
 		
 	};
 	this.__handleclick = function(e){
-		if(ref.__isMouseInBounds())
+		//if(ref.__isMouseInBounds())
 		ref.dispatchEvent.call(ref,new MouseEvent(MouseEvent.CLICK,true,true));
 	};
 	this.__handleMU = function(e){
