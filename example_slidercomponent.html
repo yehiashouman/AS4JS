@@ -1,0 +1,147 @@
+<html><head>
+<link type="text/css" rel="stylesheet"  href="css/reset.css" media="screen"></style>
+<link type="text/css" rel="stylesheet"  href="css/player.css"  media="screen"></style>
+<script src="thirdparty/stacktrace.js"></script>
+<script src="events/EventDispatcher.js"></script>
+<script src="as4js_config.js"></script>
+
+<script src="global.js"></script>
+<script src="system/Capabilities.js"></script>
+
+<script src="external/ExternalInterface.js"></script>
+<script src="geom/Point.js"></script>
+<script src="geom/ColorTransform.js"></script>
+<script src="geom/Rectangle.js"></script>
+<script src="geom/Matrix.js"></script>
+
+<script src="ui/Keyboard.js"></script>
+<script src="ui/KeyboardType.js"></script>
+<script src="ui/KeyLocation.js"></script>
+<script src="ui/Mouse.js"></script>
+<script src="ui/MouseCursor.js"></script>
+<script src="ui/MouseCursorData.js"></script>
+
+
+<script src="events/Event.js"></script>
+<script src="events/ActivityEvent.js"></script>
+<script src="events/AsyncErrorEvent.js"></script>
+<script src="events/ContextMenuEvent.js"></script>
+<script src="events/DataEvent.js"></script>
+<script src="events/DRMAuthenticationCompleteEvent.js"></script>
+<script src="events/DRMAuthenticationErrorEvent.js"></script>
+<script src="events/DRMErrorEvent.js"></script>
+<script src="events/DRMStatusEvent.js"></script>
+<script src="events/ErrorEvent.js"></script>
+
+<script src="events/EventPhase.js"></script>
+<script src="events/FocusEvent.js"></script>
+<script src="events/FullScreenEvent.js"></script>
+<script src="events/GestureEvent.js"></script>
+<script src="events/GesturePhase.js"></script>
+<script src="events/HTTPStatusEvent.js"></script>
+<script src="events/IMEEvent.js"></script>
+<script src="events/IOErrorEvent.js"></script>
+<script src="events/KeyboardEvent.js"></script>
+<script src="events/MouseEvent.js"></script>
+<script src="events/NetStatusEvent.js"></script>
+<script src="events/PressAndTapGestureEvent.js"></script>
+<script src="events/ProgressEvent.js"></script>
+<script src="events/SampleDataEvent.js"></script>
+<script src="events/SecurityErrorEvent.js"></script>
+<script src="events/ShaderEvent.js"></script>
+<script src="events/SoftKeyboardEvent.js"></script>
+<script src="events/SoftKeyboardTrigger.js"></script>
+<script src="events/StageVideoAvailabilityEvent.js"></script>
+<script src="events/StageVideoEvent.js"></script>
+<script src="events/StatusEvent.js"></script>
+<script src="events/SyncEvent.js"></script>
+<script src="events/TextEvent.js"></script>
+<script src="events/TimerEvent.js"></script>
+<script src="events/TouchEvent.js"></script>
+<script src="events/TransformGestureEvent.js"></script>
+<script src="events/UncaughtErrorEvent.js"></script>
+<script src="events/UncaughtErrorEvents.js"></script>
+<script src="events/VideoEvent.js"></script>
+
+<script src="utils/getTimer.js"></script>
+<script src="utils/Timer.js"></script>
+
+<script src="net/URLRequestMethod.js"></script>
+<script src="net/URLVariables.js"></script>
+<script src="net/URLRequest.js"></script>
+<script src="net/URLLoader.js"></script>
+
+<script src="media/SoundTransform.js"></script>
+<script src="media/SoundChannel.js"></script>
+<script src="media/Sound.js"></script>
+
+<script src="display/BitmapDataChannel.js"></script>
+<script src="display/CapStyle.js"></script>
+<script src="display/GradientType.js"></script>
+<script src="display/InterpolationMethod.js"></script>
+<script src="display/JointStyle.js"></script>
+<script src="display/SpreadMethod.js"></script>
+<script src="display/StageAlign.js"></script>
+<script src="display/StageDisplayState.js"></script>
+<script src="display/StageOrientation.js"></script>
+<script src="display/StageQuality.js"></script>
+<script src="display/DisplayObject.js"></script>
+<script src="display/InteractiveObject.js"></script>
+<script src="display/Shape.js"></script>
+<script src="display/Sprite.js"></script>
+<script src="display/DisplayObjectContainer.js"></script>
+<script src="display/Stage.js"></script>
+<script src="display/BitmapData.js"></script>
+<script src="display/Bitmap.js"></script>
+<script src="display/CapStyle.js"></script>
+<script src="display/JointStyle.js"></script>
+<script src="display/Graphics.js"></script>
+<script src="display/Sprite.js"></script>
+<script src="display/LoaderInfo.js"></script>
+<script src="display/Loader.js"></script>
+
+<script src="filters/BitmapFilterQuality.js"></script>
+<script src="filters/BitmapFilterType.js"></script>
+<script src="filters/BitmapFilter.js"></script>
+<script src="filters/BevelFilter.js"></script>
+<script src="filters/BlurFilter.js"></script>
+<script src="filters/ColorMatrixFilter.js"></script>
+<script src="filters/ConvolutionFilter.js"></script>
+<script src="filters/DisplacementMapFilterMode.js"></script>
+<script src="filters/DisplacementMapFilter.js"></script>
+<script src="filters/DropShadowFilter.js"></script>
+<script src="filters/GlowFilter.js"></script>
+<script src="filters/GradientBevelFilter.js"></script>
+<script src="filters/GradientGlowFilter.js"></script>
+
+
+
+<script src="text/TextField.js"></script>
+<script src="xml/XMLNodeType.js"></script>
+<script src="xml/XMLNode.js"></script>
+<script src="xml/XMLDocument.js"></script>
+
+<script src="com/shouman/ui/HSlider.js"></script>
+
+
+<script lang="javascript">
+function init(){
+	var test = new DisplayObjectContainer("stage");
+	var sliderBar = new HSlider("slider");
+	
+	trace(sliderBar);
+};
+</script>
+</head>
+
+<body onload="init();" bgcolor="0" style="background-color:#000000;">
+<div id="stage" style="position:absolute; ">
+	<div id="slider" style="background-color:#000000;left:300px;top:50px;position:absolute;display:block;">
+		<div id="slider_bar"  style="left:0px;width:100px;height:10px;background-color:#00ff00;position:absolute;"></div>
+		<div id="knob" style="left:0px;width:10px;height:10px;background-color:#ff0000;position:absolute;"></div>
+		
+	</div>
+</div>
+</body>
+
+</html>

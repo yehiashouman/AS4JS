@@ -30,14 +30,14 @@
 //};
 var EventDispatcher=function(){
 	this.events=[];
-	
+	this.__getClassType=function(){return "EventDispatcher";};
 };
 
 EventDispatcher.prototype= new Object();
 EventDispatcher.constructor = EventDispatcher;
 EventDispatcher.prototype.addEventListener=function(eventType,handler){
 	this.events[eventType] = this.events[eventType] || [];
-	trace(this.events[eventType]);
+	
 	if ( this.events[eventType] ) {
 		
 		this.events[eventType].push(handler);
@@ -72,6 +72,7 @@ EventDispatcher.prototype.dispatchEvent=function(event){
 	}
 };
 EventDispatcher.prototype.toString=function(){
+	
 	var str="["+(this.__getClassType?this.__getClassType(): "Object")+" ";
 	var prop;
 	var propVal;

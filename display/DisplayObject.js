@@ -13,6 +13,7 @@ var DisplayObject = function(myDiv){
 	var ref = this;
 	if(myDiv){
 		this.container = typeof(myDiv)=="string"? document.getElementById(myDiv): myDiv;
+		
 	}else{
 		this.container = document.createElement("div");
 		this.container.id="_instance"+Math.ceil(Math.random()*1000);
@@ -35,6 +36,11 @@ var DisplayObject = function(myDiv){
 			ref.dispatchEvent.call(ref,new MouseEvent(MouseEvent.MOUSE_UP,true,true));
 		return;
 	};	
+	this.__handleMove=function(e){
+		ref.dispatchEvent.call(ref,new MouseEvent(MouseEvent.MOUSE_MOVE,true,true));
+		return;
+		
+	};
 	this.__handleMD = function(e){
 		//if(this.__isMouseInBounds())
 		ref.dispatchEvent.call(ref,new MouseEvent(MouseEvent.MOUSE_DOWN,true,true));
@@ -46,7 +52,7 @@ var DisplayObject = function(myDiv){
 		
 	};
 	this.__handleMover = function(e){
-		if(ref.__isMouseInBounds())
+		//if(ref.__isMouseInBounds())
 		ref.dispatchEvent.call(ref,new MouseEvent(MouseEvent.ROLL_OVER,true,true));
 		return;
 		
@@ -57,6 +63,7 @@ var DisplayObject = function(myDiv){
 	this.getDIVContainer().addEventListener("mouseup",this.__handleMU);
 	this.getDIVContainer().addEventListener("mouseover",this.__handleMover);
 	this.getDIVContainer().addEventListener("mouseout",this.__handleMout);
+	this.getDIVContainer().addEventListener("mousemove",this.__handleMove);
 	
 
 	this.toCamelCase = function( sInput ) {

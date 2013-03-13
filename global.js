@@ -12,11 +12,13 @@ var $as4js____core_____Timeline = function() {
 			evt = new Event("enterFrame");
 			evt.target = ref.$registeredEnterFrames[i];
 			try {
-				(ref.$registeredEnterFrames[i]).dispatchEvent(evt);
+				(
+						ref.$registeredEnterFrames[i]).dispatchEvent(evt);
 
 				// TODO global.js should fix this leak by removing from stack
 				// when objects are removed
 			} catch (e) {
+				
 			}
 			;
 		}
@@ -661,7 +663,7 @@ function $checkIfSpriteIsLoaded(whenLoaded,context){
 		{
 		setTimeout(function(){$checkIfSpriteIsLoaded(whenLoaded,context)},100);
 	}else{
-		console.log(whenLoaded);
+		
 		whenLoaded.apply(context)
 	}
 	
@@ -722,6 +724,7 @@ function traceObjStartsWith(obj, withStr) {
 };
 function output(txt) {
 	if ($as4js____core_____timeline.debug) {
+		//throw new Error(txt)
 		console.log(txt);
 	} else {
 		alert(txt);

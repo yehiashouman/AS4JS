@@ -9,6 +9,7 @@ var DisplayObjectContainer=function (myDiv){
 	DisplayObject.call(this,myDiv);
 	this.__getClassType=function(){return "DisplayObjectContainer";};
 	this.__updateRawChildren();
+	this.toString = function(){return "DisplayObjectContainer "+this.container.id;};
 };
 DisplayObjectContainer.prototype = new DisplayObject();
 DisplayObjectContainer.constructor = DisplayObjectContainer;
@@ -32,10 +33,21 @@ DisplayObjectContainer.prototype.addChild=function(child){
 };
 DisplayObjectContainer.prototype.__updateRawChildren=function(){
 	this.rawChildren = [];
+	//try{
+	if(!this.container.childNodes) return;
 	for(var i=0;i<this.container.childNodes.length;i++){
+		trace(":"+this.container.childNodes[i].id);
+		if(this.container.childNodes[i].id){
 		this.rawChildren.push(new DisplayObject(this.container.childNodes[i]));
-			
+	}else{
+		continue;
+		}	
 	};
+	/*}catch(e){
+		
+		trace("something wrong while updating children"+e+" "+this.id)
+		
+	}*/
 };
 DisplayObjectContainer.prototype.addChildAt=function(child,index){
 	//trace(this.rawChildren.length+" "+index);

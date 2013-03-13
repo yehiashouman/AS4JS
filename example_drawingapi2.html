@@ -1,0 +1,315 @@
+<html><head>
+<link type="text/css" rel="stylesheet"  href="css/reset.css" media="screen"></style>
+<link type="text/css" rel="stylesheet"  href="css/player.css"  media="screen"></style>
+<script src="thirdparty/stacktrace.js"></script>
+<script src="events/EventDispatcher.js"></script>
+<script src="as4js_config.js"></script>
+
+<script src="global.js"></script>
+<script src="system/Capabilities.js"></script>
+
+<script src="external/ExternalInterface.js"></script>
+<script src="geom/Point.js"></script>
+<script src="geom/ColorTransform.js"></script>
+<script src="geom/Rectangle.js"></script>
+<script src="geom/Matrix.js"></script>
+
+<script src="ui/Keyboard.js"></script>
+<script src="ui/KeyboardType.js"></script>
+<script src="ui/KeyLocation.js"></script>
+<script src="ui/Mouse.js"></script>
+<script src="ui/MouseCursor.js"></script>
+<script src="ui/MouseCursorData.js"></script>
+
+
+<script src="events/Event.js"></script>
+<script src="events/ActivityEvent.js"></script>
+<script src="events/AsyncErrorEvent.js"></script>
+<script src="events/ContextMenuEvent.js"></script>
+<script src="events/DataEvent.js"></script>
+<script src="events/DRMAuthenticationCompleteEvent.js"></script>
+<script src="events/DRMAuthenticationErrorEvent.js"></script>
+<script src="events/DRMErrorEvent.js"></script>
+<script src="events/DRMStatusEvent.js"></script>
+<script src="events/ErrorEvent.js"></script>
+
+<script src="events/EventPhase.js"></script>
+<script src="events/FocusEvent.js"></script>
+<script src="events/FullScreenEvent.js"></script>
+<script src="events/GestureEvent.js"></script>
+<script src="events/GesturePhase.js"></script>
+<script src="events/HTTPStatusEvent.js"></script>
+<script src="events/IMEEvent.js"></script>
+<script src="events/IOErrorEvent.js"></script>
+<script src="events/KeyboardEvent.js"></script>
+<script src="events/MouseEvent.js"></script>
+<script src="events/NetStatusEvent.js"></script>
+<script src="events/PressAndTapGestureEvent.js"></script>
+<script src="events/ProgressEvent.js"></script>
+<script src="events/SampleDataEvent.js"></script>
+<script src="events/SecurityErrorEvent.js"></script>
+<script src="events/ShaderEvent.js"></script>
+<script src="events/SoftKeyboardEvent.js"></script>
+<script src="events/SoftKeyboardTrigger.js"></script>
+<script src="events/StageVideoAvailabilityEvent.js"></script>
+<script src="events/StageVideoEvent.js"></script>
+<script src="events/StatusEvent.js"></script>
+<script src="events/SyncEvent.js"></script>
+<script src="events/TextEvent.js"></script>
+<script src="events/TimerEvent.js"></script>
+<script src="events/TouchEvent.js"></script>
+<script src="events/TransformGestureEvent.js"></script>
+<script src="events/UncaughtErrorEvent.js"></script>
+<script src="events/UncaughtErrorEvents.js"></script>
+<script src="events/VideoEvent.js"></script>
+
+<script src="utils/getTimer.js"></script>
+<script src="utils/Timer.js"></script>
+
+<script src="net/URLRequestMethod.js"></script>
+<script src="net/URLVariables.js"></script>
+<script src="net/URLRequest.js"></script>
+<script src="net/URLLoader.js"></script>
+
+<script src="media/SoundTransform.js"></script>
+<script src="media/SoundChannel.js"></script>
+<script src="media/Sound.js"></script>
+
+<script src="display/BitmapDataChannel.js"></script>
+<script src="display/CapStyle.js"></script>
+<script src="display/GradientType.js"></script>
+<script src="display/InterpolationMethod.js"></script>
+<script src="display/JointStyle.js"></script>
+<script src="display/SpreadMethod.js"></script>
+<script src="display/StageAlign.js"></script>
+<script src="display/StageDisplayState.js"></script>
+<script src="display/StageOrientation.js"></script>
+<script src="display/StageQuality.js"></script>
+<script src="display/DisplayObject.js"></script>
+<script src="display/InteractiveObject.js"></script>
+<script src="display/Shape.js"></script>
+<script src="display/Sprite.js"></script>
+<script src="display/DisplayObjectContainer.js"></script>
+<script src="display/Stage.js"></script>
+<script src="display/BitmapData.js"></script>
+<script src="display/Bitmap.js"></script>
+<script src="display/CapStyle.js"></script>
+<script src="display/JointStyle.js"></script>
+<script src="display/Graphics.js"></script>
+<script src="display/Sprite.js"></script>
+<script src="display/LoaderInfo.js"></script>
+<script src="display/Loader.js"></script>
+
+<script src="filters/BitmapFilterQuality.js"></script>
+<script src="filters/BitmapFilterType.js"></script>
+<script src="filters/BitmapFilter.js"></script>
+<script src="filters/BevelFilter.js"></script>
+<script src="filters/BlurFilter.js"></script>
+<script src="filters/ColorMatrixFilter.js"></script>
+<script src="filters/ConvolutionFilter.js"></script>
+<script src="filters/DisplacementMapFilterMode.js"></script>
+<script src="filters/DisplacementMapFilter.js"></script>
+<script src="filters/DropShadowFilter.js"></script>
+<script src="filters/GlowFilter.js"></script>
+<script src="filters/GradientBevelFilter.js"></script>
+<script src="filters/GradientGlowFilter.js"></script>
+
+
+
+<script src="text/TextField.js"></script>
+<script src="xml/XMLNodeType.js"></script>
+<script src="xml/XMLNode.js"></script>
+<script src="xml/XMLDocument.js"></script>
+<script lang="javascript">
+function init(){
+	var test = new DisplayObjectContainer("stage");
+	var drawingArea= new Sprite("drawingArea");
+	var isDrawing=false;
+	var txtContainer = new DisplayObjectContainer("field");
+	
+	var txtField = new TextField();
+	txtField.width = 400;
+	txtField.height = 400;
+	txtField.autoSize= true;
+	txtField.border = true;
+	txtField.alpha = 1;
+	txtField.borderColor=0xFF00FF;
+	txtField.backgroundColor=0x000;
+	txtField.multiline = true;
+	txtContainer.addChild(txtField);
+	
+	
+	function drawSprite(sprite,color,size){
+		sprite.graphics.lineStyle(1,color,1);
+		sprite.graphics.beginFill(color,1);
+		sprite.graphics.drawRect(0,0,size,size);
+		sprite.graphics.endFill();
+	};
+	function handleEnterFrame(e){
+		txtField.htmlText = drawingArea.mouseX+","+drawingArea.mouseY;
+		if(isDrawing){
+			
+			
+			drawingArea.graphics.lineTo(drawingArea.mouseX,drawingArea.mouseY);
+			
+			
+		};
+		
+	};
+	function handleMU(e){
+		isDrawing=false;
+		
+	};
+	function handleMD(e){
+		isDrawing=true;	
+		drawingArea.graphics.moveTo(drawingArea.mouseX,drawingArea.mouseY);
+		
+	};
+	var strokeColor=0xFF0000;
+	var strokeWidth= 1;
+	var strokeAlpha = 1;
+	
+	function handleToolChange(e){
+		
+		switch(e.target.name){
+		case "small":
+			strokeWidth = 10;
+			break;
+		case "medium":
+			strokeWidth = 30;
+			break;
+		case "big":
+			strokeWidth = 40;
+			break;
+		case "red":
+			strokeColor = 0xFF0000;
+			break;
+		case "green":
+			strokeColor = 0x00FF00;
+			break;
+		case "blue":
+			strokeColor = 0x0000FF;
+			break;
+		case "_25":
+			strokeAlpha = .15;
+			break;
+		case "_50":
+			strokeAlpha = .4;
+			break;
+		case "_75":
+			strokeAlpha = .75;
+			break;
+		};
+	
+		drawingArea.graphics.lineStyle(strokeWidth,strokeColor,strokeAlpha,true, true, CapStyle.ROUND, JointStyle.ROUND);
+		
+	};
+	
+	function handleClear(e){drawingArea.graphics.clear();};
+	function setupUI(){
+		var red = new Sprite("red");
+		var green = new Sprite("green");
+		var blue = new Sprite("blue");
+		
+		var small= new Sprite("small");
+		var medium = new Sprite("medium");
+		var big= new Sprite("big");
+		
+		var _25= new Sprite("_25");
+		var _50= new Sprite("_50");
+		var _75= new Sprite("_75");
+		var clearBtn = new Sprite("clear_btn");
+		
+		red.useHandCursor = true;
+		red.buttonMode = true;
+		
+		green.useHandCursor = true;
+		green.buttonMode = true;
+		
+		blue.useHandCursor = true;
+		blue.buttonMode = true;
+		
+		small.useHandCursor = true;
+		small.buttonMode = true;
+		
+		medium.useHandCursor = true;
+		medium.buttonMode = true;
+		
+		big.useHandCursor = true;
+		big.buttonMode = true;
+		
+		_25.useHandCursor = true;
+		_25.buttonMode = true;
+		
+		_50.useHandCursor = true;
+		_50.buttonMode = true;
+		
+		_75.useHandCursor = true;
+		_75.buttonMode = true;
+		
+		clearBtn.userHandCursor = true;
+		clearBtn.buttonMode = true;
+		
+		red.addEventListener(MouseEvent.CLICK,handleToolChange);
+		green.addEventListener(MouseEvent.CLICK,handleToolChange);
+		blue.addEventListener(MouseEvent.CLICK,handleToolChange);
+		
+		small.addEventListener(MouseEvent.CLICK,handleToolChange);
+		big.addEventListener(MouseEvent.CLICK,handleToolChange);
+		medium.addEventListener(MouseEvent.CLICK,handleToolChange);
+		
+
+		_25.addEventListener(MouseEvent.CLICK,handleToolChange);
+		_50.addEventListener(MouseEvent.CLICK,handleToolChange);
+		_75.addEventListener(MouseEvent.CLICK,handleToolChange);
+		clearBtn.addEventListener(MouseEvent.CLICK,handleClear);
+		
+		
+	};
+	test.addChild(drawingArea);
+	
+	drawingArea.addEventListener(MouseEvent.MOUSE_UP,handleMU);
+	drawingArea.addEventListener(MouseEvent.MOUSE_DOWN,handleMD);
+	drawingArea.graphics.lineStyle(strokeWidth,strokeColor,1);
+	
+	root.stage.addEventListener(Event.ENTER_FRAME,handleEnterFrame);
+	
+	setupUI();
+};
+</script>
+</head>
+
+<body onload="init();" bgcolor="0" style="background-color:#000000;">
+<div id="stage" style="position:absolute; ">
+<div id="controls" style="color:#ffffff;width:800px;height:50px;position:absolute;">
+	<div id="sizes"     style="background-color:#000000;float:left;left:0px;top:0px;">
+		<div  style="width:50px;left:0px;">Stroke:</div>
+		<div id="small"    style="width:50px;left:50px;">10px</div>
+		<div id="medium"   style="width:50px;left:100px;">30px</div>
+		<div id="big"      style="width:50px;left:150px;">40px</div>
+	</div>
+	<div id="colors" style="background-color:#000000;left:300px;top:0px;position:absolute;display:block;">
+		Color:
+		<div id="red" style="left:0px;width:10px;height:10px;background-color:#ff0000"></div>
+		<div id="green"  style="left:20px;width:10px;height:10px;background-color:#00ff00"></div>
+		<div id="blue"  style="left:40px;width:10px;height:10px;background-color:#0000ff"></div>
+	</div>
+	<div id="alphas"     style="background-color:#000000;width:200px;left:400px;float:right;">
+		<div  			 style="width:50px;">Alphas:</div>
+		<div id="_25"    style="width:50px;right:150px;">0.15</div>
+		<div id="_50"    style="width:50px;right:100px;">0.40</div>
+		<div id="_75"    style="width:50px;right:50px;">0.75</div>
+	</div>
+	<div id="clear" style="position:absolute;float:left;left:830px;">
+		<div id="clear_btn">Clear</div>
+	</div>
+	<div id="field" style="position:absolute;float:left;left:1030px;">
+		
+	</div>
+</div>
+<div style="clear:both">&nbsp;</div>
+<div id="drawingArea" style="border:1px solid #ff0000;top:40px;width:1440px;height:1600px"></div>
+</div>
+</body>
+
+</html>
