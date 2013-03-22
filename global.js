@@ -37,7 +37,33 @@ var $as4js____core_____Timeline = function() {
 			var tag = allTags[i];
 			
 			
-			if (tag.id && tag.nodeName) {
+			if (tag.id && tag.nodeName && tag.parentNode=="body") {
+				var autoDeclConstructor;
+				try{
+					autoDeclConstructor  = eval(root[$__as4js_config.autoDeclareConstructor])(tag.id)
+					
+				}catch(e){
+					trace("coudldn't load constructor for autodeclaration");
+					autoDeclConstructor = new DisplayObjectContainer(tag.id);
+					
+					
+				}
+				
+				root["_"+tag.id] = autoDeclConstructor;
+			}
+			;
+		}
+		;
+	};
+	/*
+	 this.$autoDeclareIDs = function() {
+		var allTags = document.getElementsByTagName('div');
+		var ids = [];
+		for ( var i = 0; i < allTags.length; i++) {
+			var tag = allTags[i];
+			
+			
+			if (tag.id && tag.nodeName && tag.parentNode=="body") {
 				var autoDeclConstructor;
 				try{
 					autoDeclConstructor  = eval(root[$__as4js_config.autoDeclareConstructor])(tag.id)
@@ -55,7 +81,7 @@ var $as4js____core_____Timeline = function() {
 		}
 		;
 	};
-
+	 */
 	this.incrementTime = function() {
 		ref.$CORE_ELAPSED_TIME++;
 		ref.$runEnterFrames();
@@ -653,7 +679,6 @@ function listen(evnt, elem, func) {
 }
 listen("load", window, function() {
 	$checkIfSpriteIsLoaded($as4js____core_____timeline.$autoDeclareIDs,root);
-	//$as4js____core_____timeline.$autoDeclareIDs();
 	$as4js____core_____timeline.registerEnterFrame(this);
 	// INTERNAL DECLARATIONS
 

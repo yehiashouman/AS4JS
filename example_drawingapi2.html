@@ -120,6 +120,11 @@
 <script src="xml/XMLNodeType.js"></script>
 <script src="xml/XMLNode.js"></script>
 <script src="xml/XMLDocument.js"></script>
+
+
+<script src="com/shouman/ui/HSlider.js"></script>
+
+
 <script lang="javascript">
 function init(){
 	var test = new DisplayObjectContainer("stage");
@@ -172,33 +177,28 @@ function init(){
 	function handleToolChange(e){
 		
 		switch(e.target.name){
-		case "small":
-			strokeWidth = 10;
-			break;
-		case "medium":
-			strokeWidth = 30;
-			break;
-		case "big":
-			strokeWidth = 40;
-			break;
-		case "red":
-			strokeColor = 0xFF0000;
-			break;
-		case "green":
-			strokeColor = 0x00FF00;
-			break;
-		case "blue":
-			strokeColor = 0x0000FF;
-			break;
-		case "_25":
-			strokeAlpha = .15;
-			break;
-		case "_50":
-			strokeAlpha = .4;
-			break;
-		case "_75":
-			strokeAlpha = .75;
-			break;
+			case "small":
+				strokeWidth = 10;
+				break;
+			case "medium":
+				strokeWidth = 30;
+				break;
+			case "big":
+				strokeWidth = 40;
+				break;
+			case "red":
+				strokeColor = 0xFF0000;
+				break;
+			case "green":
+				strokeColor = 0x00FF00;
+				break;
+			case "blue":
+				strokeColor = 0x0000FF;
+				break;
+			case "alphaSliderBar":
+				strokeAlpha = e.data;
+				break;
+			
 		};
 	
 		drawingArea.graphics.lineStyle(strokeWidth,strokeColor,strokeAlpha,true, true, CapStyle.ROUND, JointStyle.ROUND);
@@ -215,9 +215,8 @@ function init(){
 		var medium = new Sprite("medium");
 		var big= new Sprite("big");
 		
-		var _25= new Sprite("_25");
-		var _50= new Sprite("_50");
-		var _75= new Sprite("_75");
+		var alphaSliderBar = new HSlider("alphaSlider");
+		
 		var clearBtn = new Sprite("clear_btn");
 		
 		red.useHandCursor = true;
@@ -238,14 +237,6 @@ function init(){
 		big.useHandCursor = true;
 		big.buttonMode = true;
 		
-		_25.useHandCursor = true;
-		_25.buttonMode = true;
-		
-		_50.useHandCursor = true;
-		_50.buttonMode = true;
-		
-		_75.useHandCursor = true;
-		_75.buttonMode = true;
 		
 		clearBtn.userHandCursor = true;
 		clearBtn.buttonMode = true;
@@ -259,9 +250,12 @@ function init(){
 		medium.addEventListener(MouseEvent.CLICK,handleToolChange);
 		
 
-		_25.addEventListener(MouseEvent.CLICK,handleToolChange);
-		_50.addEventListener(MouseEvent.CLICK,handleToolChange);
-		_75.addEventListener(MouseEvent.CLICK,handleToolChange);
+		
+		
+		alphaSliderBar.addEventListener(DataEvent.DATA,handleToolChange);
+		
+		
+		
 		clearBtn.addEventListener(MouseEvent.CLICK,handleClear);
 		
 		
@@ -296,9 +290,11 @@ function init(){
 	</div>
 	<div id="alphas"     style="background-color:#000000;width:200px;left:400px;float:right;">
 		<div  			 style="width:50px;">Alphas:</div>
-		<div id="_25"    style="width:50px;right:150px;">0.15</div>
-		<div id="_50"    style="width:50px;right:100px;">0.40</div>
-		<div id="_75"    style="width:50px;right:50px;">0.75</div>
+		<div id="alphaSlider" style="background-color:#000000;display:block;">
+			<div id="slider_bar"  style="left:0px;width:100px;height:10px;background-color:#ffffff;"></div>
+			<div id="knob_btn"        style="left:0px;width:10px; height:10px;background-color:#999999;"></div>
+			
+		</div>
 	</div>
 	<div id="clear" style="position:absolute;float:left;left:830px;">
 		<div id="clear_btn">Clear</div>

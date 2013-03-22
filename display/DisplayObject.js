@@ -11,14 +11,17 @@ var DisplayObject = function(myDiv){
 	this._scaleX = 1;
 	this._scaleY = 1;
 	var ref = this;
+	
 	if(myDiv){
 		this.container = typeof(myDiv)=="string"? document.getElementById(myDiv): myDiv;
+		 
 		
 	}else{
 		this.container = document.createElement("div");
 		this.container.id="_instance"+Math.ceil(Math.random()*1000);
 		
 	};
+	
 	//alert(this.name+" "+this.container.id);
 	
 	this.stage = root.stage;
@@ -77,15 +80,15 @@ var DisplayObject = function(myDiv){
 		    ret += s.charAt(0).toUpperCase() + s.substring(1);
 		  }
 		  return ret;
-		};
+	};
 		
-		this.degreesToRadians = function (num) {
-			return (num) * Math.PI / 180;
-		};
-		this.createIEMatrixString=function (M) {
+	this.degreesToRadians = function (num) {
+		return (num) * Math.PI / 180;
+	};
+	this.createIEMatrixString=function (M) {
 			return 'M11=' + M.e(1, 1) + ', M12=' + M.e(1,2) + ', M21=' + M.e(2,1) + ', M22=' + M.e(2,2);
-		};
-		this.RGB2HexStr=function (color) {
+	};
+	this.RGB2HexStr=function (color) {
 		    if (color.substr(0, 1) === '#') {
 		        return color;
 		    }
@@ -97,15 +100,15 @@ var DisplayObject = function(myDiv){
 		    
 		    var rgb = blue | (green << 8) | (red << 16);
 		    return parseInt("0x"+digits[1] + rgb.toString(16));
-		};
-		this.intHex2HexStr= function(hex){
+	};
+	this.intHex2HexStr= function(hex){
 			var clr = (hex.toString(16));
 			while(clr.length<6){
 				clr="0"+clr;
 			}
 			return "#"+clr;
-		};
-		this.intHex2RGB = function (hex){
+	};
+	this.intHex2RGB = function (hex){
 			var clr = (hex.toString(16));
 			while(clr.length<6){
 				clr="0"+clr;
@@ -114,8 +117,8 @@ var DisplayObject = function(myDiv){
 			var g= parseInt(clr.substring(3,4),16);
 			var b= parseInt(clr.substring(5, 6),16);
 			return "rgb(" + r + "," + g + "," + b + ")";
-		};
-		this.intHex2RGBA = function(hex,alpha)
+	};
+	this.intHex2RGBA = function(hex,alpha)
 		{
 			var clr = (hex.toString(16));
 			while(clr.length<6){
@@ -125,11 +128,11 @@ var DisplayObject = function(myDiv){
 			var g= parseInt(clr.substring(2,4),16);
 			var b= parseInt(clr.substring(4, 6),16);
 			return "rgba(" + r + "," + g + "," + b + ","+alpha+")";
-		};
+	};
 	//	this.rotation = 90;
 	//this.alpha = 1;
 		
-		this.getStyle = function(style) {
+	this.getStyle = function(style) {
 		if(!document.getElementById) return;
 		if(!ref.container) return;
 		if(!ref.container.style) return 0;
@@ -143,29 +146,31 @@ var DisplayObject = function(myDiv){
 			  return value;
 		
 			  
-		};
-		this.setStyle=function (style, value) {
+	};
+	this.setStyle=function (style, value) {
 			if(!ref.container) return;
 			if(!ref.container.style) return 0;
 				  ref.container.style[style] = value;
-		};
-		this.removeStyle= function(style){
+	};
+	this.removeStyle= function(style){
 			ref.container.style[style]='';
-		};
+	};
 		
-		w = parseInt(this.getStyle("width"));
-		h= parseInt(this.getStyle("height"));
-		this._width = w? w : 0;
-		this._height = h? h: 0;
-		this.setStyle("position","absolute");
-		this.__getClassType=function(){return "DisplayObject";};
-		$as4js____core_____timeline.registerEnterFrame(this);
+	w = parseInt(this.container.style.width);
+	h= parseInt(this.container.style.width);
+	this._width = w? w : 0;
+	this._height = h? h: 0;
+	this.setStyle("position","absolute");
+		
+	this.__getClassType=function(){return "DisplayObject";};
+	$as4js____core_____timeline.registerEnterFrame(this);
 		//alert("aiwa");
 };
 DisplayObject.prototype = new EventDispatcher();
 DisplayObject.constructor = DisplayObject;
 DisplayObject.prototype.name = null;
 DisplayObject.prototype.container =null;
+
 
 defineAccessorProperty(DisplayObject,"visible",function(val){this.setStyle("display", val? "block" : "none");},function(){
 	if(this.getStyle("display")){
@@ -269,17 +274,23 @@ defineAccessorProperty(DisplayObject, "name", function(val) {
 defineAccessorProperty(DisplayObject, "width", function(val) {
 	this.setStyle("width",w+"px");
 }, function() {
-	 return parseInt(this.getStyle("width"));
+	var w = parseInt(this.getStyle("width"));
+	this._width = w? w : 0;
+	return this._width;
 		
 });
 //public property height setter and getter
 defineAccessorProperty(DisplayObject, "height", function(val) {
 	this.setStyle("height",h+"px");
 }, function() {
-	return parseInt(this.getStyle("height"));
+	
+	var h= parseInt(this.getStyle("width"));
+	this._height = h? h: 0;
+	return this._height;
 });
 //public property x setter and getter
 defineAccessorProperty(DisplayObject, "x", function(val) {
+	
 	this.setStyle("left",val+"px");
 }, function() {
 	return this.getStyle("left")!="auto"?parseInt(this.getStyle("left")):0; //offset -> method allows you to retrieve the current position of an element 'relative' to the document

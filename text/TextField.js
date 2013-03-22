@@ -300,24 +300,24 @@ defineAccessorProperty(TextField, "wordWrap", function(val) {
 	return null;
 });
 
-DisplayObject.prototype.appendText = function(newText){
+TextField.prototype.appendText = function(newText){
 	this.text+=newText;	
 };
 //TODO Text Class Properties and Methods
-DisplayObject.prototype.getCharBoundaries = function(charIndex){};
-DisplayObject.prototype.getCharIndexAtPoint = function(x,y){};
-DisplayObject.prototype.getFirstCharInParagraph = function(charIndex){};
-DisplayObject.prototype.getImageReference = function(id){};
-DisplayObject.prototype.getLineIndexAtPoint = function(x,y){};
-DisplayObject.prototype.getLineIndexOfChar = function(charIndex){};
-DisplayObject.prototype.getLineLength = function(lineIndex){};
-DisplayObject.prototype.getLineMetrics = function(lineIndex){};
-DisplayObject.prototype.getLineOffset = function(lineIndex){};
-DisplayObject.prototype.getLineText = function(lineIndex){};
-DisplayObject.prototype.getParagraphLength = function(charIndex){};
-DisplayObject.prototype.getTextFormat = function(beginIndex,endIndex){};
-DisplayObject.prototype.isFontCompatible= function(fontName,fontStyle){};
-DisplayObject.prototype.replaceSelectedText= function(value){};
-DisplayObject.prototype.replaceText= function(beginIndex,endIndex,newText){};
-DisplayObject.prototype.setSelection= function(beginIndex,endIndex){};
-DisplayObject.prototype.setTextFormat= function(format,beginIndex,endIndex){};
+TextField.prototype.getCharBoundaries = function(charIndex){};
+TextField.prototype.getCharIndexAtPoint = function(x,y){};
+TextField.prototype.getFirstCharInParagraph = function(charIndex){};
+TextField.prototype.getImageReference = function(id){};
+TextField.prototype.getLineIndexAtPoint = function(x,y){};
+TextField.prototype.getLineIndexOfChar = function(charIndex){};
+TextField.prototype.getLineLength = function(lineIndex){};
+TextField.prototype.getLineMetrics = function(lineIndex){};
+TextField.prototype.getLineOffset = function(lineIndex){};
+TextField.prototype.getLineText = function(lineIndex){};
+TextField.prototype.getParagraphLength = function(charIndex){};
+TextField.prototype.getTextFormat = function(beginIndex,endIndex){};
+TextField.prototype.isFontCompatible= function(fontName,fontStyle){};
+TextField.prototype.replaceSelectedText= function(value){};
+TextField.prototype.replaceText= function(beginIndex,endIndex,newText){};
+TextField.prototype.setSelection= function(beginIndex,endIndex){};
+TextField.prototype.setTextFormat= function(format,beginIndex,endIndex){};

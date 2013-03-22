@@ -126,21 +126,35 @@
 
 <script lang="javascript">
 function init(){
-	var test = new DisplayObjectContainer("stage");
-	var sliderBar = new HSlider("slider");
+	//var test = new DisplayObjectContainer("stage");
+	function dataHandler(e){
+		trace(e.data);
+		txt.htmlText = e.data;
+	}
+	var txtContainer = new DisplayObjectContainer("txtContainer");
 	
-	trace(sliderBar);
+	var txt = new TextField();
+	txt.width= 100;
+	txt.height = 20;
+	txt.textColor=0xFFFFFF;
+	txt.border=true;
+	txt.borderColor= 0xFF0000;
+	txtContainer.addChild(txt);
+	var sliderBar = new HSlider("slider");
+	sliderBar.addEventListener(DataEvent.DATA,dataHandler);
+	
 };
 </script>
 </head>
 
 <body onload="init();" bgcolor="0" style="background-color:#000000;">
 <div id="stage" style="position:absolute; ">
-	<div id="slider" style="background-color:#000000;left:300px;top:50px;position:absolute;display:block;">
-		<div id="slider_bar"  style="left:0px;width:100px;height:10px;background-color:#00ff00;position:absolute;"></div>
-		<div id="knob" style="left:0px;width:10px;height:10px;background-color:#ff0000;position:absolute;"></div>
+	<div id="slider" style="background-color:#000000;left:000px;top:50px;position:absolute;display:block;">
+		<div id="slider_bar"  style="left:0px;width:100px;height:10px;background-color:#ffffff;position:absolute;"></div>
+		<div id="knob_btn"        style="left:0px;width:10px; height:10px;background-color:#999999;position:absolute;"></div>
 		
 	</div>
+	<div id="txtContainer" style="color:#000000;background-color:#FFFFFF;left:20px;top:20px;position:absolute;display:block;"></div>
 </div>
 </body>
 

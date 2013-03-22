@@ -8,8 +8,9 @@
 var DisplayObjectContainer=function (myDiv){
 	DisplayObject.call(this,myDiv);
 	this.__getClassType=function(){return "DisplayObjectContainer";};
-	this.__updateRawChildren();
 	this.toString = function(){return "DisplayObjectContainer "+this.container.id;};
+	this.__updateRawChildren();
+	
 };
 DisplayObjectContainer.prototype = new DisplayObject();
 DisplayObjectContainer.constructor = DisplayObjectContainer;
@@ -35,14 +36,17 @@ DisplayObjectContainer.prototype.__updateRawChildren=function(){
 	this.rawChildren = [];
 	//try{
 	if(!this.container.childNodes) return;
+	var newChild =null;
 	for(var i=0;i<this.container.childNodes.length;i++){
-		trace(":"+this.container.childNodes[i].id);
+		//trace(":"+this.container.childNodes[i].id);
 		if(this.container.childNodes[i].id){
-		this.rawChildren.push(new DisplayObject(this.container.childNodes[i]));
-	}else{
-		continue;
+			newChild = new DisplayObjectContainer(this.container.childNodes[i]);
+			this.rawChildren.push(newChild);
+		}else{
+			continue;
 		}	
 	};
+	
 	/*}catch(e){
 		
 		trace("something wrong while updating children"+e+" "+this.id)
@@ -132,7 +136,7 @@ DisplayObjectContainer.prototype.getChildByName=function(name){
 		}
 		i++;
 	}
-	return new DisplayObjectContainer(returnedChild);
+	return (returnedChild);
 };
 DisplayObjectContainer.prototype.getChildIndex=function(child){
 	var idx=-1;
